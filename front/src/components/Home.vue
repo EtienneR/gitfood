@@ -18,7 +18,11 @@
 					</h2>
 				</div>
 				<div class="level-item">
-					<strong>Proposée par {{ recipe.firstname }}</strong>
+					<p>par 
+					    <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+                            <strong>{{ recipe.firstname }}</strong>
+                        </router-link>
+					</p>
 				</div>
 			</div>
 		</article>
