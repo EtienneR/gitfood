@@ -1,24 +1,24 @@
 <template>
     <section v-if="!loading" class="section">
 
-        <article v-if="recette" class="card">
+        <article v-if="recipe" class="card">
             <header class="card-header has-text-centered">
-                <h1 class="title is-1 card-header-title">{{ recette.name }}</h1>
+                <h1 class="title is-1 card-header-title">{{ recipe.name }}</h1>
             </header>
             <div class="card-content">
                 <div class="content">
                     <p>
                         Rédigé par
-                        <router-link :to="{ name: 'user', params: { id: recette.user_id }}">
-                            {{ recette.firstname }}
+                        <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+                            {{ recipe.firstname }}
                         </router-link>
                     </p>
-                    <p><em>{{ recette.introduction }}</em></p>
+                    <p><em>{{ recipe.introduction }}</em></p>
                     <div class="columns">
                         <div class="column is-one-quarter">
                             <h2 class="title is-3">Ingrédients</h2>
                             <ul>
-                                <li v-for="(ingredient, index) in recette.ingredients" :key="index">
+                                <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
                                     <span v-if="ingredient.title">
                                         <h3>{{ ingredient.title }}</h3>
                                         <ul>
@@ -36,7 +36,7 @@
                         <div class="column is-three-quarters">
                             <h2 class="title is-3">Instructions</h2>
                             <ol>
-                                <li v-for="(instruction, index) in recette.instructions" :key="index">
+                                <li v-for="(instruction, index) in recipe.instructions" :key="index">
                                     <span v-if="instruction.title">
                                         <h3>{{ instruction.title }}</h3>
                                         <ol>
@@ -50,11 +50,11 @@
                             </ol>
                         </div>
                     </div>
-                    <p>{{ recette.conclusion }}</p>
+                    <p>{{ recipe.conclusion }}</p>
                 </div>
             </div>
             <footer class="card-footer">
-                <a href="#" class="card-footer-item" @click="like" v-if="recette.user_id !== userId">Liker</a>
+                <a href="#" class="card-footer-item" @click="like" v-if="recipe.user_id !== userId">Liker</a>
                 <a href="#" class="card-footer-item" @click="fork()">Forker</a>
                 <a href="#" class="card-footer-item" @click="comment">Commenter</a>
             </footer>  
@@ -90,7 +90,7 @@ export default {
     data() {
         return {
             loading: false,
-            recette: null,
+            recipe: null,
             recipes: [],
             message: {}
         }
@@ -105,13 +105,13 @@ export default {
         async getRecipe() {
             this.loading = true
             await api.getRecipe(this.$route.params.id).then(res => {
-                this.recette = res.data
+                this.recipe = res.data
             }).catch(() => {
                 this.message.title = 'Erreur 404'
                 this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
                 this.loading = false
             })
-            await api.getOthersRecipes(this.recette.user_id, this.$route.params.id).then(res => {
+            await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id).then(res => {
                 this.recipes = res.data
             })
             this.loading = false
