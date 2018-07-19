@@ -21,11 +21,11 @@ Cela aura pour conséquence de créer 3 containers :
 
 ### Récapitulatif
 
-| Nom | Port |
-| --- | ---- |
-| Postgres | 5432 |
-| API | 3000 |
-| Front | 8081 |
+| Nom | Port | Accès |
+| --- | ---- | ----- |
+| Postgres | 5432 | `$ docker-compose run db psql -h db -U root -d gitfood` |
+| API | 3000 | |
+| Front | 8081 | |
 
 ## Todolist des features
 

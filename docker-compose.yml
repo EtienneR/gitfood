@@ -6,6 +6,8 @@ services:
     env_file:
       - "./.env.docker"
     restart: always
+    ports:
+      - "5432:5432"
 
   api:
     build: ./api
