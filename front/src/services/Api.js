@@ -5,9 +5,6 @@ export default {
     getAllRecipes() {
         return axios.get(`${API_URL}/recipes`)
     },
-    getMyRecipes(id_user) {
-        return axios.get(`${API_URL}/recipes/user/${id_user}`)
-    },
     getRecipe(id_recipe) {
         return axios.get(`${API_URL}/recipes/${id_recipe}`)
     },

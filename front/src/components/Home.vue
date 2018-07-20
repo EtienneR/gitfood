@@ -5,7 +5,7 @@
 
 		<div class="has-text-centered" v-if="isConnected">
 			<a class="button is-primary" @click="getAllRecipes()">Toutes les recettes</a> 
-			<a class="button is-default" v-if="userId" @click="getMyRecipes()">Mes recettes</a>
+			<a class="button is-default" v-if="userId" @click="getRecipesByAuthor()">Mes recettes</a>
 		</div>
 
 		<article class="level" v-for="(recipe, index) in recipes" :key="index" v-if="recipes.length > 0">
@@ -54,7 +54,7 @@ export default {
 				this.recipes = res.data
 			})
 		},
-		getMyRecipes() {
+		getRecipesByAuthor() {
 			this.recipes = this.recipes.filter(r => {
 				if (r.user_id === this.userId) {
 					return r

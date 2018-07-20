@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     async myRecipes() {
-      await api.getMyRecipes(this.userId)
+      await api.getRecipesByAuthor(this.userId)
         .then(res =>  {
           this.recipes = res.data
         })
