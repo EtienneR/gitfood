@@ -19,7 +19,7 @@
 				</div>
 				<div class="level-item">
 					<p>par 
-					    <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+						<router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
                             <strong>{{ recipe.firstname }}</strong>
                         </router-link>
 					</p>
