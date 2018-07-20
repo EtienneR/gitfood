@@ -354,6 +354,7 @@ export default {
             })
           })
       } else {
+        this.recette.user_id = this.userId
         return api.addRecipe(this.recette, { user_id: this.userId })
           .then(() => {
             EventBus.$emit('toast', 'Recette ajoutée')
