@@ -2,7 +2,11 @@
 	<div>
 
 		<navigation :isConnected="isConnected" />
-		<router-view :isConnected="isConnected" :userId="userId"></router-view>
+		<router-view
+			:isConnected="isConnected"
+			:userId="userId"
+			:firstname="firstname">
+		</router-view>
 		<copyright :loading="loading" />
 
 	</div>
@@ -22,6 +26,7 @@ export default {
 		return {
 			isConnected: true,
 			userId: 1,
+			firstname: 'Toto',
 			loading: false
 		}
 	},

@@ -25,5 +25,8 @@ export default {
     },
     getCommentsByRecipe(id_recipe) {
         return axios.get(`${API_URL}/comments/recipe/${id_recipe}`)
+    },
+    addComment(content) {
+        return axios.post(`${API_URL}/comments`, content)
     }
 }

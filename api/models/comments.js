@@ -28,8 +28,18 @@ function getCommentsByRecipe(recette_id) {
     .orderBy(`${table}.id`, 'DESC')
 }
 
+/* Ajouter un commentaire */
+function postComment({ content, user_id, recette_id }) {
+    return database(table).insert({
+        content: content,
+        user_id: user_id,
+        recette_id: recette_id
+    }).returning('id')
+}
+
 module.exports = {
     getComments,
     getComment,
-    getCommentsByRecipe
+    getCommentsByRecipe,
+    postComment
 }

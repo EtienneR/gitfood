@@ -41,3 +41,15 @@ module.exports = express.Router()
     })
     .catch(err => res.status(500).json(err))
 })
+
+/* Ajouter un commentaire */
+.post('/', (req, res) => {
+    console.log('req.body', req.body)
+    if (Object.keys(req.body).length > 0) {
+        comments.postComment(req.body)
+        .then(id => res.status(201).json({ message: 'Commentaire créé', id: id[0] }))
+        .catch(err => res.status(500).json(err))
+    } else {
+        return res.status(400).json({ message: message.emptyFields })
+    }
+})

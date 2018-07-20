@@ -24,7 +24,7 @@ exports.up = function(knex, Promise) {
         knex.schema.withSchema('public').createTable('comments', table => {
             table.increments('id').primary()
             table.text('content')
-            table.timestamps(true, false)
+            table.timestamps(true, true)
             table.integer('user_id').unsigned().references('users.id')
             table.integer('recette_id').unsigned().references('recettes.id')
         })

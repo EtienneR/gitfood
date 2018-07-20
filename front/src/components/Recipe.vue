@@ -56,7 +56,7 @@
             <footer class="card-footer">
                 <a href="#" class="card-footer-item" @click="like" v-if="recipe.user_id !== userId">Liker</a>
                 <a href="#" class="card-footer-item" @click="fork()">Forker</a>
-                <a href="#" class="card-footer-item" @click="comment">Commenter</a>
+                <a href="#" class="card-footer-item">Commenter</a>
             </footer>  
         </article>
         <br />
@@ -91,7 +91,22 @@
                         <p>{{ comment.content }}</p>
                     </article>
                 </div>
+                <div class="message" v-else>
+                    <div class="message-header">
+                        <h2 class="title is-5">Aucun commentaire</h2>
+                    </div>
+                </div>
+
+                <b-field>
+                    <b-input type="textarea"
+                        placeholder="Laissez un message (de préférence constructif)"
+                        v-model="comment">
+                    </b-input>
+                </b-field>
+                <input type="submit" class="button is-primary" value="Envoyer" @click="addComment()">
+
             </div>
+
         </div>
     
         <article v-if="message">
@@ -108,7 +123,8 @@ import api from '@/services/Api'
 export default {
 	props: {
 		isConnected: Boolean,
-        userId: Number
+        userId: Number,
+        firstname: String
 	},
     data() {
         return {
@@ -117,6 +133,7 @@ export default {
             recipes: [],
             comments: [],
             message: {},
+            comment: ''
         }
     },
     async created () {
@@ -127,6 +144,7 @@ export default {
     },
     methods: {
         async getRecipe() {
+            this.comments = []
             this.loading = true
             await api.getRecipe(this.$route.params.id).then(res => {
                 this.recipe = res.data
@@ -160,13 +178,33 @@ export default {
                 })
             }
         },
-        comment() {
-            if (!this.isConnected) {
-                this.notConnected()
-            }
-        },
+        // comment() {
+        //     if (!this.isConnected) {
+        //         this.notConnected()
+        //     } else {
+
+        //     }
+        // },
         notConnected() {
             alert('not connected')
+        },
+        addComment() {
+            const self = this
+            if (self.comment.length > 0) {
+                return api.addComment({ content: self.comment, user_id: self.userId, recette_id: self.$route.params.id })
+                    .then(comment => {
+                        // Ajout du nouveau commentaire dans le tableau existant
+                        this.comments.unshift({
+                            content: self.comment,
+                            firstname: self.firstname,
+                            id: comment.data.id,
+                            user_id: self.userId
+                        })
+                        self.comment = ''
+                    })
+            } else {
+                alert('Merci de remplir le champs')
+            }
         }
     }
 }
