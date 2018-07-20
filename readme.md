@@ -50,6 +50,7 @@ Liste non exhaustive...
 | Ajout EventBus | Front | Done | Pour les notifications / toast |
 | Ajout dialogue suppression recette | Front | Backlog | Ajout dialog |
 | Ajout vue-meta | Front | Backlog | |
+| Ajout page Erreur 404 | Front | Done |
 
 ## Sources
 

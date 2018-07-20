@@ -7,6 +7,7 @@ import User from './components/User.vue'
 import MyRecipes from './components/recipes/MyRecipes.vue'
 import AddRecipe from './components/recipes/AddRecipe.vue'
 import About from './components/About.vue'
+import Error404 from './components/Error404.vue'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 
@@ -21,8 +22,19 @@ const routes = [
 	{ path: '/menu/fork/:id', name:'forkRecipe', component: AddRecipe },
 	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/about', name: 'about', component: About },
-	{ path: '/:id', name: 'recipe', component: Recipe }
+	{ path: '/error404', component: Error404 },
+	{ path: '/:id', name: 'recipe', component: Recipe, props: checkId },
+	{ path: '*', name: 'error404', component: Error404, redirect: '/error404' }
 ]
+
+function checkId(route) {
+	const reg = new RegExp('^[0-9]+$')
+	if (!reg.exec(route.params.id)) {
+		router.push({
+			name: 'error404'
+		})
+	}
+}
 
 const router = new VueRouter({
 	mode: 'history',
