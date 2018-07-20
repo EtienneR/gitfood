@@ -1,8 +1,7 @@
 const message = require('./messages')
 
 module.exports = function(req, res, next) {
-    let { id } = req.params
-    let { id_user } = req.params
+    let { id, id_user } = req.params
 
     if (id) {
         if (!Number.isInteger(parseInt(id))) {

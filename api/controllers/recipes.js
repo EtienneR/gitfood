@@ -44,8 +44,7 @@ module.exports = express.Router()
 
 /* Obtenir les autres recettes du même utilisateur */
 .get('/user/:id_user/others/:id', checkIntegerId, (req, res) => {
-    const { id_user } = req.params
-    const { id } = req.params
+    const { id, id_user } = req.params
 
     recipes.getOthersRecipes(id_user, id)
     .then(recettes => {
