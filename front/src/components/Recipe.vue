@@ -103,7 +103,11 @@
                         v-model="comment">
                     </b-input>
                 </b-field>
-                <input type="submit" class="button is-primary" value="Envoyer" @click="addComment()">
+                <input type="submit"
+                    class="button is-primary"
+                    :value="isConnected ? 'Envoyer' : 'Vous devez être connecté'"
+                    @click="addComment()"
+                    :disabled="!isConnected">
 
             </div>
 
@@ -178,13 +182,6 @@ export default {
                 })
             }
         },
-        // comment() {
-        //     if (!this.isConnected) {
-        //         this.notConnected()
-        //     } else {
-
-        //     }
-        // },
         notConnected() {
             alert('not connected')
         },
