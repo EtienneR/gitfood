@@ -33,22 +33,23 @@ Liste non exhaustive...
 
 | Tâche | Scope | Status | Commentaire |
 | ----- | ----- | ------ | ----------- |
-| Création docker-compose.yml | Devops | Fini | Pas de Knex |
+| Création docker-compose.yml | Devops | Done | Pas de Knex |
 | Migration avec Knex | API | En cours | Seulement les recettes et les utilisateurs|
 | Seed avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
-| Formulaire ajout recette | Front | Fini | |
-| Formulaire modification recette | Front | Fini | |
-| Migration sur Buefy | Front | Fini | |
+| Formulaire ajout recette | Front | Done | |
+| Formulaire modification recette | Front | Done | |
+| Migration sur Buefy | Front | Done | |
 | Moteur de recherche | API & Front | Backlog | |
 | Authentification | Api & Front | Backlog | |
 | Formater date | Front | Backlog | |
 | Moteur de recherche par titre dans compte | Front | Backlog | |
 | FormWizard | Front | Backlog | |
-| Github | Devops | Fini | Pousser sur Github |
+| Github | Devops | Done | Pousser sur Github |
 | Helmet (Express) | API | Backlog | Ajout de sécurité |
-| Organisation MVC | API | Fini | Création modèle |
-| Ajout EventBus | Front | Fini | Pour les notifications / toast |
+| Organisation MVC | API | Done | Création modèle |
+| Ajout EventBus | Front | Done | Pour les notifications / toast |
 | Ajout dialogue suppression recette | Front | Backlog | Ajout dialog |
+| Ajout vue-meta | Front | Backlog | |
 
 ## Sources
 
