@@ -8,7 +8,7 @@ module.exports = express.Router()
 /* Toutes les recettes */
 .get('/', (req, res) => {
     recipes.getRecipes()
-    .then(recettes => res.status(200).json(recettes))
+    .then(recettes => res.json(recettes))
     .catch(err => res.status(500).json(err))
 })
 
@@ -19,7 +19,7 @@ module.exports = express.Router()
     recipes.getRecipesByAuthor(id_user)
     .then(recette => {
         if (recette.length > 0) {
-            res.status(200).json(recette)
+            res.json(recette)
         } else {
             res.status(404).json({ message: message.recipes.noRecipes })
         }
@@ -34,7 +34,7 @@ module.exports = express.Router()
     recipes.getRecipe(id)
     .then(recette => {
         if (recette) {
-            res.status(200).json(recette)
+            res.json(recette)
         } else {
             res.status(404).json({ message: message.recipes.notFound })
         }
@@ -49,7 +49,7 @@ module.exports = express.Router()
     recipes.getOthersRecipes(id_user, id)
     .then(recettes => {
         if (recettes && recettes.length > 0) {
-            res.status(200).json(recettes)
+            res.json(recettes)
         } else {
             res.status(400).json({ message: message.users.notFound })
         }
@@ -75,7 +75,7 @@ module.exports = express.Router()
     if (id) {
         if (Object.keys(req.body).length > 0) {
             recipes.updateRecipe(id, req.body)
-            .then(id => res.status(200).json({ message: message.recipes.updated, id: id[0] }) )
+            .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
             .catch(err => res.status(500).json(err))
         } else {
             return res.status(400).json({ message: message.emptyFields })
@@ -91,7 +91,7 @@ module.exports = express.Router()
 
     if (id) {
         recipes.deleteRecipe(id)
-        .then(() => res.status(200).json({ message: message.recipes.deleted(id) }) )
+        .then(() => res.json({ message: message.recipes.deleted(id) }) )
         .catch(err => res.status(500).json(err))
     } else {
         return res.status(400).json({ message: message.recipes.missingId })

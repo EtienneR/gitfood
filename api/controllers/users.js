@@ -12,7 +12,7 @@ module.exports = express.Router()
     users.getUser(id)
     .then(user => {
         if (user) {
-            res.status(200).json(user)
+            res.json(user)
         } else {
             res.status(404).json({ message: message.users.notFound })
         }
@@ -39,7 +39,7 @@ module.exports = express.Router()
         users.deleteUser(id)
         .then(user => {
             if (user) {
-                res.status(200).json({ message: message.users.deleted(id) })
+                res.json({ message: message.users.deleted(id) })
             } else {
                 res.status(404).json({ message: message.users.notFound, })
             }
