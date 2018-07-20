@@ -5,7 +5,7 @@ import Home from './components/Home.vue'
 import Recipe from './components/recipes/Recipe.vue'
 import User from './components/users/User.vue'
 import MyRecipes from './components/recipes/MyRecipes.vue'
-import AddRecipe from './components/recipes/AddRecipe.vue'
+import FormRecipe from './components/recipes/FormRecipe.vue'
 import MyComments from './components/comments/MyComments.vue'
 import About from './components/About.vue'
 import Error404 from './components/Error404.vue'
@@ -18,9 +18,9 @@ Vue.use(VueRouter)
 const routes = [
 	{ path: '/', name: 'home', component: Home },
 	{ path: '/menu', name: 'myRecipes', component: MyRecipes },
-	{ path: '/menu/ajouter', name:'addRecipe', component: AddRecipe },
-	{ path: '/menu/modifier/:id', name:'editRecipe', component: AddRecipe },
-	{ path: '/menu/fork/:id', name:'forkRecipe', component: AddRecipe },
+	{ path: '/menu/ajouter', name:'addRecipe', component: FormRecipe },
+	{ path: '/menu/modifier/:id', name:'editRecipe', component: FormRecipe },
+	{ path: '/menu/fork/:id', name:'forkRecipe', component: FormRecipe },
 	{ path: '/menu/comments', name: 'myComments', component: MyComments },
 	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/about', name: 'about', component: About },

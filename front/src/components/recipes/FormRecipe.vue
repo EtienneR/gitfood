@@ -232,7 +232,7 @@ import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 
 export default {
-  name: 'AddRecipe',
+  name: 'FormRecipe',
 	props: {
 		isConnected: Boolean,
     userId: Number
