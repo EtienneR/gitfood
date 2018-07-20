@@ -49,10 +49,10 @@
           {{ props.row.updated_at }}
         </b-table-column>
         <b-table-column label="Modifier">
-          <router-link class="button is-info" :to="{ name: 'editRecipe', params: { id: props.row.id }}" :title="'Modifier la recette ' + props.row.name">Modifier</router-link>
+          <router-link class="button is-info" :to="{ name: 'editRecipe', params: { id: props.row.id }}" :title="`Modifier la recette ${props.row.name}`">Modifier</router-link>
         </b-table-column>
         <b-table-column label="Supprimer">
-          <a class="button is-danger" @click="remove(props.row.id, props.index)" :title="'Supprimer la recette ' + props.row.name">Supprimer</a>
+          <a class="button is-danger" @click="remove(props.row.id, props.index)" :title="`Supprimer la recette ${props.row.name}`">Supprimer</a>
         </b-table-column>
       </template>
     </b-table>
@@ -92,6 +92,9 @@ export default {
       ]
     }
   },
+  async created() {
+    this.myRecipes()
+  },
   computed: {
     getPublishedRecipes() {
       return this.recipes.filter(recette => recette.published).length
@@ -101,8 +104,8 @@ export default {
     }
   },
   methods: {
-    myRecipes() {
-      return api.getMyRecipes(this.userId)
+    async myRecipes() {
+      await api.getMyRecipes(this.userId)
         .then(res =>  {
           this.recipes = res.data
         })
@@ -114,9 +117,6 @@ export default {
           EventBus.$emit('toast', `Recette ${id} supprimée`)
         })
     }
-  },
-  created() {
-    this.myRecipes()
   }
 }
 </script>
