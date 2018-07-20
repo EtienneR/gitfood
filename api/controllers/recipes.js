@@ -51,7 +51,7 @@ module.exports = express.Router()
         if (recettes && recettes.length > 0) {
             res.status(200).json(recettes)
         } else {
-            res.status(400).json({ message: 'No user' })
+            res.status(400).json({ message: message.users.notFound })
         }
     })
     .catch(err => res.status(500).json(err))

@@ -14,6 +14,12 @@ module.exports = {
         updated: 'User updated',
         deleted: (id => `User ${id} deleted`)
     },
+    comments: {
+        notFound: 'Comment not found',
+        noCommentsForThisRecipe: 'No comments for this recipe',
+        noCommentsForThisUser: 'No comments for this user',
+        created: 'Comment created'
+    },
     idNotInteger: 'Id must be an integer',
     emptyFields: 'Empty fields'
 }

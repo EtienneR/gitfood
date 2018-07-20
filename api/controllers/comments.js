@@ -21,7 +21,7 @@ module.exports = express.Router()
         if (comment) {
             res.json(comment)
         } else {
-            res.status(400).json({ message: 'oups' })
+            res.status(400).json({ message: message.comments.notFound })
         }
     })
     .catch(err => res.status(500).json(err))
@@ -36,7 +36,7 @@ module.exports = express.Router()
         if (comments.length > 0) {
             res.json(comments)
         } else {
-            res.status(400).json({ message: 'Aucun commentaire pour cette recette' })
+            res.status(404).json({ message: message.comments.noCommentsForThisRecipe })
         }
     })
     .catch(err => res.status(500).json(err))
@@ -47,7 +47,13 @@ module.exports = express.Router()
     const { user_id } = req.params
 
     comments.getCommentsByUser(user_id)
-    .then(comments => res.json(comments))
+    .then(comments => {
+        if (comments.length > 0) {
+            res.json(comments)
+        } else {
+            res.status(404).json({ message: message.comments.noCommentsForThisUser })
+        }
+    })
     .catch(err => res.status(500).json(err))
 })
 
@@ -56,7 +62,7 @@ module.exports = express.Router()
     console.log('req.body', req.body)
     if (Object.keys(req.body).length > 0) {
         comments.postComment(req.body)
-        .then(id => res.status(201).json({ message: 'Commentaire créé', id: id[0] }))
+        .then(id => res.status(201).json({ message: message.comments.created, id: id[0] }))
         .catch(err => res.status(500).json(err))
     } else {
         return res.status(400).json({ message: message.emptyFields })
