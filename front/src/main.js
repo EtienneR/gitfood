@@ -15,13 +15,13 @@ Vue.use(VueRouter)
 
 const routes = [
 	{ path: '/', name: 'home', component: Home },
-	{ path: '/:id', name: 'recipe', component: Recipe },
-	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/menu', name: 'myRecipes', component: MyRecipes },
 	{ path: '/menu/ajouter', name:'addRecipe', component: AddRecipe },
 	{ path: '/menu/modifier/:id', name:'editRecipe', component: AddRecipe },
 	{ path: '/menu/fork/:id', name:'forkRecipe', component: AddRecipe },
-	{ path: '/about', name: 'about', component: About }
+	{ path: '/user/:id', name: 'user', component: User },
+	{ path: '/about', name: 'about', component: About },
+	{ path: '/:id', name: 'recipe', component: Recipe }
 ]
 
 const router = new VueRouter({
