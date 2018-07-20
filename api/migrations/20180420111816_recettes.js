@@ -19,6 +19,14 @@ exports.up = function(knex, Promise) {
             table.boolean('published')
             table.timestamps(true, true)
             table.integer('user_id').unsigned().references('users.id')
+        }),
+        
+        knex.schema.withSchema('public').createTable('comments', table => {
+            table.increments('id').primary()
+            table.text('content')
+            table.timestamps(true, false)
+            table.integer('user_id').unsigned().references('users.id')
+            table.integer('recette_id').unsigned().references('recettes.id')
         })
     ])
 }
@@ -27,6 +35,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
     return Promise.all([
         knex.schema.withSchema('public').dropTable('users'),
+        knex.schema.withSchema('public').dropTable('comments'),
         knex.schema.withSchema('public').dropTable('recettes')
     ])
 }

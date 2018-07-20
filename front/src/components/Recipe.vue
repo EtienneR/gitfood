@@ -60,16 +60,39 @@
             </footer>  
         </article>
         <br />
-        <article v-if="recipes.length > 0">
-            <h2 class="title is-5">Les autres recettes de cet utilisateur</h2>
-            <ul>
-                <li v-for="(recipe, index) in recipes" :key="index">
-					<router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
-						{{ recipe.name }}
-					</router-link>
-                </li>
-            </ul>
-        </article>
+
+        <div class="columns">
+            <div class="column is-one-quarter">
+                <article class="message" v-if="recipes.length > 0">
+                    <div class="message-header">
+                        <h2 class="title is-5">Du même auteur</h2>
+                    </div>
+                    <ul class="message-body">
+                        <li v-for="(recipe, index) in recipes" :key="index">
+                            <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
+                                {{ recipe.name }}
+                            </router-link>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="column is-three-quarters">
+                <div class="message" v-if="comments.length > 0">
+                    <div class="message-header">
+                        <h2 class="title is-5">Les commentaires ({{ comments.length }})</h2>
+                    </div>
+                    <article class="message-body" v-for="(comment, index) in comments" :key="index">
+                        <p>De 
+                            <router-link :to="{ name: 'user', params: { id: comment.user_id }}">
+                                {{ comment.firstname }}
+                            </router-link>
+                        </p>
+                        <p>{{ comment.content }}</p>
+                    </article>
+                </div>
+            </div>
+        </div>
     
         <article v-if="message">
             <h1 class="title is-1 has-text-centered">{{ message.title }}</h1>
@@ -92,7 +115,8 @@ export default {
             loading: false,
             recipe: null,
             recipes: [],
-            message: {}
+            comments: [],
+            message: {},
         }
     },
     async created () {
@@ -113,6 +137,11 @@ export default {
             })
             await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id).then(res => {
                 this.recipes = res.data
+            })
+            await api.getCommentsByRecipe(this.$route.params.id).then(res => {
+                this.comments = res.data
+            }).catch(() => {
+                this.loading = false
             })
             this.loading = false
         },

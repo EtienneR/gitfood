@@ -12,6 +12,7 @@ app.use(morgan('tiny'))
 app.use('/', require('./controllers/home'))
 app.use('/api/v1/recipes', require('./controllers/recipes'))
 app.use('/api/v1/users', require('./controllers/users'))
+app.use('/api/v1/comments', require('./controllers/comments'))
 
 // Routes non définies = 404
 app.all('/*', (req, res) => {

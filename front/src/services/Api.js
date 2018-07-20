@@ -25,5 +25,8 @@ export default {
     },
     removeRecipe(id_recipe) {
         return axios.delete(`${API_URL}/recipes/${id_recipe}`)
+    },
+    getCommentsByRecipe(id_recipe) {
+        return axios.get(`${API_URL}/comments/recipe/${id_recipe}`)
     }
 }
