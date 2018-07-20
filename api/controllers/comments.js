@@ -8,7 +8,7 @@ module.exports = express.Router()
 /* Toutes les commentaires */
 .get('/', (req, res) => {
     comments.getComments()
-    .then(comments => res.status(200).json(comments))
+    .then(comments => res.json(comments))
     .catch(err => res.status(500).json(err))
 })
 
@@ -19,7 +19,7 @@ module.exports = express.Router()
     comments.getComment(id)
     .then(comment => {
         if (comment) {
-            res.status(200).json(comment)
+            res.json(comment)
         } else {
             res.status(400).json({ message: 'oups' })
         }
@@ -34,11 +34,20 @@ module.exports = express.Router()
     comments.getCommentsByRecipe(recette_id)
     .then(comments => {
         if (comments.length > 0) {
-            res.status(200).json(comments)
+            res.json(comments)
         } else {
             res.status(400).json({ message: 'Aucun commentaire pour cette recette' })
         }
     })
+    .catch(err => res.status(500).json(err))
+})
+
+/* Commentaires par utilisateur */
+.get('/user/:user_id', checkIntegerId, (req, res) => {
+    const { user_id } = req.params
+
+    comments.getCommentsByUser(user_id)
+    .then(comments => res.json(comments))
     .catch(err => res.status(500).json(err))
 })
 

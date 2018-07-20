@@ -6,6 +6,7 @@ import Recipe from './components/Recipe.vue'
 import User from './components/User.vue'
 import MyRecipes from './components/recipes/MyRecipes.vue'
 import AddRecipe from './components/recipes/AddRecipe.vue'
+import MyComments from './components/MyComments.vue'
 import About from './components/About.vue'
 import Error404 from './components/Error404.vue'
 import Buefy from 'buefy'
@@ -20,6 +21,7 @@ const routes = [
 	{ path: '/menu/ajouter', name:'addRecipe', component: AddRecipe },
 	{ path: '/menu/modifier/:id', name:'editRecipe', component: AddRecipe },
 	{ path: '/menu/fork/:id', name:'forkRecipe', component: AddRecipe },
+	{ path: '/menu/comments', name: 'myComments', component: MyComments },
 	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/about', name: 'about', component: About },
 	{ path: '/error404', component: Error404 },

@@ -28,6 +28,18 @@ function getCommentsByRecipe(recette_id) {
     .orderBy(`${table}.id`, 'DESC')
 }
 
+/* Commentaires par utilisateur */
+function getCommentsByUser(user_id) {
+    return database(table)
+    .select(table + '.id',
+            table + '.content',
+            'recettes.name')
+    .where(`${table}.user_id`, user_id)
+    .leftJoin('users', `${table}.user_id`, 'users.id')
+    .leftJoin('recettes', `${table}.recette_id`, 'recettes.id')
+    .orderBy(`${table}.id`, 'DESC')
+}
+
 /* Ajouter un commentaire */
 function postComment({ content, user_id, recette_id }) {
     return database(table).insert({
@@ -41,5 +53,6 @@ module.exports = {
     getComments,
     getComment,
     getCommentsByRecipe,
+    getCommentsByUser,
     postComment
 }

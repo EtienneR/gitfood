@@ -29,6 +29,9 @@
 						<a class="navbar-item">
 							Mes recettes favorites
 						</a>
+						<router-link class="navbar-item" :to="{ name: 'myComments'}">
+							Mes commentaires
+						</router-link>
 					</div>
 				</div>
 			</div>
