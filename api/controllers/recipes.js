@@ -57,6 +57,20 @@ module.exports = express.Router()
     .catch(err => res.status(500).json(err))
 })
 
+.get('/forks/:id_user', checkIntegerId, (req, res) => {
+    const { id_user } = req.params
+
+    recipes.getForks(id_user)
+    .then(recettes => {
+        if (recettes && recettes.length > 0) {
+            res.json(recettes)
+        } else {
+            res.status(404).json({message: message.recipes.notFound})
+        }
+    })
+    .catch(err => res.status(500).json(err))
+})
+
 /* Ajouter une recette */
 .post('/', (req, res) => {
     if (Object.keys(req.body).length > 0) {

@@ -28,7 +28,7 @@
 			<div class="level-item has-text-centered">
 				<div>
 					<p class="heading">Fork</p>
-					<p class="title">0</p>
+					<p class="title">{{getForksNumbers}}</p>
 				</div>
 			</div>
 		</nav>
@@ -79,6 +79,7 @@ export default {
   	data() {
 		return {
 			recipes: [],
+			forks: [],
 			columns: [
 				{
 					field: 'name',
@@ -96,7 +97,7 @@ export default {
 					field: 'updated_at',
 					label: 'Date de modification',
 				}
-		]
+			]
 		}
   	},
 	async created() {
@@ -108,6 +109,9 @@ export default {
 		},
 		getUnpublishedRecipes() {
 			return this.recipes.filter(recette => !recette.published).length      
+		},
+		getForksNumbers() {
+			return this.forks.length
 		}
 	},
 	methods: {
@@ -115,6 +119,10 @@ export default {
 			await api.getRecipesByAuthor(this.userId)
 			.then(res =>  {
 				this.recipes = res.data
+			})
+			await api.getForks(this.userId)
+			.then(res => {
+				this.forks = res.data
 			})
 		},
 		remove(id, index) {

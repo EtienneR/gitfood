@@ -14,6 +14,9 @@ export default {
     getOthersRecipes(id_user, id_recipe) {
         return axios.get(`${API_URL}/recipes/user/${id_user}/others/${id_recipe}`)
     },
+    getForks(id_user) {
+        return axios.get(`${API_URL}/recipes/forks/${id_user}`)
+    },
     addRecipe(content) {
         return axios.post(`${API_URL}/recipes`, content)
     },

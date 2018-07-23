@@ -354,6 +354,9 @@ export default {
             })
           })
       } else {
+        if (this.$route.name === 'forkRecipe') {
+          this.recette.id_parent = this.recette.user_id
+        }
         this.recette.user_id = this.userId
         return api.addRecipe(this.recette, { user_id: this.userId })
           .then(() => {

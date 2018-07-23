@@ -12,6 +12,7 @@ function getRecipes() {
             table + '.published',
             table + '.created_at',
             table + '.updated_at',
+            table + '.id_parent',
             table + '.user_id',
             'users.firstname')
     .leftJoin('users', `${table}.user_id`, 'users.id')
@@ -73,7 +74,26 @@ function getRecipesByAuthor(user_id) {
     .orderBy(`${table}.id`, 'DESC')
 }
 
-function postRecipe({ name, introduction, ingredients, instructions, conclusion, published, user_id }) {
+function getForks(user_id) {
+    return database(table)
+    .select(table + '.id',
+            table + '.name',
+            table + '.introduction',
+            table + '.ingredients',
+            table + '.instructions',
+            table + '.conclusion',
+            table + '.published',
+            table + '.created_at',
+            table + '.updated_at',
+            table + '.user_id',
+            'users.firstname')
+    .innerJoin('users', `${table}.user_id`, 'users.id')
+    .where(`${table}.id_parent`, user_id)
+    .where(`${table}.published`, true)
+    .orderBy(`${table}.id`, 'DESC')
+}
+
+function postRecipe({ name, introduction, ingredients, instructions, conclusion, published, id_parent, user_id }) {
     return database(table).insert({
         name: name,
         introduction: introduction,
@@ -81,6 +101,7 @@ function postRecipe({ name, introduction, ingredients, instructions, conclusion,
         instructions: JSON.stringify(instructions),
         conclusion: conclusion,
         published: published,
+        id_parent: id_parent,
         user_id: user_id
     }).returning('id')
 }
@@ -112,6 +133,7 @@ module.exports = {
     getRecipesByAuthor,
     postRecipe,
     updateRecipe,
-    deleteRecipe
+    deleteRecipe,
+    getForks
 }
   
