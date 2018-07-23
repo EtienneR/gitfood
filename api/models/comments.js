@@ -19,9 +19,9 @@ function getComment(id) {
 /* Commentaires par recette */
 function getCommentsByRecipe(recette_id) {
     return database(table)
-    .select(table + '.id',
-            table + '.content',
-            table + '.user_id',
+    .select(`${table}.id`,
+            `${table}.content`,
+            `${table}.user_id`,
             'users.firstname')
     .where(`${table}.recette_id`, recette_id)
     .leftJoin('users', `${table}.user_id`, 'users.id')
@@ -31,8 +31,8 @@ function getCommentsByRecipe(recette_id) {
 /* Commentaires par utilisateur */
 function getCommentsByUser(user_id) {
     return database(table)
-    .select(table + '.id',
-            table + '.content',
+    .select(`${table}.id`,
+            `${table}.content`,
             'recettes.name')
     .where(`${table}.user_id`, user_id)
     .leftJoin('users', `${table}.user_id`, 'users.id')

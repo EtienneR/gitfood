@@ -23,7 +23,7 @@
               <span v-else>Non</span>
             </b-switch>
           </div>
-          <div v-if="steps" v-for="(ingredient, index) in recette.ingredients" :key="index + '-ingredients'">
+          <div v-if="steps" v-for="(ingredient, index) in recette.ingredients" :key="`${index}-ingredients`">
             <div class="field">
               <a @click="deleteStep(index)">Delete</a>
             </div>
@@ -108,7 +108,7 @@
           <!-- Début Partie 3 -->
           <hr />
           <legend class="title is-6">Partie 3 : Instructions</legend>
-          <div v-if="steps" v-for="(instruction, index) in recette.instructions" :key="index + '-instructions'">
+          <div v-if="steps" v-for="(instruction, index) in recette.instructions" :key="`${index}-instructions`">
             <div class="field">
               <a @click="deleteStep(index)">Delete</a>
             </div>

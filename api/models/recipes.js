@@ -3,17 +3,17 @@ const table = 'recettes'
 
 function getRecipes() {
     return database(table)
-    .select(table + '.id',
-            table + '.name',
-            table + '.introduction',
-            table + '.ingredients',
-            table + '.instructions',
-            table + '.conclusion',
-            table + '.published',
-            table + '.created_at',
-            table + '.updated_at',
-            table + '.id_parent',
-            table + '.user_id',
+    .select(`${table}.id`,
+            `${table}.name`,
+            `${table}.introduction`,
+            `${table}.ingredients`,
+            `${table}.instructions`,
+            `${table}.conclusion`,
+            `${table}.published`,
+            `${table}.created_at`,
+            `${table}.updated_at`,
+            `${table}.user_id`,
+            `${table}.id_parent`,
             'users.firstname')
     .leftJoin('users', `${table}.user_id`, 'users.id')
     .where(`${table}.published`, true)
@@ -22,34 +22,34 @@ function getRecipes() {
 
 function getRecipe(id) {
     return database(table)
-    .select(table + '.id',
-            table + '.name',
-            table + '.introduction',
-            table + '.ingredients',
-            table + '.instructions',
-            table + '.conclusion',
-            table + '.published',
-            table + '.created_at',
-            table + '.updated_at',
-            table + '.user_id',
+    .select(`${table}.id`,
+            `${table}.name`,
+            `${table}.introduction`,
+            `${table}.ingredients`,
+            `${table}.instructions`,
+            `${table}.conclusion`,
+            `${table}.published`,
+            `${table}.created_at`,
+            `${table}.updated_at`,
+            `${table}.user_id`,
             'users.firstname')
     .leftJoin('users', `${table}.user_id`, 'users.id')
-    .where(table + '.id', parseInt(id))
+    .where(`${table}.id`, parseInt(id))
     .first()
 }
 
 function getOthersRecipes(user_id, id) {
     return database(table)
-    .select(table + '.id',
-            table + '.name',
-            table + '.introduction',
-            table + '.ingredients',
-            table + '.instructions',
-            table + '.conclusion',
-            table + '.published',
-            table + '.created_at',
-            table + '.updated_at',
-            table + '.user_id')
+    .select(`${table}.id`,
+            `${table}.name`,
+            `${table}.introduction`,
+            `${table}.ingredients`,
+            `${table}.instructions`,
+            `${table}.conclusion`,
+            `${table}.published`,
+            `${table}.created_at`,
+            `${table}.updated_at`,
+            `${table}.user_id`)
     .leftJoin('users', `${table}.user_id`, 'users.id')
     .where(`${table}.user_id`, user_id)
     .whereNot(`${table}.id`, id )
@@ -58,16 +58,16 @@ function getOthersRecipes(user_id, id) {
 
 function getRecipesByAuthor(user_id) {
     return database(table)
-    .select(table + '.id',
-            table + '.name',
-            table + '.introduction',
-            table + '.ingredients',
-            table + '.instructions',
-            table + '.conclusion',
-            table + '.published',
-            table + '.created_at',
-            table + '.updated_at',
-            table + '.user_id',
+    .select(`${table}.id`,
+            `${table}.name`,
+            `${table}.introduction`,
+            `${table}.ingredients`,
+            `${table}.instructions`,
+            `${table}.conclusion`,
+            `${table}.published`,
+            `${table}.created_at`,
+            `${table}.updated_at`,
+            `${table}.user_id`,
             'users.firstname')
     .leftJoin('users', `${table}.user_id`, 'users.id')
     .where(`${table}.user_id`, user_id)
@@ -76,16 +76,16 @@ function getRecipesByAuthor(user_id) {
 
 function getForks(user_id) {
     return database(table)
-    .select(table + '.id',
-            table + '.name',
-            table + '.introduction',
-            table + '.ingredients',
-            table + '.instructions',
-            table + '.conclusion',
-            table + '.published',
-            table + '.created_at',
-            table + '.updated_at',
-            table + '.user_id',
+    .select(`${table}.id`,
+            `${table}.name`,
+            `${table}.introduction`,
+            `${table}.ingredients`,
+            `${table}.instructions`,
+            `${table}.conclusion`,
+            `${table}.published`,
+            `${table}.created_at`,
+            `${table}.updated_at`,
+            `${table}.user_id`,
             'users.firstname')
     .innerJoin('users', `${table}.user_id`, 'users.id')
     .where(`${table}.id_parent`, user_id)
