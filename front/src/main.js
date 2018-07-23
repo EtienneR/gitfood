@@ -11,9 +11,11 @@ import About from './components/About.vue'
 import Error404 from './components/Error404.vue'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import Meta from 'vue-meta'
 
 Vue.use(Buefy)
 Vue.use(VueRouter)
+Vue.use(Meta)
 
 const routes = [
 	{ path: '/', name: 'home', component: Home },

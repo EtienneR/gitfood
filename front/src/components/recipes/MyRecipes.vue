@@ -72,6 +72,11 @@ import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 
 export default {
+    metaInfo() {
+        return {
+    	    title: this.getPublishedRecipes && `Mes recettes (${this.getPublishedRecipes})`
+        }
+    },
 	props: {
 		isConnected: Boolean,
     	userId: Number
@@ -123,6 +128,9 @@ export default {
 			await api.getForks(this.userId)
 			.then(res => {
 				this.forks = res.data
+			})
+			.catch(() => {
+				console.info('No forks for this user')
 			})
 		},
 		remove(id, index) {

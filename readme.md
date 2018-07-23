@@ -33,7 +33,7 @@ Liste non exhaustive...
 
 | Tâche | Scope | Status | Commentaire |
 | ----- | ----- | ------ | ----------- |
-| Création docker-compose.yml | Devops | Done | Pas de Knex |
+| Création docker-compose.yml | Devops | Done | |
 | Formulaire ajout recette | Front | Done | |
 | Formulaire modification recette | Front | Done | |
 | Migration sur Buefy | Front | Done | |
@@ -41,7 +41,8 @@ Liste non exhaustive...
 | Organisation MVC | API | Done | Création modèle |
 | Ajout EventBus | Front | Done | Pour les notifications / toast |
 | Ajout page Erreur 404 | Front | Done |
-| Migration avec Knex | API | En cours | Seulement les recettes et les utilisateurs|
+| Ajout vue-meta | Front | Backlog | Seulement la balise title |
+| Migration avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
 | Seed avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
 | Moteur de recherche | API & Front | Backlog | |
 | Authentification | Api & Front | Backlog | |
@@ -50,7 +51,7 @@ Liste non exhaustive...
 | FormWizard | Front | Backlog | |
 | Helmet (Express) | API | Backlog | Ajout de sécurité |
 | Ajout dialogue suppression recette | Front | Backlog | Ajout dialog |
-| Ajout vue-meta | Front | Backlog | |
+| Tests unitaires avec Jest | Back | En cours | Soucis avec les promesses |
 
 ## Sources
 
@@ -62,3 +63,4 @@ Liste non exhaustive...
 - https://vuejs.org
 - https://buefy.github.io
 - https://bulma.io
+- https://github.com/declandewet/vue-meta

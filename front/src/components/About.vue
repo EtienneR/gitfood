@@ -12,3 +12,11 @@
 
     </section>
 </template>
+
+<script>
+export default {
+    metaInfo: {
+    	title: 'A propos'
+    }
+}
+</script>

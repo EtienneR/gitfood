@@ -30,6 +30,11 @@
 import api from '@/services/Api'
 
 export default {
+    metaInfo() {
+        return {
+    	    title: this.recipes[0] && `Les recettes de ${this.recipes[0].firstname}`
+        }
+    },
     data() {
         return {
             loading: false,
@@ -46,12 +51,13 @@ export default {
     methods: {
         async getRecipes() {
             this.loading = true
-            await api.getRecipesByAuthor(this.$route.params.id).then(res => {
-                this.recipes = res.data
-            }).catch(() => {
-                this.message.title = 'Erreur 404'
-                this.message.content = 'Cette utilisateur n\'existe pas ou n\'existe plus.'
-            })
+            await api.getRecipesByAuthor(this.$route.params.id)
+                .then(res => {
+                    this.recipes = res.data
+                }).catch(() => {
+                    this.message.title = 'Erreur 404'
+                    this.message.content = 'Cette utilisateur n\'existe pas ou n\'existe plus.'
+                })
             this.loading = false
         }
     }

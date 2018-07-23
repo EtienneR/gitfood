@@ -233,6 +233,11 @@ import { EventBus } from '@/event-bus.js'
 
 export default {
   name: 'FormRecipe',
+  metaInfo() {
+    return {
+      title: this.$route.params.id ? 'Modifier une recette' : 'Ajouter une recette'
+    }
+  },
 	props: {
 		isConnected: Boolean,
     userId: Number

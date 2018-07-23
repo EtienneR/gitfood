@@ -18,6 +18,9 @@ import Copyright from './components/layout/Copyright.vue'
 import { EventBus } from '@/event-bus.js'
 
 export default {
+    metaInfo: {
+    	titleTemplate: '%s - Gitfood'
+    },
 	components: {
 		Navigation,
 		Copyright
@@ -25,7 +28,7 @@ export default {
 	data() {
 		return {
 			isConnected: true,
-			userId: 1,
+			userId: 2,
 			firstname: 'Toto',
 			loading: false
 		}

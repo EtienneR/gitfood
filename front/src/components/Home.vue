@@ -38,6 +38,10 @@
 import api from '@/services/Api'
 
 export default {
+    metaInfo: {
+    	title: 'GitFood',
+		titleTemplate: null
+    },
 	props: {
 		isConnected: Boolean,
 		userId: Number
@@ -50,9 +54,10 @@ export default {
 	},
 	methods: {
 		getAllRecipes() {
-			return api.getAllRecipes().then(res => {
-				this.recipes = res.data
-			})
+			return api.getAllRecipes()
+				.then(res => {
+					this.recipes = res.data
+				})
 		},
 		getRecipesByAuthor() {
 			this.recipes = this.recipes.filter(r => {

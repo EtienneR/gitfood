@@ -78,39 +78,42 @@
             </div>
 
             <div class="column is-three-quarters">
-                <div class="message" v-if="comments.length > 0">
-                    <div class="message-header">
-                        <h2 class="title is-5">Les commentaires ({{ comments.length }})</h2>
+                <div class="message" v-if="recipe">
+                    <div v-if="comments.length > 0">
+                        <div class="message-header">
+                            <h2 class="title is-5">Les commentaires ({{ comments.length }})</h2>
+                        </div>
+                        <article class="message-body" v-for="(comment, index) in comments" :key="index">
+                            <p>De 
+                                <router-link :to="{ name: 'user', params: { id: comment.user_id }}">
+                                    {{ comment.firstname }}
+                                </router-link>
+                            </p>
+                            <p>{{ comment.content }}</p>
+                        </article>
                     </div>
-                    <article class="message-body" v-for="(comment, index) in comments" :key="index">
-                        <p>De 
-                            <router-link :to="{ name: 'user', params: { id: comment.user_id }}">
-                                {{ comment.firstname }}
-                            </router-link>
-                        </p>
-                        <p>{{ comment.content }}</p>
-                    </article>
-                </div>
-                <div class="message" v-else>
-                    <div class="message-header">
-                        <h2 class="title is-5">Aucun commentaire</h2>
+                    <div v-else>
+                        <div class="message-header">
+                            <h2 class="title is-5">Aucun commentaire</h2>
+                        </div>
                     </div>
                 </div>
 
-                <b-field>
-                    <b-input type="textarea"
-                        placeholder="Laissez un message (de préférence constructif)"
-                        v-model="comment">
-                    </b-input>
-                </b-field>
-                <input type="submit"
-                    class="button is-primary"
-                    :value="isConnected ? 'Envoyer' : 'Vous devez être connecté'"
-                    @click="addComment()"
-                    :disabled="!isConnected">
+                <div v-if="recipe">
+                    <b-field>
+                        <b-input type="textarea"
+                            placeholder="Laissez un message (de préférence constructif)"
+                            v-model="comment">
+                        </b-input>
+                    </b-field>
+                    <input type="submit"
+                        class="button is-primary"
+                        :value="isConnected ? 'Envoyer' : 'Vous devez être connecté'"
+                        @click="addComment()"
+                        :disabled="!isConnected">
+                </div>
 
             </div>
-
         </div>
     
         <article v-if="message">
@@ -125,6 +128,11 @@
 import api from '@/services/Api'
 
 export default {
+    metaInfo() {
+        return {
+    	    title: this.recipe ?  `${this.recipe.name} de ${this.firstname}` : 'Erreur 404'
+        }
+    },
 	props: {
 		isConnected: Boolean,
         userId: Number,
@@ -150,21 +158,26 @@ export default {
         async getRecipe() {
             this.comments = []
             this.loading = true
-            await api.getRecipe(this.$route.params.id).then(res => {
-                this.recipe = res.data
-            }).catch(() => {
-                this.message.title = 'Erreur 404'
-                this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
-                this.loading = false
-            })
-            await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id).then(res => {
-                this.recipes = res.data
-            })
-            await api.getCommentsByRecipe(this.$route.params.id).then(res => {
-                this.comments = res.data
-            }).catch(() => {
-                this.loading = false
-            })
+            await api.getRecipe(this.$route.params.id)
+                .then(res => {
+                    this.recipe = res.data
+                }).catch(() => {
+                    this.message.title = 'Erreur 404'
+                    this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
+                    this.loading = false
+                })
+                if (this.recipe) {
+                    await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
+                        .then(res => {
+                            this.recipes = res.data
+                        })
+                    await api.getCommentsByRecipe(this.$route.params.id)
+                        .then(res => {
+                            this.comments = res.data
+                        }).catch(() => {
+                            this.loading = false
+                        })
+                }
             this.loading = false
         },
         like() {
