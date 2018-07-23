@@ -1,4 +1,4 @@
-/* Création de la table */
+/* Création des tables */
 exports.up = function(knex, Promise) {
     return Promise.all([
         knex.schema.withSchema('public').createTable('users', table => {
@@ -18,9 +18,10 @@ exports.up = function(knex, Promise) {
             table.text('conclusion')
             table.boolean('published')
             table.timestamps(true, true)
+            table.integer('id_parent').unsigned()
             table.integer('user_id').unsigned().references('users.id')
         }),
-        
+
         knex.schema.withSchema('public').createTable('comments', table => {
             table.increments('id').primary()
             table.text('content')
