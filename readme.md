@@ -41,12 +41,12 @@ Liste non exhaustive...
 | Organisation MVC | API | Done | Création modèle |
 | Ajout EventBus | Front | Done | Pour les notifications / toast |
 | Ajout page Erreur 404 | Front | Done |
-| Ajout vue-meta | Front | Backlog | Seulement la balise title |
+| Ajout vue-meta | Front | Done | Seulement la balise title |
+| Formater date | Front | Done | Date formatée avec Moment |
 | Migration avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
 | Seed avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
 | Moteur de recherche | API & Front | Backlog | |
 | Authentification | Api & Front | Backlog | |
-| Formater date | Front | Backlog | |
 | Moteur de recherche par titre dans compte | Front | Backlog | |
 | FormWizard | Front | Backlog | |
 | Helmet (Express) | API | Backlog | Ajout de sécurité |
@@ -64,3 +64,4 @@ Liste non exhaustive...
 - https://buefy.github.io
 - https://bulma.io
 - https://github.com/declandewet/vue-meta
+- https://momentjs.com

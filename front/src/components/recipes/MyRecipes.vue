@@ -40,15 +40,15 @@
 				<b-table-column label="Titre" field="name">
 					{{ props.row.name }}
 				</b-table-column>
-				<b-table-column label="Publiée" field="published">
+				<b-table-column label="Statut" field="published">
 					<span v-if="props.row.published">Publiée</span>
 					<span v-else>Brouillon</span>
 				</b-table-column>
 				<b-table-column label="Date de création" field="created_at">
-					{{ props.row.created_at }}
+					{{ props.row.created_at | moment }}
 				</b-table-column>
 				<b-table-column label="Date de modification" field="updated_at">
-					{{ props.row.updated_at }}
+					{{ props.row.updated_at | moment }}
 				</b-table-column>
 				<b-table-column label="Modifier">
 					<router-link class="button is-info"
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+//console.log(moment(	new Date('2018-07-23T12:14:41.202Z')).format('DD/MM/YYYY à HH:mm'))
 import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 
@@ -92,7 +94,7 @@ export default {
 				},
 				{
 					field: 'published',
-					label: 'Publiée',
+					label: 'Statut',
 				},
 				{
 					field: 'created_at',
@@ -140,7 +142,12 @@ export default {
 				EventBus.$emit('toast', `Recette ${id} supprimée`)
 			})
 		}
-	}
+	},
+filters: {
+  moment: function (date) {
+    return moment(date).format('DD/MM/YYYY à HH:mm');
+  }
+}
 }
 </script>
 
