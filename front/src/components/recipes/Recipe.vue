@@ -89,7 +89,7 @@
                                     {{ comment.firstname }}
                                 </router-link>
                             </p>
-                            <p>{{ comment.content }}</p>
+                            <p v-html="comment.content"></p>
                         </article>
                     </div>
                     <div v-else>
@@ -102,7 +102,7 @@
                 <div v-if="recipe">
                     <b-field>
                         <b-input type="textarea"
-                            placeholder="Laissez un message (de préférence constructif)"
+                            placeholder="Laissez un message (de préférence constructif). Le HTML est désactivé." 
                             v-model="comment">
                         </b-input>
                     </b-field>
@@ -125,6 +125,7 @@
 </template>
 
 <script>
+import sanitizeHtml from 'sanitize-html'
 import api from '@/services/Api'
 
 export default {
@@ -200,12 +201,17 @@ export default {
         },
         addComment() {
             const self = this
+            const content = sanitizeHtml(self.comment).replace(new RegExp('\r?\n','g'), '<br />')
             if (self.comment.length > 0) {
-                return api.addComment({ content: self.comment, user_id: self.userId, recette_id: self.$route.params.id })
+                return api.addComment({
+                        content: content,
+                        user_id: self.userId,
+                        recette_id: self.$route.params.id
+                    })
                     .then(comment => {
                         // Ajout du nouveau commentaire dans le tableau existant
                         this.comments.unshift({
-                            content: self.comment,
+                            content: content,
                             firstname: self.firstname,
                             id: comment.data.id,
                             user_id: self.userId
