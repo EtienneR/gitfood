@@ -4,8 +4,8 @@
 		<h1 class="title is-1 has-text-centered">Recettes</h1>
 
 		<div class="has-text-centered" v-if="isConnected">
-			<a class="button is-primary" @click="getAllRecipes()">Toutes les recettes</a> 
-			<a class="button is-default" v-if="userId" @click="getRecipesByAuthor()">Mes recettes</a>
+			<a class="button is-primary" @click="getAllRecipes()">Toutes les recettes ({{ total }})</a> 
+			<a class="button is-default" v-if="userId" @click="getRecipesByAuthor()">Mes recettes ({{getMine }})</a>
 		</div>
 
 		<article class="level" v-for="(recipe, index) in recipes" :key="index" v-if="recipes.length > 0">
@@ -49,7 +49,17 @@ export default {
 	data() {
 		return {
 			recipes: [],
-			message: ''
+			message: '',
+			total: ''
+		}
+	},
+	computed: {
+		getMine() {
+			return this.recipes.filter(r => {
+				if (r.user_id === this.userId) {
+					return r
+				}
+			}).length
 		}
 	},
 	methods: {
@@ -57,6 +67,7 @@ export default {
 			return api.getAllRecipes()
 				.then(res => {
 					this.recipes = res.data
+					this.total = res.data.length
 				})
 		},
 		getRecipesByAuthor() {
