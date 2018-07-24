@@ -12,6 +12,10 @@
                     <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
                         {{ recipe.firstname }}
                     </router-link>
+                    le 
+                    <time :datetime="recipe.created_at | iso8601">
+                        {{ recipe.created_at | moment }}
+                    </time>
                 </p>
                 <p><em>{{ recipe.introduction }}</em></p>
                 <div class="columns">
@@ -63,6 +67,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
 	props: {
 		recipe: Object,
@@ -76,6 +82,14 @@ export default {
             } else {
                 this.$emit('fork', this.recipe.id)
             }
+        }
+    },
+    filters: {
+        moment: function (date) {
+            return moment(date).format('DD/MM/YYYY')
+        },
+        iso8601: function (date) {
+            return moment(date).format()
         }
     }
 }
