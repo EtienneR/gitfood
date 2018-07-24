@@ -65,3 +65,4 @@ Liste non exhaustive...
 - https://bulma.io
 - https://github.com/declandewet/vue-meta
 - https://momentjs.com
+- https://github.com/punkave/sanitize-html

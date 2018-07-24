@@ -1,0 +1,24 @@
+<template>
+
+    <article class="message">
+        <div class="message-header">
+            <h2 class="title is-5">Du même auteur</h2>
+        </div>
+        <ul class="message-body">
+            <li v-for="(recipe, index) in recipes" :key="index">
+                <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
+                    {{ recipe.name }}
+                </router-link>
+            </li>
+        </ul>
+    </article>
+
+</template>
+
+<script>
+export default {
+	props: {
+		recipes: Array,
+	}
+}
+</script>

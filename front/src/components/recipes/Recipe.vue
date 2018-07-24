@@ -1,125 +1,27 @@
 <template>
     <section v-if="!loading" class="section">
 
-        <article v-if="recipe" class="card">
-            <header class="card-header has-text-centered">
-                <h1 class="title is-1 card-header-title">{{ recipe.name }}</h1>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    <p>
-                        Rédigé par
-                        <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
-                            {{ recipe.firstname }}
-                        </router-link>
-                    </p>
-                    <p><em>{{ recipe.introduction }}</em></p>
-                    <div class="columns">
-                        <div class="column is-one-quarter">
-                            <h2 class="title is-3">Ingrédients</h2>
-                            <ul>
-                                <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
-                                    <span v-if="ingredient.title">
-                                        <h3>{{ ingredient.title }}</h3>
-                                        <ul>
-                                            <li v-for="(i, index) in ingredient.step" :key="index">
-                                                {{ i.quantity }} {{ i.mesure }} {{ i.name }}
-                                            </li>
-                                        </ul>
-                                    </span>
-                                    <span v-else>
-                                        {{ ingredient.quantity }} {{ ingredient.mesure }} <span v-if="ingredient.mesure">de</span> {{ ingredient.name }}
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="column is-three-quarters">
-                            <h2 class="title is-3">Instructions</h2>
-                            <ol>
-                                <li v-for="(instruction, index) in recipe.instructions" :key="index">
-                                    <span v-if="instruction.title">
-                                        <h3>{{ instruction.title }}</h3>
-                                        <ol>
-                                            <li v-for="(a, index) in instruction.step" :key="index">{{ a.name }}</li>
-                                        </ol>
-                                    </span>
-                                    <span v-else>
-                                        {{ instruction.name }}
-                                    </span>
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <p>{{ recipe.conclusion }}</p>
-                </div>
-            </div>
-            <footer class="card-footer">
-                <a href="#" class="card-footer-item" @click="like" v-if="recipe.user_id !== userId">Liker</a>
-                <a href="#" class="card-footer-item" @click="fork()">Forker</a>
-                <a href="#" class="card-footer-item">Commenter</a>
-            </footer>  
-        </article>
+        <Card :recipe="recipe"
+            :footer="true"
+            :isConnected="isConnected"
+            @fork="fork" />
         <br />
 
         <div class="columns">
             <div class="column is-one-quarter">
-                <article class="message" v-if="recipes.length > 0">
-                    <div class="message-header">
-                        <h2 class="title is-5">Du même auteur</h2>
-                    </div>
-                    <ul class="message-body">
-                        <li v-for="(recipe, index) in recipes" :key="index">
-                            <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
-                                {{ recipe.name }}
-                            </router-link>
-                        </li>
-                    </ul>
-                </article>
+                <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
             </div>
 
             <div class="column is-three-quarters">
                 <div class="message" v-if="recipe">
-                    <div v-if="comments.length > 0">
-                        <div class="message-header">
-                            <h2 class="title is-5">Les commentaires ({{ comments.length }})</h2>
-                        </div>
-                        <article class="message-body" v-for="(comment, index) in comments" :key="index">
-                            <p>De 
-                                <router-link :to="{ name: 'user', params: { id: comment.user_id }}">
-                                    {{ comment.firstname }}
-                                </router-link>
-                            </p>
-                            <p v-html="comment.content"></p>
-                        </article>
-                    </div>
-                    <div v-else>
-                        <div class="message-header">
-                            <h2 class="title is-5">Aucun commentaire</h2>
-                        </div>
-                    </div>
+                    <Comments :comments="comments"
+                        :isConnected="isConnected"
+                        @add="addComment" />
                 </div>
-
-                <div v-if="recipe">
-                    <b-field>
-                        <b-input type="textarea"
-                            placeholder="Laissez un message (de préférence constructif). Le HTML est désactivé." 
-                            v-model="comment">
-                        </b-input>
-                    </b-field>
-                    <input type="submit"
-                        class="button is-primary"
-                        :value="isConnected ? 'Envoyer' : 'Vous devez être connecté'"
-                        @click="addComment()"
-                        :disabled="!isConnected">
-                </div>
-
             </div>
         </div>
-    
-        <article v-if="message">
-            <h1 class="title is-1 has-text-centered">{{ message.title }}</h1>
-            <p class="title is-4 has-text-centered">{{ message.content }}</p>
-        </article>
+
+        <Error v-if="message" :message="message"></Error>
 
     </section>
 </template>
@@ -127,8 +29,18 @@
 <script>
 import sanitizeHtml from 'sanitize-html'
 import api from '@/services/Api'
+import Card from '@/components/recipes/includes/Card'
+import SameAuthor from '@/components/recipes/includes/SameAuthor'
+import Comments from '@/components/recipes/includes/Comments'
+import Error from '@/components/recipes/includes/Error'
 
 export default {
+    components: {
+        Card,
+        SameAuthor,
+        Comments,
+        Error
+    },
     metaInfo() {
         return {
             title: this.recipe ?  `${this.recipe.name} de ${this.recipe.firstname}` : 'Erreur 404'
@@ -145,8 +57,7 @@ export default {
             recipe: null,
             recipes: [],
             comments: [],
-            message: {},
-            comment: ''
+            message: {}
         }
     },
     async created () {
@@ -181,46 +92,29 @@ export default {
                 }
             this.loading = false
         },
-        like() {
-            if (!this.isConnected) {
-                this.notConnected()
-            }
+        fork(id_recipe) {
+            this.$root.$router.push({
+                name: 'forkRecipe',
+                id: id_recipe
+            })
         },
-        fork() {
-            if (!this.isConnected) {
-                this.notConnected()
-            } else {
-                this.$root.$router.push({
-                    name: 'forkRecipe',
-                    id: this.$route.params.id
-                })
-            }
-        },
-        notConnected() {
-            alert('not connected')
-        },
-        addComment() {
+        addComment(comment) {
+            const content = sanitizeHtml(comment).replace(new RegExp('\r?\n','g'), '<br />')
             const self = this
-            const content = sanitizeHtml(self.comment).replace(new RegExp('\r?\n','g'), '<br />')
-            if (self.comment.length > 0) {
-                return api.addComment({
+            return api.addComment({
+                    content: content,
+                    user_id: self.userId,
+                    recette_id: self.$route.params.id
+                })
+                .then(comment => {
+                    // Ajout du nouveau commentaire dans le tableau existant
+                    this.comments.push({
                         content: content,
-                        user_id: self.userId,
-                        recette_id: self.$route.params.id
+                        firstname: self.firstname,
+                        id: comment.data.id,
+                        user_id: self.userId
                     })
-                    .then(comment => {
-                        // Ajout du nouveau commentaire dans le tableau existant
-                        this.comments.unshift({
-                            content: content,
-                            firstname: self.firstname,
-                            id: comment.data.id,
-                            user_id: self.userId
-                        })
-                        self.comment = ''
-                    })
-            } else {
-                alert('Merci de remplir le champs')
-            }
+                })
         }
     }
 }
