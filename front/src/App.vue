@@ -19,7 +19,7 @@ import { EventBus } from '@/event-bus.js'
 
 export default {
     metaInfo: {
-    	titleTemplate: '%s - Gitfood'
+		titleTemplate: '%s - Gitfood'
     },
 	components: {
 		Navigation,

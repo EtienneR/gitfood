@@ -38,10 +38,10 @@
 import api from '@/services/Api'
 
 export default {
-    metaInfo: {
-    	title: 'GitFood',
+	metaInfo: {
+		title: 'GitFood',
 		titleTemplate: null
-    },
+	},
 	props: {
 		isConnected: Boolean,
 		userId: Number

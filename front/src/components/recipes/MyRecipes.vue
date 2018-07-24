@@ -74,16 +74,16 @@ import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 
 export default {
-    metaInfo() {
-        return {
-    	    title: this.getPublishedRecipes && `Mes recettes (${this.getPublishedRecipes})`
-        }
-    },
+	metaInfo() {
+		return {
+			title: this.getPublishedRecipes && `Mes recettes (${this.getPublishedRecipes})`
+		}
+	},
 	props: {
 		isConnected: Boolean,
-    	userId: Number
+		userId: Number
 	},
-  	data() {
+	data() {
 		return {
 			recipes: [],
 			forks: [],
@@ -106,7 +106,7 @@ export default {
 				}
 			]
 		}
-  	},
+	},
 	async created() {
 		this.myRecipes()
 	},

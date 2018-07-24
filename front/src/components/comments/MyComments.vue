@@ -15,7 +15,7 @@ import api from '@/services/Api'
 export default {
     metaInfo() {
         return {
-    	    title: this.comments && `Mes commentaires (${this.comments.length})`
+            title: this.comments && `Mes commentaires (${this.comments.length})`
         }
     },
 	props: {

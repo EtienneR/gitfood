@@ -130,7 +130,7 @@ import api from '@/services/Api'
 export default {
     metaInfo() {
         return {
-    	    title: this.recipe ?  `${this.recipe.name} de ${this.firstname}` : 'Erreur 404'
+            title: this.recipe ?  `${this.recipe.name} de ${this.firstname}` : 'Erreur 404'
         }
     },
 	props: {

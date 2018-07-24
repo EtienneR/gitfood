@@ -32,7 +32,7 @@ import api from '@/services/Api'
 export default {
     metaInfo() {
         return {
-    	    title: this.recipes[0] && `Les recettes de ${this.recipes[0].firstname}`
+            title: this.recipes[0] && `Les recettes de ${this.recipes[0].firstname}`
         }
     },
     data() {

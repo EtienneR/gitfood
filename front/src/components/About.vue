@@ -16,7 +16,7 @@
 <script>
 export default {
     metaInfo: {
-    	title: 'A propos'
+        title: 'A propos'
     }
 }
 </script>
