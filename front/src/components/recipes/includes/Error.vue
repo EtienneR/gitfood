@@ -1,10 +1,18 @@
 <template>
+    <section class="hero is-light">
 
-    <article>
-        <h1 class="title is-1 has-text-centered">{{ message.title }}</h1>
-        <p class="title is-4 has-text-centered">{{ message.content }}</p>
-    </article>
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title title is-2">
+                    {{ message.title }}
+                </h1>
+                <p class="subtitle">
+                    {{ message.content }}
+                </p>
+            </div>
+        </div>
 
+    </section>
 </template>
 
 <script>

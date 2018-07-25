@@ -1,5 +1,5 @@
 <template>
-	<nav class="navbar is-transparent">
+	<nav class="navbar is-transparent container">
 
 		<div class="navbar-brand">
 			<router-link class="navbar-item" to="/">GitFood</router-link>

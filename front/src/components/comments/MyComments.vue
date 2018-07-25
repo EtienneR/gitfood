@@ -1,12 +1,25 @@
 <template>
-    <section class="section">
+    <div>
 
-        <h1 class="title is-1 has-text-centered">Mes commentaires ({{ this.comments.length }})</h1>
-        <article v-for="(comment, index) in comments" :key="index">
-            <p>{{ comment.content }} posté dans <strong>{{ comment.name }}</strong></p>
-        </article>
+		<section class="hero is-light">
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h1 class="title title is-2">
+						Mes commentaires ({{ this.comments.length }})
+					</h1>
+				</div>
+			</div>
+		</section>
 
-    </section>
+        <section class="section">
+            <div class="container">
+                <article v-for="(comment, index) in comments" :key="index" class="content">
+                    <p>{{ comment.content }} posté dans <strong>{{ comment.name }}</strong></p>
+                </article>
+            </div>
+        </section>
+
+    </div>
 </template>
 
 <script>

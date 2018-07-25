@@ -1,30 +1,30 @@
 <template>
-    <section v-if="!loading" class="section">
+    <div v-if="!loading">
 
         <Card :recipe="recipe"
             :footer="true"
             :isConnected="isConnected"
             @fork="fork" />
-        <br />
 
-        <div class="columns">
-            <div class="column is-one-quarter">
-                <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
-            </div>
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
+                </div>
 
-            <div class="column is-three-quarters">
-                <div class="message" v-if="recipe">
-                    <Comments :comments="comments"
-                        :isConnected="isConnected"
-                        @add="addComment" />
+                <div class="column is-three-quarters">
+                    <div class="message" v-if="recipe">
+                        <Comments :comments="comments"
+                            :isConnected="isConnected"
+                            @add="addComment" />
+                    </div>
                 </div>
             </div>
         </div>
-
         <Error v-if="message" :message="message"></Error>
 
-    </section>
-    <section v-else>
+    </div>
+    <section v-else class="container">
         <b-loading :is-full-page="false" :active.sync="loading" :can-cancel="true"></b-loading>
     </section>
 </template>

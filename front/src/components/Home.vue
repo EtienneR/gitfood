@@ -1,36 +1,47 @@
 <template>
-	<section v-if="!loading" class="section">
-		<h1 class="title is-1 has-text-centered">Recettes</h1>
+	<div v-if="!loading">
 
-		<div class="has-text-centered" v-if="isConnected">
-			<a class="button is-primary" @click="getAllRecipes()">Toutes les recettes ({{ total }})</a> 
-			<a class="button is-default" v-if="userId" @click="getRecipesByAuthor()">Mes recettes ({{getMine }})</a>
-		</div>
-
-		<article class="level" v-for="(recipe, index) in recipes" :key="index" v-if="recipes.length > 0">
-			<div class="level-left">
-				<div class="level-item">
-					<h2 class="title is-3">
-						<router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
-							{{ recipe.name }}
-						</router-link>
-					</h2>
-				</div>
-				<div class="level-item">
-					<p>par 
-						<router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
-                            <strong>{{ recipe.firstname }}</strong>
-                        </router-link>
+		<section class="hero is-light">
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h1 class="title title is-2">
+						GitFood
+					</h1>
+					<p class="subtitle">
+						Partagez vos recettes
 					</p>
 				</div>
 			</div>
-		</article>
+		</section>
 
-		<article v-if="recipes.length === 0 && message">
-			<p>{{ message }}</p>
-		</article>
+		<section class="section">
+			<div class="container">
+				<article class="level" v-for="(recipe, index) in recipes" :key="index" v-if="recipes.length > 0">
+					<div class="level-left">
+						<div class="level-item">
+							<h2 class="title is-3">
+								<router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
+									{{ recipe.name }}
+								</router-link>
+							</h2>
+						</div>
+						<div class="level-item">
+							<p>par 
+								<router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+									<strong>{{ recipe.firstname }}</strong>
+								</router-link>
+							</p>
+						</div>
+					</div>
+				</article>
 
-	</section>
+				<article v-if="recipes.length === 0 && message">
+					<p>{{ message }}</p>
+				</article>
+			</div>
+		</section>
+
+	</div>
     <section v-else>
         <b-loading :is-full-page="true" :active.sync="loading" :can-cancel="true"></b-loading>
     </section>
@@ -55,15 +66,6 @@ export default {
 			recipes: [],
 			message: '',
 			total: ''
-		}
-	},
-	computed: {
-		getMine() {
-			return this.recipes.filter(r => {
-				if (r.user_id === this.userId) {
-					return r
-				}
-			}).length
 		}
 	},
 	async created() {

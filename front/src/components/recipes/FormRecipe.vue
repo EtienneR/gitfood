@@ -1,5 +1,21 @@
 <template>
-  <section class="section">
+  <div>
+
+  		<section class="hero is-light">
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h1 class="title title is-2">
+						{{ currentPage }}
+					</h1>
+					<p class="subtitle" v-if="this.$route.params.id">
+						{{ recette.name }}
+					</p>
+				</div>
+			</div>
+		</section>
+
+    <section class="section">
+    <div class="container">
 
     <div class="columns">
       <div class="column is-two-thirds">
@@ -223,8 +239,10 @@
         <p>{{ recette.conclusion }}</p>
       </div>
     </div>
+    </div>
+    </section>
 
-  </section>
+  </div>
 </template>
 
 <script>
@@ -235,7 +253,7 @@ export default {
   name: 'FormRecipe',
   metaInfo() {
     return {
-      title: this.$route.params.id ? 'Modifier une recette' : 'Ajouter une recette'
+      title: this.currentPage
     }
   },
 	props: {
