@@ -43,15 +43,16 @@ Liste non exhaustive...
 | Ajout page Erreur 404 | Front | Done |
 | Ajout vue-meta | Front | Done | Seulement la balise title |
 | Formater date | Front | Done | Date formatée avec Moment |
-| Migration avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
-| Seed avec Knex | API | En cours | Seulement les recettes et les utilisateurs |
+| Migration avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
+| Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
+| Tests unitaires avec Jest | Back | En cours | Soucis avec les promesses |
 | Moteur de recherche | API & Front | Backlog | |
 | Authentification | Api & Front | Backlog | |
 | Moteur de recherche par titre dans compte | Front | Backlog | |
 | FormWizard | Front | Backlog | |
 | Helmet (Express) | API | Backlog | Ajout de sécurité |
 | Ajout dialogue suppression recette | Front | Backlog | Ajout dialog |
-| Tests unitaires avec Jest | Back | En cours | Soucis avec les promesses |
+| Ajout image | Back & front | Backlog | Pour illustrer une recette |
 
 ## Sources
 
