@@ -72,7 +72,7 @@
 
 <script>
 import moment from 'moment'
-//console.log(moment(	new Date('2018-07-23T12:14:41.202Z')).format('DD/MM/YYYY à HH:mm'))
+
 import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 
@@ -129,8 +129,13 @@ export default {
 		async myRecipes() {
 			this.loading = true
 			await api.getRecipesByAuthor(this.userId)
-			.then(res =>  {
+			.then(res => {
 				this.recipes = res.data
+			})
+			.catch(err => {
+				if (err.response.status === 500) {
+					EventBus.$emit('message', true)
+				}
 			})
 			await api.getForks(this.userId)
 			.then(res => {
@@ -156,7 +161,3 @@ export default {
 	}
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

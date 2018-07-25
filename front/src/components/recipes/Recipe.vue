@@ -31,11 +31,13 @@
 
 <script>
 import sanitizeHtml from 'sanitize-html'
+
 import api from '@/services/Api'
 import Card from '@/components/recipes/includes/Card'
 import SameAuthor from '@/components/recipes/includes/SameAuthor'
 import Comments from '@/components/recipes/includes/Comments'
 import Error from '@/components/recipes/includes/Error'
+import { EventBus } from '@/event-bus.js'
 
 export default {
     components: {
@@ -74,12 +76,16 @@ export default {
             this.comments = []
             this.loading = true
             await api.getRecipe(this.$route.params.id)
-                .then(res => {
+                .then((res) => {
                     this.recipe = res.data
-                }).catch(() => {
-                    this.message.title = 'Erreur 404'
-                    this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
-                    this.loading = false
+                }).catch(err => {
+                    if (err.response.status === 404) {
+                        this.message.title = 'Erreur 404'
+                        this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
+                    }
+                    if (err.response.status === 500) {
+                        EventBus.$emit('message', true)
+                    }
                 })
                 if (this.recipe) {
                     await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)

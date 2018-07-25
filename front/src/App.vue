@@ -2,12 +2,15 @@
 	<div>
 
 		<navigation :isConnected="isConnected" />
+		<b-notification type="is-warning" v-if="message">
+			Oups... il semblerait qu'il y ait un problème avec l'API et / ou la BDD
+        </b-notification>
 		<router-view
 			:isConnected="isConnected"
 			:userId="userId"
 			:firstname="firstname">
 		</router-view>
-		<copyright :loading="loading" />
+		<copyright />
 
 	</div>
 </template>
@@ -30,7 +33,7 @@ export default {
 			isConnected: true,
 			userId: 2,
 			firstname: 'Toto',
-			loading: false
+			message: false
 		}
 	},
 	methods: {
@@ -44,13 +47,16 @@ export default {
 		}
 	},
 	created() {
-		let self = this
+		const self = this
 		EventBus.$on('toast', function (value) {
 			self.toast = value
 			self.snackbar(value)
 		})
 		EventBus.$on('logout', function (value) {
 			self.isConnected = value
+		})
+		EventBus.$on('message', function (value) {
+			self.message = value
 		})
 	}
 }

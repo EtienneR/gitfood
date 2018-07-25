@@ -1,6 +1,5 @@
 <template>
 	<section v-if="!loading" class="section">
-
 		<h1 class="title is-1 has-text-centered">Recettes</h1>
 
 		<div class="has-text-centered" v-if="isConnected">
@@ -39,6 +38,7 @@
 
 <script>
 import api from '@/services/Api'
+import { EventBus } from '@/event-bus.js'
 
 export default {
 	metaInfo: {
@@ -76,6 +76,11 @@ export default {
 				.then(res => {
 					this.recipes = res.data
 					this.total = res.data.length
+				})
+				.catch(err => {
+					if (err.response.status === 500) {
+						EventBus.$emit('message', true)
+					}
 				})
 			this.loading = false
 		},
