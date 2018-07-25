@@ -1,5 +1,5 @@
 <template>
-	<section class="section">
+	<section class="section" v-if="!loading">
 		<nav class="level">
 			<div class="level-item has-text-centered">
 				<div>
@@ -65,6 +65,9 @@
 		</b-table>
 
 	</section>
+    <section v-else>
+        <b-loading :is-full-page="true" :active.sync="loading" :can-cancel="true"></b-loading>
+    </section>
 </template>
 
 <script>
@@ -85,6 +88,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: false,
 			recipes: [],
 			forks: [],
 			columns: [
@@ -123,6 +127,7 @@ export default {
 	},
 	methods: {
 		async myRecipes() {
+			this.loading = true
 			await api.getRecipesByAuthor(this.userId)
 			.then(res =>  {
 				this.recipes = res.data
@@ -134,6 +139,7 @@ export default {
 			.catch(() => {
 				console.info('No forks for this user')
 			})
+			this.loading = false
 		},
 		remove(id, index) {
 			return api.removeRecipe(id)
@@ -143,11 +149,11 @@ export default {
 			})
 		}
 	},
-filters: {
-  moment: function (date) {
-    return moment(date).format('DD/MM/YYYY à HH:mm');
-  }
-}
+	filters: {
+		moment: function (date) {
+			return moment(date).format('DD/MM/YYYY à HH:mm')
+		}
+	}
 }
 </script>
 

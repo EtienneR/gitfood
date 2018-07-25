@@ -1,5 +1,5 @@
 <template>
-	<section class="section">
+	<section v-if="!loading" class="section">
 
 		<h1 class="title is-1 has-text-centered">Recettes</h1>
 
@@ -32,6 +32,9 @@
 		</article>
 
 	</section>
+    <section v-else>
+        <b-loading :is-full-page="true" :active.sync="loading" :can-cancel="true"></b-loading>
+    </section>
 </template>
 
 <script>
@@ -48,6 +51,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: false,
 			recipes: [],
 			message: '',
 			total: ''
@@ -62,13 +66,18 @@ export default {
 			}).length
 		}
 	},
+	async created() {
+		this.getAllRecipes()
+	},
 	methods: {
-		getAllRecipes() {
-			return api.getAllRecipes()
+		async getAllRecipes() {
+			this.loading = true
+			await api.getAllRecipes()
 				.then(res => {
 					this.recipes = res.data
 					this.total = res.data.length
 				})
+			this.loading = false
 		},
 		getRecipesByAuthor() {
 			this.recipes = this.recipes.filter(r => {
@@ -81,9 +90,6 @@ export default {
 				this.message = 'Aucune recette, il n\'est jamais trop tard pour publier les votre...'
 			}
 		}
-	},
-	mounted() {
-		this.getAllRecipes()
 	}
 }
 </script>

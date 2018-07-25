@@ -24,6 +24,9 @@
         <Error v-if="message" :message="message"></Error>
 
     </section>
+    <section v-else>
+        <b-loading :is-full-page="false" :active.sync="loading" :can-cancel="true"></b-loading>
+    </section>
 </template>
 
 <script>

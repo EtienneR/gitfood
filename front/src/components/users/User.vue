@@ -24,6 +24,9 @@
         </section>
 
     </div>
+    <div v-else>
+        <b-loading is-full-page="true" :active.sync="loading" :can-cancel="true"></b-loading>
+    </div>
 </template>
 
 <script>
