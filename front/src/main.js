@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App'
-import Home from './components/Home'
-import Recipe from './components/recipes/Recipe'
-import User from './components/users/User'
-import MyRecipes from './components/recipes/MyRecipes'
-import FormRecipe from './components/recipes/FormRecipe'
-import MyComments from './components/comments/MyComments'
-import About from './components/About'
-import Error404 from './components/Error404'
+//import Home from './components/Home'
+const Home = () => import('@/components/Home')
+const Recipe = () => import('@/components/recipes/Recipe')
+const User = () => import('@/components/users/User')
+const MyRecipes = () => import('@/components/recipes/MyRecipes')
+const FormRecipe = () => import('@/components/recipes/FormRecipe')
+const MyComments = () => import('@/components/comments/MyComments')
+const About = () => import('@/components/About')
+const Error404 = () => import('@/components/Error404')
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 import Meta from 'vue-meta'
