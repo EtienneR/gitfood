@@ -6,7 +6,11 @@
         <Header v-if="recipes.length > 0"
             :title="recipes[0].firstname"
             subtitle="Toutes ses recettes" />
-        <RecipesList v-if="recipes.length > 0" :recipes="recipes" />
+        <section class="section">
+			<div class="container">
+                <RecipesList v-if="recipes.length > 0" :recipes="recipes" />
+            </div>
+        </section>
 
         <Error v-if="Object.keys(message).length > 0" :message="message" />
 

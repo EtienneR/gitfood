@@ -5,7 +5,20 @@
 
 		<div v-if="!loading">
 			<Header title="GitFood" subtitle="Partagez vos recettes" />
-			<RecipesList :recipes="recipes" />
+
+			<section class="section">
+				<div class="container">
+
+					<b-notification v-if="!isConnected">
+						Bienvenue sur GitFood, le site de partage de recettes. En vous inscrivant, vous pouvez poster vos recettes et les partager à tout le monde. Si une recette, vous pouvez la dupliquer :) - Inscription -
+						<router-link :to="{ name: 'about'}">
+							Plus d'informations
+						</router-link>
+					</b-notification>
+
+					<RecipesList :recipes="recipes" />
+				</div>
+			</section>
 		</div>
 
 	</div>
