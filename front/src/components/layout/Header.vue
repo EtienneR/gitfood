@@ -1,5 +1,5 @@
 <template>
-    <section class="hero is-light" style="background: url(http://www.uidownload.com/files/689/983/630/hand-drawn-cartoon-food-seamless-background-vector.jpg)">
+    <section class="hero is-light">
 
         <div class="hero-body">
             <div class="container has-text-centered">
@@ -23,3 +23,9 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.hero {
+    background-image: url('../../assets/bg-header.jpg')
+}
+</style>
