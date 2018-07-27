@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <div v-if="comments.length > 0">
             <div class="message-header">
                 <h2 class="title is-5">Les commentaires ({{ comments.length }})</h2>

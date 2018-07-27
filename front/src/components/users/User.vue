@@ -1,52 +1,33 @@
 <template>
-    <div v-if="!loading">
+    <div>
 
-		<section class="hero is-light">
-			<div class="hero-body">
-				<div class="container has-text-centered">
-					<h1 class="title is-1 has-text-centered">
-                        {{ recipes[0].firstname }}
-                    </h1>
-					<p class="subtitle">
-						Toutes <span v-if="isConnected && (recipes[0].user_id == userId)">mes</span><span v-else>ses</span> recettes
-					</p>
-				</div>
-			</div>
-		</section>
+        <Loading :loading="loading" />
 
-        <section class="container" v-if="recipes.length > 0">
-            
-            <article class="level" v-for="(recipe, index) in recipes" :key="index" v-if="recipes.length > 0">
-                <div class="level-left">
-                    <div class="level-item">
-                        <h2 class="title is-3">
-                            <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
-                                {{ recipe.name }}
-                            </router-link>
-                        </h2>
-                    </div>
-                </div>
-            </article>
-        </section>
+        <Header v-if="recipes.length > 0"
+            :title="recipes[0].firstname"
+            subtitle="Toutes ses recettes" />
+        <RecipesList v-if="recipes.length > 0" :recipes="recipes" />
 
-        <section class="container" v-if="message">
-            <article>
-                <h1 class="title is-1 has-text-centered">{{ message.title }}</h1>
-                <p class="title is-4 has-text-centered">{{ message.content }}</p>
-            </article>
-        </section>
+        <Error v-if="Object.keys(message).length > 0" :message="message" />
 
-    </div>
-    <div v-else>
-        <b-loading :is-full-page="true" :active.sync="loading" :can-cancel="true"></b-loading>
     </div>
 </template>
 
 <script>
 import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
+import Loading from '@/components/Loading.vue'
+import Header from '@/components/layout/Header.vue'
+import RecipesList from '@/components/recipes/includes/RecipesList.vue'
+import Error from '@/components/recipes/includes/Error'
 
 export default {
+    components: {
+        Loading,
+		Header,
+		RecipesList,
+        Error
+    },
     props: {
         isConnected: Boolean,
         userId: Number

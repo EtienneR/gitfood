@@ -1,49 +1,58 @@
 <template>
-    <div v-if="!loading">
+    <div>
 
-        <Card :recipe="recipe"
-            :footer="true"
-            :isConnected="isConnected"
-            @fork="fork" />
+        <Loading :loading="loading" />
 
-        <div class="container">
-            <div class="columns">
-                <div class="column is-one-quarter">
-                    <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
-                </div>
+        <div v-if="!loading && recipe">
+            <Header :title="recipe.name" />
 
-                <div class="column is-three-quarters">
-                    <div class="message" v-if="recipe">
-                        <Comments :comments="comments"
-                            :isConnected="isConnected"
-                            @add="addComment" />
+            <Card :recipe="recipe"
+                :footer="true"
+                :isConnected="isConnected"
+                @fork="fork" />
+
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
+                    </div>
+
+                    <div class="column is-three-quarters">
+                        <div class="message" v-if="recipe">
+                            <Comments :comments="comments"
+                                :isConnected="isConnected"
+                                @add="addComment" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <Error v-if="message" :message="message"></Error>
+        
+        <Error v-if="Object.keys(message).length > 0" :message="message" />
 
     </div>
-    <section v-else class="container">
-        <b-loading :is-full-page="false" :active.sync="loading" :can-cancel="true"></b-loading>
-    </section>
+
 </template>
 
 <script>
 import sanitizeHtml from 'sanitize-html'
 
 import api from '@/services/Api'
+import { EventBus } from '@/event-bus.js'
 import Card from '@/components/recipes/includes/Card'
 import SameAuthor from '@/components/recipes/includes/SameAuthor'
 import Comments from '@/components/recipes/includes/Comments'
+import Loading from '@/components/Loading.vue'
+import Header from '@/components/layout/Header.vue'
 import Error from '@/components/recipes/includes/Error'
-import { EventBus } from '@/event-bus.js'
 
 export default {
     components: {
         Card,
         SameAuthor,
         Comments,
+        Loading,
+        Header,
         Error
     },
     metaInfo() {
@@ -58,11 +67,11 @@ export default {
 	},
     data() {
         return {
-            loading: false,
             recipe: null,
             recipes: [],
             comments: [],
-            message: {}
+            message: {},
+            loading: false
         }
     },
     async created () {
@@ -95,8 +104,9 @@ export default {
                     await api.getCommentsByRecipe(this.$route.params.id)
                         .then(res => {
                             this.comments = res.data
-                        }).catch(() => {
-                            this.loading = false
+                        })
+                        .catch(() => {
+                            console.info('no comments')
                         })
                 }
             this.loading = false

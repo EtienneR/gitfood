@@ -1,4 +1,5 @@
 <template>
+	<section class="container">
 	<nav class="navbar is-transparent container">
 
 		<div class="navbar-brand">
@@ -120,6 +121,7 @@
 		</b-modal>
 
 	</nav>
+	</section>
 </template>
 
 <script>

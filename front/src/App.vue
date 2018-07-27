@@ -1,23 +1,21 @@
 <template>
 	<div>
-
 		<navigation :isConnected="isConnected" />
 		<b-notification type="is-warning" v-if="message">
 			Oups... il semblerait qu'il y ait un problème avec l'API et / ou la BDD
-        </b-notification>
+		</b-notification>
 		<router-view
 			:isConnected="isConnected"
 			:userId="userId"
 			:firstname="firstname">
 		</router-view>
 		<copyright />
-
 	</div>
 </template>
 
 <script>
-import Navigation from './components/layout/Navigation.vue'
-import Copyright from './components/layout/Copyright.vue'
+import Navigation from '@/components/layout/Navigation'
+import Copyright from '@/components/layout/Copyright'
 import { EventBus } from '@/event-bus.js'
 
 export default {

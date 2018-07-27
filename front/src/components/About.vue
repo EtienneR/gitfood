@@ -1,18 +1,7 @@
 <template>
     <div>
 
-		<section class="hero is-light">
-			<div class="hero-body">
-				<div class="container has-text-centered">
-					<h1 class="title is-1 has-text-centered">
-                        A propos
-                    </h1>
-					<p class="subtitle">
-                        La page FAQ
-					</p>
-				</div>
-			</div>
-		</section>
+        <Header title="A propos" subtitle="La page FAQ" />
         
         <section class="section">
             <div class="container">
@@ -30,7 +19,12 @@
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
+
 export default {
+    components: {
+		Header
+    },
     metaInfo: {
         title: 'A propos'
     }

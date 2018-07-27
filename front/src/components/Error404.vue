@@ -1,22 +1,18 @@
 <template>
-    <section class="hero is-light">
+    <div>
 
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title title is-2">
-                    Erreur 404
-                </h1>
-                <p class="subtitle">
-                    Cette page n'existe pas ou n'existe plus.
-                </p>
-            </div>
-        </div>
+        <Header title="Erreur 404" subtitle="Cette page n'existe pas ou n'existe plus." />
 
-    </section>
+    </div>
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
+
 export default {
+    components: {
+		Header
+    },
     metaInfo: {
         title: 'Erreur 404'
     }

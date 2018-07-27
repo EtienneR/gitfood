@@ -1,22 +1,18 @@
 <template>
-    <section class="hero is-light">
+    <div>
 
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title title is-2">
-                    {{ message.title }}
-                </h1>
-                <p class="subtitle">
-                    {{ message.content }}
-                </p>
-            </div>
-        </div>
+        <Header :title="message.title" :subtitle="message.content" />
 
-    </section>
+    </div>
 </template>
 
 <script>
+import Header from '@/components/layout/Header.vue'
+
 export default {
+    components: {
+		Header
+    },
 	props: {
 		message: Object,
 	}
