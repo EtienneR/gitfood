@@ -43,7 +43,6 @@ export default {
 		}
 	},
 	props: {
-		isConnected: Boolean,
 		userId: Number
 	},
 	data() {
@@ -89,42 +88,31 @@ export default {
 	methods: {
 		async myRecipes() {
 			this.loading = true
+			// Récupération des recettes de l'utilisateur
 			await api.getRecipesByAuthor(this.userId)
 			.then(res => {
 				this.recipes = res.data
+				// Récupération des recettes forkées
+				api.getForks(this.userId)
+				.then(res => {
+					this.forks = res.data
+				})
+				.catch(() => {
+					console.info('No forks for this user')
+				})
 			})
 			.catch(err => {
 				if (err.response.status === 500) {
 					EventBus.$emit('message', true)
 				}
 			})
-			await api.getForks(this.userId)
-			.then(res => {
-				this.forks = res.data
-			})
-			.catch(() => {
-				console.info('No forks for this user')
-			})
 			this.loading = false
 		},
-		save(id, recipe) {
-			console.log('MyRecipes save', id, recipe)
-			if (id) {
-				return api.updateRecipe(id, recipe)
-					.then(() => {
-						EventBus.$emit('toast', 'Recette modifiée')
-						this.$root.$router.push({
-							name: 'myRecipes'
-						})
-					})
-			} else {
-
-			}
-		},
-		remove(id, index) {
-			console.log('remove', id, index)
-			return api.removeRecipe(id)
+		// Suppression d'une recette
+		async remove(id, index) {
+			await api.removeRecipe(id)
 			.then(() => {
+				// Suppression du tableau
 				this.recipes.splice(index, 1)
 				EventBus.$emit('toast', `Recette ${id} supprimée`)
 			})
