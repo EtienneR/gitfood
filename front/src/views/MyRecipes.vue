@@ -4,7 +4,7 @@
 		<Loading :loading="loading" />
 
 		<div v-if="!loading">
-			<Header title="Mes recetttes" />
+			<Header title="Mes recettes" />
 
 			<section class="section">
 				<Informations
@@ -106,6 +106,20 @@ export default {
 				console.info('No forks for this user')
 			})
 			this.loading = false
+		},
+		save(id, recipe) {
+			console.log('MyRecipes save', id, recipe)
+			if (id) {
+				return api.updateRecipe(id, recipe)
+					.then(() => {
+						EventBus.$emit('toast', 'Recette modifiée')
+						this.$root.$router.push({
+							name: 'myRecipes'
+						})
+					})
+			} else {
+
+			}
 		},
 		remove(id, index) {
 			console.log('remove', id, index)
