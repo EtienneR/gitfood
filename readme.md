@@ -38,17 +38,17 @@ Liste non exhaustive...
 | Formulaire modification recette | Front | Done | |
 | Migration sur Buefy | Front | Done | |
 | Github | Devops | Done | Pousser sur Github |
-| Organisation MVC | API | Done | Création modèle |
+| Organisation MVC | API | Done |  |
 | Ajout EventBus | Front | Done | Pour les notifications / toast |
 | Ajout page Erreur 404 | Front | Done |
 | Ajout vue-meta | Front | Done | Seulement la balise title |
 | Formater date | Front | Done | Date formatée avec Moment |
+| Fil d'Arianne | Front | Done |  |
 | Migration avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
 | Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
-| Tests unitaires avec Jest | Back | En cours | Soucis avec les promesses |
-| Moteur de recherche | API & Front | Backlog | |
+| Moteur de recherche | API & Front | En cours | |
+| Tests unitaires avec Jest | Back | Backlog | Soucis avec les promesses |
 | Authentification | Api & Front | Backlog | |
-| Moteur de recherche par titre dans compte | Front | Backlog | |
 | FormWizard | Front | Backlog | |
 | Helmet (Express) | API | Backlog | Ajout de sécurité |
 | Ajout dialogue suppression recette | Front | Backlog | Ajout dialog |
