@@ -2,10 +2,15 @@
     <div class="container">
 
         <div class="content">
-            <router-link class="button is-primary" :to="{ name: 'addRecipe'}">Ajouter une recette</router-link>
+            <router-link class="button is-primary" :to="{ name: 'addRecipe'}">
+                Ajouter une recette
+            </router-link>
         </div>
 
-        <b-table :data="recipes" hoverable>
+        <b-table
+            :data="recipes" 
+            hoverable
+            striped>
             <template slot-scope="props">
                 <b-table-column label="Titre" field="name" sortable>
                     {{ props.row.name }}
