@@ -28,7 +28,9 @@
                 <b-table-column label="Supprimer">
                     <a class="button is-danger"
                         @click="remove(props.row.id, props.index)"
-                        :title="`Supprimer la recette ${props.row.name}`">Supprimer</a>
+                        :title="`Supprimer la recette ${props.row.name}`">
+                        Supprimer
+                    </a>
                 </b-table-column>
             </template>
         </b-table>
@@ -44,6 +46,20 @@ export default {
 		recipes: Array,
         column: Array
 	},
+    methods: {
+        remove(id, index) {
+            this.$dialog.confirm({
+                title: 'Supprimer cette recette ?',
+                message: 'Etes-vous sur de vouloir <b>supprimer</b> cette recette? Cette action sera définitive.',
+                confirmText: 'Supprimer cette recette',
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: () => {
+                    this.$emit('remove', id, index)
+                }
+            })
+        }
+    },
 	filters: {
 		moment: function (date) {
 			return moment(date).format('DD/MM/YYYY à HH:mm')

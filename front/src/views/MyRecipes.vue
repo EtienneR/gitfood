@@ -12,7 +12,10 @@
 					:getPublishedRecipes="getPublishedRecipes"
 					:getUnpublishedRecipes="getUnpublishedRecipes"
 					:getForksNumbers="getForksNumbers" />
-				<Dashboard :recipes="recipes" :columns="columns" />
+				<Dashboard
+					:recipes="recipes"
+					:columns="columns"
+					@remove="remove" />
 			</section>
 		</div>
 
@@ -105,6 +108,7 @@ export default {
 			this.loading = false
 		},
 		remove(id, index) {
+			console.log('remove', id, index)
 			return api.removeRecipe(id)
 			.then(() => {
 				this.recipes.splice(index, 1)

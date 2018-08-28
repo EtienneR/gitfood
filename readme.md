@@ -45,13 +45,13 @@ Liste non exhaustive...
 | Formater date | Front | Done | Date formatée avec Moment |
 | Fil d'Arianne | Front | Done |  |
 | Moteur de recherche | API & Front | Done | |
+| Ajout dialogue suppression recette | Front | Done | Ajout Dialog |
 | Migration avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
 | Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
 | Tests unitaires avec Jest | Back | Backlog | Soucis avec les promesses |
 | Authentification | Api & Front | Backlog | |
 | FormWizard | Front | Backlog | |
 | Helmet (Express) | API | Backlog | Ajout de sécurité |
-| Ajout dialogue suppression recette | Front | Backlog | Ajout dialog |
 | Ajout image | Back & front | Backlog | Pour illustrer une recette |
 
 ## Sources
