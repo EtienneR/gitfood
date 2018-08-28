@@ -39,7 +39,7 @@ export default {
     },
 	metaInfo() {
 		return {
-			title: this.getPublishedRecipes && `Mes recettes (${this.getPublishedRecipes})`
+			title: this.recipes && `Mes recettes (${this.recipes.length})`
 		}
 	},
 	props: {
