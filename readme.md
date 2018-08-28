@@ -25,7 +25,7 @@ Cela aura pour conséquence de créer 3 containers :
 | --- | ---- | ----- |
 | Postgres | 5432 | `$ docker-compose run db psql -h db -U root -d gitfood` |
 | API | 3000 | |
-| Front | 8081 | |
+| Front | 8080 | |
 
 ## Todolist des features
 
