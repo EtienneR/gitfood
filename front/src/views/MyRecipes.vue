@@ -6,16 +6,52 @@
 		<div v-if="!loading">
 			<Header title="Mes recettes" />
 
+
 			<section class="section">
 				<Informations
 					:recipes="recipes"
-					:getPublishedRecipes="getPublishedRecipes"
-					:getUnpublishedRecipes="getUnpublishedRecipes"
+					:getPublishedRecipes="getPublishedRecipes.length"
+					:getUnpublishedRecipes="getUnpublishedRecipes.length"
 					:getForksNumbers="getForksNumbers" />
+
+				<div class="container is-centered">
+					<router-link class="button is-primary" :to="{ name: 'addRecipe'}">
+						Ajouter une recette
+					</router-link>
+				</div>
 				<Dashboard
+					v-if="getUnpublishedRecipes.length === 0 || getPublishedRecipes.length === 0"
 					:recipes="recipes"
 					:columns="columns"
 					@remove="remove" />
+				
+				<b-tabs
+					v-else
+					position="is-centered"
+					class="block"
+					:animated="false" >
+					<b-tab-item label="Tous">
+						<Dashboard
+							:recipes="recipes"
+							:columns="columns"
+							@remove="remove" />
+					</b-tab-item>
+					<b-tab-item label="Publiée" v-if="getPublishedRecipes.length > 0">
+						<Dashboard
+							:recipes="getPublishedRecipes"
+							:columns="columns"
+							@remove="remove" />
+					</b-tab-item>
+					<b-tab-item label="Brouillon" v-if="getUnpublishedRecipes.length > 0">
+						<Dashboard
+							:recipes="getUnpublishedRecipes"
+							:columns="columns"
+							@remove="remove" />
+					</b-tab-item>
+				</b-tabs>
+
+
+
 			</section>
 		</div>
 
@@ -76,10 +112,10 @@ export default {
 	},
 	computed: {
 		getPublishedRecipes() {
-			return this.recipes.filter(recette => recette.published).length
+			return this.recipes.filter(recette => recette.published)
 		},
 		getUnpublishedRecipes() {
-			return this.recipes.filter(recette => !recette.published).length      
+			return this.recipes.filter(recette => !recette.published)
 		},
 		getForksNumbers() {
 			return this.forks.length
@@ -109,10 +145,11 @@ export default {
 			this.loading = false
 		},
 		// Suppression d'une recette
-		async remove(id, index) {
+		async remove(id) {
 			await api.removeRecipe(id)
 			.then(() => {
 				// Suppression du tableau
+				const index = this.recipes.findIndex(r => r.id == id)
 				this.recipes.splice(index, 1)
 				EventBus.$emit('toast', `Recette ${id} supprimée`)
 			})

@@ -1,11 +1,6 @@
 <template>
     <div class="container">
 
-        <div class="content">
-            <router-link class="button is-primary" :to="{ name: 'addRecipe'}">
-                Ajouter une recette
-            </router-link>
-        </div>
 
         <b-table
             :data="recipes" 
@@ -67,7 +62,7 @@ export default {
                 type: 'is-danger',
                 hasIcon: true,
                 onConfirm: () => {
-                    this.$emit('remove', id, index)
+                    this.$emit('remove', id)
                 }
             })
         }
