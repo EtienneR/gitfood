@@ -170,11 +170,7 @@ export default {
 	},
 	computed: {
 		currentPage() {
-			if (this.$route.params.id) {
-				return 'Modifier la recette'
-			} else {
-				return 'Ajouter une recette'
-			}
+			return this.$route.params.id ? 'Modifier la recette' : 'Ajouter une recette'
 		}
 	},
 	async created() {
@@ -187,7 +183,7 @@ export default {
 		async getRecipe() {
 			this.loading = true
 			await api.getRecipe(this.$route.params.id)
-			.then((res) => {
+			.then(res => {
 				this.recette = res.data
 				this.staticName = res.data.name
 				if (!res.data.instructions[0].name) {
@@ -280,7 +276,7 @@ export default {
 					})
 			} else {
 				if (this.$route.name === 'forkRecipe') {
-				this.recette.id_parent = this.recette.user_id
+					this.recette.id_parent = this.recette.user_id
 				}
 				this.recette.user_id = this.userId
 				return api.addRecipe(this.recette, { user_id: this.userId })
