@@ -186,14 +186,14 @@ export default {
 		async getRecipe() {
 			this.loading = true
 			await api.getRecipe(this.$route.params.id)
-				.then((res) => {
-					this.recette = res.data
-					this.staticName = res.data.name
-					if (!res.data.instructions[0].name) {
-						this.steps = true
-					}
-					this.loading = false
-				})
+			.then((res) => {
+				this.recette = res.data
+				this.staticName = res.data.name
+				if (!res.data.instructions[0].name) {
+					this.steps = true
+				}
+				this.loading = false
+			})
 		},
 		emitGlobalClickEvent() {
 			this.message = 'Recette ajoutée'

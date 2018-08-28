@@ -51,12 +51,12 @@ export default {
         async getCommentsByAuthor() {
             this.loading = true
             await api.getCommentsByAuthor(this.userId)
-                .then(comments => {
-                    this.comments = comments.data
-                    this.loading = false
-                }).catch(() => {
-                    this.loading = false
-                })
+            .then(comments => {
+                this.comments = comments.data
+            }).catch(err => {
+                console.error('MyComment', err)
+            })
+            this.loading = false
         }
     }
 }

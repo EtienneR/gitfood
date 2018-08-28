@@ -85,30 +85,30 @@ export default {
             this.comments = []
             this.loading = true
             await api.getRecipe(this.$route.params.id)
-                .then((res) => {
-                    this.recipe = res.data
-                }).catch(err => {
-                    if (err.response.status === 404) {
-                        this.message.title = 'Erreur 404'
-                        this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
-                    }
-                    if (err.response.status === 500) {
-                        EventBus.$emit('message', true)
-                    }
-                })
-                if (this.recipe) {
-                    await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
-                        .then(res => {
-                            this.recipes = res.data
-                        })
-                    await api.getCommentsByRecipe(this.$route.params.id)
-                        .then(res => {
-                            this.comments = res.data
-                        })
-                        .catch(() => {
-                            console.info('no comments')
-                        })
+            .then((res) => {
+                this.recipe = res.data
+            }).catch(err => {
+                if (err.response.status === 404) {
+                    this.message.title = 'Erreur 404'
+                    this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
                 }
+                if (err.response.status === 500) {
+                    EventBus.$emit('message', true)
+                }
+            })
+            if (this.recipe) {
+                await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
+                .then(res => {
+                    this.recipes = res.data
+                })
+                await api.getCommentsByRecipe(this.$route.params.id)
+                .then(res => {
+                    this.comments = res.data
+                })
+                .catch(() => {
+                    console.info('no comments')
+                })
+            }
             this.loading = false
         },
         fork(id_recipe) {

@@ -58,14 +58,14 @@ export default {
 		async getAllRecipes() {
 			this.loading = true
 			await api.getAllRecipes()
-				.then(res => {
-					this.recipes = res.data
-				})
-				.catch(err => {
-					if (err.response == null || err.response.status === 500) {
-						EventBus.$emit('message', true)
-					}
-				})
+			.then(res => {
+				this.recipes = res.data
+			})
+			.catch(err => {
+				if (err.response == null || err.response.status === 500) {
+					EventBus.$emit('message', true)
+				}
+			})
 			this.loading = false
 		}
 	}

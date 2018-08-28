@@ -58,17 +58,17 @@ export default {
         async getRecipes() {
             this.loading = true
             await api.getRecipesByAuthor(this.$route.params.id)
-                .then(res => {
-                    this.recipes = res.data
-                }).catch(err => {
-                    if (err.response.status === 404) {
-                        this.message.title = 'Erreur 404'
-                        this.message.content = 'Cette utilisateur n\'existe pas ou n\'existe plus.'
-                    }
-                    if (err.response.status === 500) {
-                        EventBus.$emit('message', true)
-                    }
-                })
+            .then(res => {
+                this.recipes = res.data
+            }).catch(err => {
+                if (err.response.status === 404) {
+                    this.message.title = 'Erreur 404'
+                    this.message.content = 'Cette utilisateur n\'existe pas ou n\'existe plus.'
+                }
+                if (err.response.status === 500) {
+                    EventBus.$emit('message', true)
+                }
+            })
             this.loading = false
         }
     }
