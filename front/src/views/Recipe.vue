@@ -85,8 +85,9 @@ export default {
             this.comments = []
             this.loading = true
             await api.getRecipe(this.$route.params.id)
-            .then((res) => {
+            .then(res => {
                 this.recipe = res.data
+                EventBus.$emit('title', res.data.name)
             }).catch(err => {
                 if (err.response.status === 404) {
                     this.message.title = 'Erreur 404'

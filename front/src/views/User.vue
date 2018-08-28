@@ -60,10 +60,12 @@ export default {
             await api.getRecipesByAuthor(this.$route.params.id)
             .then(res => {
                 this.recipes = res.data
+                EventBus.$emit('title', `Les recettes de ${this.recipes[0].firstname}`)
             }).catch(err => {
                 if (err.response.status === 404) {
                     this.message.title = 'Erreur 404'
                     this.message.content = 'Cette utilisateur n\'existe pas ou n\'existe plus.'
+                    EventBus.$emit('title', 'Erreur 404')
                 }
                 if (err.response.status === 500) {
                     EventBus.$emit('message', true)

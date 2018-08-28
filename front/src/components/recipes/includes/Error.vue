@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js'
 import Header from '@/components/layout/Header.vue'
 
 export default {
@@ -15,6 +16,19 @@ export default {
     },
 	props: {
 		message: Object,
-	}
+	},
+	data() {
+		return {
+			title: 'Erreur 404 sur cette recette'
+		}
+	},
+	metaInfo() {
+		return {
+			title: this.title
+		}
+	},
+    created () {
+        EventBus.$emit('title', this.title)
+    }
 }
 </script>

@@ -19,14 +19,25 @@
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js'
 import Header from '@/components/layout/Header.vue'
 
 export default {
     components: {
 		Header
     },
-    metaInfo: {
-        title: 'A propos'
+	data() {
+		return {
+			title: 'A propos',
+		}
+	},
+	metaInfo() {
+		return {
+			title: this.title
+		}
+	},
+    created () {
+        EventBus.$emit('title', this.title)
     }
 }
 </script>

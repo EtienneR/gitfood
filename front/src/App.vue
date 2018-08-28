@@ -1,13 +1,15 @@
 <template>
 	<div>
 		<navigation :isConnected="isConnected" />
+		<SubMenu v-if="this.$route.name !== 'home'" :title="title" />
 		<b-notification type="is-warning" v-if="message">
 			Oups... il semblerait qu'il y ait un problème avec l'API et / ou la BDD
 		</b-notification>
 		<router-view
 			:isConnected="isConnected"
 			:userId="userId"
-			:firstname="firstname">
+			:firstname="firstname"
+			title="">
 		</router-view>
 		<copyright />
 	</div>
@@ -15,6 +17,7 @@
 
 <script>
 import Navigation from '@/components/layout/Navigation'
+import SubMenu from '@/components/layout/SubMenu'
 import Copyright from '@/components/layout/Copyright'
 import { EventBus } from '@/event-bus.js'
 
@@ -24,14 +27,17 @@ export default {
     },
 	components: {
 		Navigation,
+		SubMenu,
 		Copyright
 	},
 	data() {
 		return {
+			loading: false,
 			isConnected: true,
 			userId: 2,
 			firstname: 'Toto',
-			message: false
+			message: false,
+			title: '',
 		}
 	},
 	methods: {
@@ -55,6 +61,9 @@ export default {
 		})
 		EventBus.$on('message', function (value) {
 			self.message = value
+		})
+		EventBus.$on('title', function (value) {
+			self.title = value
 		})
 	}
 }

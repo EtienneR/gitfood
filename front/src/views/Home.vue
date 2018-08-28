@@ -7,7 +7,11 @@
 			<Header title="GitFood" subtitle="Partagez vos recettes" />
 
 			<section class="section">
+
 				<div class="container">
+					<div class="columns is-centered">
+						<Search />
+					</div>
 
 					<b-notification v-if="!isConnected">
 						Bienvenue sur GitFood, le site de partage de recettes. En vous inscrivant, vous pouvez poster vos recettes et les partager à tout le monde. Si une recette, vous pouvez la dupliquer :) - Inscription -
@@ -29,12 +33,14 @@ import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 import Loading from '@/components/Loading.vue'
 import Header from '@/components/layout/Header.vue'
+import Search from '@/components/Search'
 import RecipesList from '@/components/recipes/includes/RecipesList.vue'
 
 export default {
     components: {
         Loading,
 		Header,
+		Search,
 		RecipesList
     },
 	metaInfo: {

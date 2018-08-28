@@ -181,6 +181,7 @@ export default {
 		if (this.$route.params.id) {
 			this.getRecipe()
 		}
+		EventBus.$emit('title', this.currentPage)
 	},
 	methods: {
 		async getRecipe() {

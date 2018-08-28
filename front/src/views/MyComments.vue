@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js'
 import api from '@/services/Api'
 import Loading from '@/components/Loading.vue'
 import Header from '@/components/layout/Header.vue'
@@ -45,6 +46,7 @@ export default {
         }
     },
     async created () {
+        EventBus.$emit('title', 'Mes commentaires')
         this.getCommentsByAuthor()
     },
     methods: {

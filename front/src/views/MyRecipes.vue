@@ -70,6 +70,7 @@ export default {
 	},
 	async created() {
 		this.myRecipes()
+		EventBus.$emit('title', 'Mes recettes')
 	},
 	computed: {
 		getPublishedRecipes() {
