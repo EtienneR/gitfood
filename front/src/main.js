@@ -4,6 +4,7 @@ import App from './App'
 
 const Home = () => import('@/views/Home')
 const Recipe = () => import('@/views/Recipe')
+const Search = () => import('@/views/Search')
 const User = () => import('@/views/User')
 const MyRecipes = () => import('@/views/MyRecipes')
 const FormRecipe = () => import('@/views/FormRecipe')
@@ -28,6 +29,7 @@ const routes = [
 	{ path: '/menu/comments', name: 'myComments', component: MyComments },
 	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/about', name: 'about', component: About },
+	{ path: '/search', name: 'search', component: Search },
 	{ path: '/error404', component: Error404 },
 	{ path: '/:id', name: 'recipe', component: Recipe, props: checkId },
 	{ path: '*', name: 'error404', component: Error404, redirect: '/error404' }

@@ -20,6 +20,26 @@ function getRecipes() {
     .orderBy(`${table}.id`, 'DESC')
 }
 
+function getRecipesSearch(q) {
+    return database(table)
+    .select(`${table}.id`,
+            `${table}.name`,
+            `${table}.introduction`,
+            `${table}.ingredients`,
+            `${table}.instructions`,
+            `${table}.conclusion`,
+            `${table}.published`,
+            `${table}.created_at`,
+            `${table}.updated_at`,
+            `${table}.user_id`,
+            `${table}.id_parent`,
+            'users.firstname')
+    .leftJoin('users', `${table}.user_id`, 'users.id')
+    .where(`${table}.published`, true)
+    .where(`${table}.name`, 'ilike', `%${q}%`)
+    .orderBy(`${table}.id`, 'DESC')
+}
+
 function getRecipe(id) {
     return database(table)
     .select(`${table}.id`,
@@ -128,6 +148,7 @@ function deleteRecipe(id) {
 
 module.exports = {
     getRecipes,
+    getRecipesSearch,
     getRecipe,
     getOthersRecipes,
     getRecipesByAuthor,

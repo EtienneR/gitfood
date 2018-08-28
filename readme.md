@@ -44,9 +44,9 @@ Liste non exhaustive...
 | Ajout vue-meta | Front | Done | Seulement la balise title |
 | Formater date | Front | Done | Date formatée avec Moment |
 | Fil d'Arianne | Front | Done |  |
+| Moteur de recherche | API & Front | Done | |
 | Migration avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
 | Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
-| Moteur de recherche | API & Front | En cours | |
 | Tests unitaires avec Jest | Back | Backlog | Soucis avec les promesses |
 | Authentification | Api & Front | Backlog | |
 | FormWizard | Front | Backlog | |

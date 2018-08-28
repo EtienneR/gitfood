@@ -19,7 +19,7 @@
                     </nav>
                 </div>
 
-                <Search />
+                <FormSearch />
 
             </div>
         </div>
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import Search from '@/components/Search'
+import FormSearch from '@/components/FormSearch'
 
 export default {
 	props: {
 		title: String,
 	},
     components: {
-        Search
+        FormSearch
     }
 }
 </script>

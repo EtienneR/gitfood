@@ -7,9 +7,21 @@ module.exports = express.Router()
 
 /* Toutes les recettes */
 .get('/', (req, res) => {
-    recipes.getRecipes()
-    .then(recettes => res.json(recettes))
-    .catch(err => res.status(500).json(err))
+    if (req.query.q) {
+        recipes.getRecipesSearch(req.query.q)
+        .then(recettes => {
+            if (recettes.length > 0) {
+                res.json(recettes)
+            } else {
+                res.status(404).json({ message: 'no recipes found' })
+            }
+        })
+        .catch(err => res.status(500).json(err))
+    } else {
+        recipes.getRecipes()
+        .then(recettes => res.json(recettes))
+        .catch(err => res.status(500).json(err))
+    }
 })
 
 /* Obtenir une recette via id_user */

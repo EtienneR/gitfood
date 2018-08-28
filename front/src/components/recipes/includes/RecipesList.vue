@@ -2,7 +2,11 @@
     <div>
 
         <div class="columns is-multiline">
-            <div class="column is-4" v-for="(recipe, index) in recipes" :key="index" v-if="recipes.length > 0">
+            <div
+                v-if="recipes.length > 0"
+                class="column is-4"
+                v-for="(recipe, index) in recipes" 
+                :key="index" >
                 <div class="box">
                     <article class="media">
                         <div class="media-left">

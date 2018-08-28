@@ -10,7 +10,7 @@
 
 				<div class="container">
 					<div class="columns is-centered">
-						<Search />
+						<FormSearch />
 					</div>
 
 					<b-notification v-if="!isConnected">
@@ -33,14 +33,14 @@ import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 import Loading from '@/components/Loading.vue'
 import Header from '@/components/layout/Header.vue'
-import Search from '@/components/Search'
+import FormSearch from '@/components/FormSearch'
 import RecipesList from '@/components/recipes/includes/RecipesList.vue'
 
 export default {
     components: {
         Loading,
 		Header,
-		Search,
+		FormSearch,
 		RecipesList
     },
 	metaInfo: {

@@ -8,6 +8,9 @@ export default {
     getRecipe(id_recipe) {
         return axios.get(`${API_URL}/recipes/${id_recipe}`)
     },
+    searchRecipes(q) {
+        return axios.get(`${API_URL}/recipes?q=${q}`)
+    },
     getRecipesByAuthor(id_user) {
         return axios.get(`${API_URL}/recipes/user/${id_user}`)
     },
