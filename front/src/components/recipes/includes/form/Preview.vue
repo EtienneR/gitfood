@@ -1,7 +1,7 @@
 <template>
     <div>
 
-	    <legend>Prévisualisation de votre recette</legend>
+        <legend>Prévisualisation de votre recette</legend>
         <h2 class="title is-2">{{ recipe.name }}</h2>
         <p>{{ recipe.introduction }}</p>
         <div v-if="recipe.ingredients[0] && recipe.ingredients[0].name">
