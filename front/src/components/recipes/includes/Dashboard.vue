@@ -1,7 +1,6 @@
 <template>
     <div class="container">
 
-
         <b-table
             :data="recipes" 
             hoverable
@@ -50,8 +49,7 @@ import moment from 'moment'
 
 export default {
 	props: {
-		recipes: Array,
-        column: Array
+		recipes: Array
 	},
     methods: {
         remove(id) {

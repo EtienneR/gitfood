@@ -6,7 +6,6 @@
 		<div v-if="!loading">
 			<Header title="Mes recettes" />
 
-
 			<section class="section">
 				<Informations
 					:recipes="recipes"
@@ -19,6 +18,7 @@
 						Ajouter une recette
 					</router-link>
 				</div>
+
 				<Dashboard
 					v-if="getUnpublishedRecipes.length === 0 || getPublishedRecipes.length === 0"
 					:recipes="recipes"
@@ -33,24 +33,19 @@
 					<b-tab-item label="Tous">
 						<Dashboard
 							:recipes="recipes"
-							:columns="columns"
 							@remove="remove" />
 					</b-tab-item>
 					<b-tab-item label="Publiée" v-if="getPublishedRecipes.length > 0">
 						<Dashboard
 							:recipes="getPublishedRecipes"
-							:columns="columns"
 							@remove="remove" />
 					</b-tab-item>
 					<b-tab-item label="Brouillon" v-if="getUnpublishedRecipes.length > 0">
 						<Dashboard
 							:recipes="getUnpublishedRecipes"
-							:columns="columns"
 							@remove="remove" />
 					</b-tab-item>
 				</b-tabs>
-
-
 
 			</section>
 		</div>
@@ -85,25 +80,7 @@ export default {
 		return {
 			loading: false,
 			recipes: [],
-			forks: [],
-			columns: [
-				{
-					field: 'name',
-					label: 'Titre',
-				},
-				{
-					field: 'published',
-					label: 'Statut',
-				},
-				{
-					field: 'created_at',
-					label: 'Date de création',
-				},
-				{
-					field: 'updated_at',
-					label: 'Date de modification',
-				}
-			]
+			forks: []
 		}
 	},
 	async created() {
