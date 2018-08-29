@@ -46,13 +46,13 @@ Liste non exhaustive...
 | Fil d'Arianne | Front | Done |  |
 | Moteur de recherche | API & Front | Done | |
 | Ajout dialogue suppression recette | Front | Done | Ajout Dialog |
+| Helmet (Express) | API | Done | Ajout de sécurité |
 | Migration avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
 | Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
+| FormWizard | Front | En cours | Provisoire (accessibilité) |
+| Ajout image | Back & front | En cours | Pour illustrer une recette |
 | Tests unitaires avec Jest | Back | Backlog | Soucis avec les promesses |
 | Authentification | Api & Front | Backlog | |
-| FormWizard | Front | Backlog | |
-| Helmet (Express) | API | Backlog | Ajout de sécurité |
-| Ajout image | Back & front | Backlog | Pour illustrer une recette |
 
 ## Sources
 
