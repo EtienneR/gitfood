@@ -109,10 +109,21 @@
 									</b-switch>
 								</div>
 
-								<input type="submit"
-									class="button is-primary"
-									@click="save"
-									value="Enregistrer">
+								<div class="field is-grouped">
+									<p class="control">
+										<input type="submit"
+											class="button is-primary is-outlined"
+											@click="save(false)"
+											value="Enregistrer">
+									</p>
+									<p class="control">
+										<input type="submit"
+											class="button is-primary"
+											@click="save(true)"
+											value="Enregistrer et quitter">
+									</p>
+								</div>
+
 							</form>
 						</div>
 
@@ -282,26 +293,30 @@ export default {
 				}
 			})
 		},
-		save() {
+		async save(exit) {
 			if (this.$route.name === 'editRecipe') {
-				return api.updateRecipe(this.$route.params.id, this.recette)
+				return await api.updateRecipe(this.$route.params.id, this.recette)
 				.then(() => {
 					EventBus.$emit('toast', `Recette ${this.recette.name} modifiée`)
-					this.$root.$router.push({
-						name: 'myRecipes'
-					})
+					if (exit) {
+						this.$root.$router.push({
+							name: 'myRecipes'
+						})
+					}
 				})
 			} else {
 				if (this.$route.name === 'forkRecipe') {
 					this.recette.id_parent = this.recette.user_id
 				}
 				this.recette.user_id = this.userId
-				return api.addRecipe(this.recette, { user_id: this.userId })
+				return await api.addRecipe(this.recette, { user_id: this.userId })
 				.then(() => {
 					EventBus.$emit('toast', `Recette ${this.recette.name} ajoutée`)
-					this.$root.$router.push({
-						name: 'myRecipes'
-					})
+					if (exit) {
+						this.$root.$router.push({
+							name: 'myRecipes'
+						})
+					}
 				})
 			}
 		}
