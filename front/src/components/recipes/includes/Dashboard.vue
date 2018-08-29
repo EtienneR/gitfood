@@ -54,7 +54,7 @@ export default {
         column: Array
 	},
     methods: {
-        remove(id, index) {
+        remove(id) {
             this.$dialog.confirm({
                 title: 'Supprimer cette recette ?',
                 message: 'Etes-vous sur de vouloir <b>supprimer</b> cette recette? Cette action sera définitive.',

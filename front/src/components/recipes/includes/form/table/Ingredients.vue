@@ -1,11 +1,24 @@
 <template>
     <div>
-    
-        <b-table :data="getIngredients" hoverable>
+
+        <a
+            v-if="checkedRows.length > 0" 
+            class="button is-danger is-outlined"
+            @click="deleteIngredient(stepIndex)"
+            title="Supprimer ce ou ces ingredient(s)">
+            Supprimer
+        </a>
+
+        <b-table
+            :data="getIngredients"
+            hoverable
+            checkable
+            :checked-rows.sync="checkedRows"
+            striped>
             <template slot-scope="props">
-                <b-table-column label="Quantité" field="quantity">
+                <b-table-column label="Quantité" field="quantity" width="30">
                     <b-field>
-						<b-input v-model.number="props.row.quantity " type="number" min="0"></b-input>
+						<b-input v-model.number="props.row.quantity" type="number" min="0"></b-input>
 					</b-field>
                 </b-table-column>
                 <b-table-column label="Mesure" field="mesure">
@@ -19,14 +32,14 @@
 					</b-field>
                 </b-table-column>
                 <b-table-column label="Ajouter">
-                    <a class="button is-info"
-                        @click="addIngredient(stepIndex)"
-                        title="Ajouter un ingrédient">Ajouter</a>
+                    <a class="button is-info is-outlined"
+                        @click="addIngredient(props.index, stepIndex)"
+                        title="Ajouter un ingrédient à la suite">Ajouter</a>
                 </b-table-column>
-                <b-table-column label="Supprimer">
-                    <a class="button is-danger"
-                        @click="deleteIngredient(props.index, stepIndex)"
-                        :title="`Supprimer cette ingredient (${props.row.name})`">Supprimer</a>
+                <b-table-column label="Duppliquer">
+                    <a class="button is-outlined"
+                        @click="dupplicateIngredient(props.index, props.row)"
+                        title="Duppliquer cet ligne à la suite">Duppliquer</a>
                 </b-table-column>
             </template>
         </b-table>
@@ -41,6 +54,11 @@ export default {
         recipe: Object,
         stepIndex: Number
 	},
+	data() {
+		return {
+            checkedRows: []
+        }
+    },
     computed: {
         getIngredients() {
             if (this.stepIndex || this.stepIndex === 0) {
@@ -51,12 +69,19 @@ export default {
         }
     }, 
     methods: {
-		addIngredient(index) {
-			this.$emit('addIngredient', index)
+		addIngredient(index, stepIndex) {
+			this.$emit('addIngredient', index, stepIndex)
 		},
-		deleteIngredient(index, stepIndex) {
-			this.$emit('deleteIngredient', { index, stepIndex })
-		}
+        dupplicateIngredient(index, ingredient) {
+            this.$emit('dupplicateIngredient', index, ingredient)
+        },
+		// deleteIngredient(index, stepIndex) {
+		// 	this.$emit('deleteIngredient', { index, stepIndex })
+		// }
+        deleteIngredient(stepIndex) {
+            this.$emit('deleteIngredient', this.checkedRows, stepIndex)
+            this.checkedRows = []
+        }
     }
 }
 </script>

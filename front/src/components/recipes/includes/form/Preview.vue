@@ -1,7 +1,14 @@
 <template>
     <div>
-
-        <legend>Prévisualisation de votre recette</legend>
+        <div class="b-tabs block">
+            <nav class="tabs is-centered">
+                <ul>
+                    <li class="is-disabled" style="opacity: 1">
+                        <a><span>Prévisualisation</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
         <h2 class="title is-2">{{ recipe.name }}</h2>
         <p>{{ recipe.introduction }}</p>
         <div v-if="recipe.ingredients[0] && recipe.ingredients[0].name">

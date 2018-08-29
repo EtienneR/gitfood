@@ -1,23 +1,30 @@
 <template>
     <div>
-
-        <b-table :data="getInstructions" hoverable>
+        <a
+            v-if="checkedRows.length > 0" 
+            class="button is-danger is-outlined"
+            @click="deleteInstruction(stepIndex)"
+            title="Supprimer cette ou ces instruction(s)">
+            Supprimer
+        </a>
+        <b-table
+            :data="getInstructions"
+            checkable
+            :checked-rows.sync="checkedRows"
+            hoverable
+            striped>
             <template slot-scope="props">
-                <b-table-column label="Etape" field="name">
+                <b-table-column label="Etape" field="name" width="700">
                     <b-field>
 						<b-input v-model.trim="props.row.name" type="textarea"></b-input>
 					</b-field>
                 </b-table-column>
-                <b-table-column label="Ajouter">
-                    <a class="button is-info"
+                <b-table-column label="Actions">
+                    <a class="button is-fullwidth is-info is-outlined"
                         @click="addInstruction(stepIndex)"
-                        title="Ajouter une instruction">Ajouter</a>
+                        title="Ajouter une instruction">Ajouter</a><br />
                 </b-table-column>
-                <b-table-column label="Supprimer">
-                    <a class="button is-danger"
-                        @click="deleteInstruction(props.index, stepIndex)"
-                        :title="`Supprimer cette instruction`">Supprimer</a>
-                </b-table-column>
+        
             </template>
         </b-table>
 
@@ -31,6 +38,11 @@ export default {
         recipe: Object,
         stepIndex: Number
 	},
+	data() {
+		return {
+            checkedRows: []
+        }
+    },
     computed: {
         getInstructions() {
             if (this.stepIndex || this.stepIndex === 0) {
@@ -44,9 +56,13 @@ export default {
 		addInstruction(index) {
 			this.$emit('addInstruction', index)
 		},
-		deleteInstruction(index, stepIndex) {
-			this.$emit('deleteInstruction', { index, stepIndex })
-		}
+		// deleteInstruction(index, stepIndex) {
+		// 	this.$emit('deleteInstruction', { index, stepIndex })
+		// },
+        deleteInstruction(stepIndex) {
+            this.$emit('deleteInstruction', this.checkedRows, stepIndex)
+            this.checkedRows = []
+        }
     }
 }
 </script>
