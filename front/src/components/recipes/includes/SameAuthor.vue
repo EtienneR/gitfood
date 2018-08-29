@@ -2,7 +2,7 @@
 
     <article class="message">
         <div class="message-header">
-            <h2 class="title is-5">Du même auteur</h2>
+            <p>Du même auteur</p>
         </div>
         <ul class="message-body">
             <li v-for="(recipe, index) in recipes" :key="index">

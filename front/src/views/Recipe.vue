@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="column is-three-quarters">
-                        <div class="message" v-if="recipe">
+                        <div v-if="recipe">
                             <Comments :comments="comments"
                                 :isConnected="isConnected"
                                 @add="addComment" />
