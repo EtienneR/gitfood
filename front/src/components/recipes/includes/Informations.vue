@@ -1,5 +1,5 @@
 <template>
-    <div class="hero-body">
+    <div class="hero-body is-hidden-mobile">
 
         <div class="container has-text-centered">
             <nav class="level">

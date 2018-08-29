@@ -54,10 +54,14 @@
                     </div>
                 </div>
                 <p>{{ recipe.conclusion }}</p>
-                <p>
-                    <a class="card-footer-item">Liker</a>
-                    <a class="card-footer-item" @click="fork()">Forker</a>
-                </p>
+                <div class="field is-grouped">
+					<p class="control">
+                        <button class="button is-primary is-outlined">Liker</button>
+                    </p>
+                    <p class="control">
+                        <button class="button is-primary" @click="fork()">Forker</button>
+                    </p>
+                </div>
             </article>
         </div>
 

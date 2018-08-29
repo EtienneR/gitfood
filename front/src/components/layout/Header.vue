@@ -1,7 +1,7 @@
 <template>
     <section class="hero is-light">
 
-        <div class="hero-body">
+        <div class="hero-body is-hidden-mobile">
             <div class="container has-text-centered">
                 <h1 class="title title is-2">
                     {{ title }}
