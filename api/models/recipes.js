@@ -5,6 +5,7 @@ function getRecipes() {
     return database(table)
     .select(`${table}.id`,
             `${table}.name`,
+            `${table}.image`,
             `${table}.introduction`,
             `${table}.ingredients`,
             `${table}.instructions`,
@@ -24,6 +25,7 @@ function getRecipesSearch(q) {
     return database(table)
     .select(`${table}.id`,
             `${table}.name`,
+            `${table}.image`,
             `${table}.introduction`,
             `${table}.ingredients`,
             `${table}.instructions`,
@@ -44,6 +46,7 @@ function getRecipe(id) {
     return database(table)
     .select(`${table}.id`,
             `${table}.name`,
+            `${table}.image`,
             `${table}.introduction`,
             `${table}.ingredients`,
             `${table}.instructions`,
@@ -80,6 +83,7 @@ function getRecipesByAuthor(user_id) {
     return database(table)
     .select(`${table}.id`,
             `${table}.name`,
+            `${table}.image`,
             `${table}.introduction`,
             `${table}.ingredients`,
             `${table}.instructions`,

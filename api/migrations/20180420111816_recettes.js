@@ -13,6 +13,7 @@ exports.up = function(knex, Promise) {
             table.increments('id').primary()
             table.string('name')
             table.text('introduction')
+            table.text('image')
             table.jsonb('ingredients')
             table.jsonb('instructions')
             table.text('conclusion')

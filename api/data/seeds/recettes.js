@@ -8,6 +8,7 @@ const createRecette = (knex, recette, user) => {
 		.then(userRecord => {
 			return knex('recettes').insert({
 				name: recette.name,
+				image: 'food.jpg',
 				introduction: recette.introduction,
 				ingredients: JSON.stringify(recette.ingredients),
 				instructions: JSON.stringify(recette.instructions),

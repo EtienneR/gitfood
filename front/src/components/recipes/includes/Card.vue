@@ -13,6 +13,9 @@
                         {{ recipe.created_at | moment }}
                     </time>
                 </p>
+                <p class="has-text-centered">
+                    <img :src="`http://localhost:3000/img/${recipe.image}`" alt="Photo de suggestion">
+                </p>
                 <p><em>{{ recipe.introduction }}</em></p>
                 <div class="columns">
                     <div class="column is-one-quarter">

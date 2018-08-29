@@ -4,31 +4,29 @@
         <div class="columns is-multiline">
             <div
                 v-if="recipes.length > 0"
-                class="column is-4"
+                class="column is-3"
                 v-for="(recipe, index) in recipes" 
                 :key="index" >
-                <div class="box">
-                    <article class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img :src="images.sample" alt="image">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <div class="content">
-                                <h2 class="title is-5" style="margin-bottom: 2px">
-                                    <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
-                                        {{ recipe.name }}
-                                    </router-link>
-                                </h2>
-                                par 
-                                    <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
-                                        {{ recipe.firstname }}
-                                    </router-link>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <article class="box">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
+                                <img :src="`http://localhost:3000/img/${recipe.image}`" alt="image">
+                            </router-link>
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <h2 class="title is-6" style="margin-bottom: 2px">
+                            <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
+                                {{ recipe.name }}
+                            </router-link>
+                        </h2>
+                        par 
+                        <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+                            {{ recipe.firstname }}
+                        </router-link>
+                    </div>
+                </article>
             </div>
         </div>
 
