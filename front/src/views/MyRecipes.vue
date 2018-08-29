@@ -7,8 +7,7 @@
 			<Header title="Mes recettes" />
 
 			<section class="section">
-				<Informations
-					:recipes="recipes"
+				<Informations :recipes="recipes"
 					:getPublishedRecipes="getPublishedRecipes.length"
 					:getUnpublishedRecipes="getUnpublishedRecipes.length"
 					:getForksNumbers="getForksNumbers" />
@@ -19,31 +18,22 @@
 					</router-link>
 				</div>
 
-				<Dashboard
-					v-if="getUnpublishedRecipes.length === 0 || getPublishedRecipes.length === 0"
+				<Dashboard v-if="getUnpublishedRecipes.length === 0 || getPublishedRecipes.length === 0"
 					:recipes="recipes"
-					:columns="columns"
 					@remove="remove" />
 				
-				<b-tabs
-					v-else
+				<b-tabs v-else
 					position="is-centered"
 					class="block"
 					:animated="false" >
 					<b-tab-item label="Tous">
-						<Dashboard
-							:recipes="recipes"
-							@remove="remove" />
+						<Dashboard :recipes="recipes" @remove="remove" />
 					</b-tab-item>
 					<b-tab-item label="Publiée" v-if="getPublishedRecipes.length > 0">
-						<Dashboard
-							:recipes="getPublishedRecipes"
-							@remove="remove" />
+						<Dashboard :recipes="getPublishedRecipes" @remove="remove" />
 					</b-tab-item>
 					<b-tab-item label="Brouillon" v-if="getUnpublishedRecipes.length > 0">
-						<Dashboard
-							:recipes="getUnpublishedRecipes"
-							@remove="remove" />
+						<Dashboard :recipes="getUnpublishedRecipes" @remove="remove" />
 					</b-tab-item>
 				</b-tabs>
 

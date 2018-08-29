@@ -13,23 +13,27 @@
 						<div class="column is-two-thirds">
 							<form action="javascript:void(0);" method="POST">
 								<b-field label="Titre" label-for="name">
-										<b-input v-model.trim="recette.name" id="name"></b-input>
-									</b-field>
-										<p>Votre recette comporte plusieurs étapes ?</p>
-										<div class="field">
-											<b-switch v-model="steps">
-												<span v-if="steps">Oui</span>
-												<span v-else>Non</span>
-											</b-switch>
-										</div>
-								<b-tabs
-									position="is-centered"
+									<b-input v-model.trim="recette.name" id="name"></b-input>
+								</b-field>
+								<p>Votre recette comporte plusieurs étapes ?</p>
+								<div class="field">
+									<b-switch v-model="steps">
+										<span v-if="steps">Oui</span>
+										<span v-else>Non</span>
+									</b-switch>
+								</div>
+
+								<b-tabs position="is-centered"
 									class="block"
 									:animated="false" >
 									<b-tab-item label="Introduction">
 										<!-- Début Partie 1 -->
 										<b-field label="Introduction" label-for="introduction">
-											<b-input v-model.trim="recette.introduction" id="introduction" type="textarea"></b-input>
+											<b-input
+												v-model.trim="recette.introduction"
+												id="introduction"
+												type="textarea">
+											</b-input>
 										</b-field>
 									</b-tab-item>
 									<!-- Fin Partie 1 -->
@@ -46,30 +50,29 @@
 											<b-field :label="`Titre de l'étape ${index + parseInt(1)}`">
 												<b-input v-model.trim="recette.ingredients[index].title"></b-input>
 											</b-field>
-											<Ingredients
-												v-if="steps"
+											<Ingredients v-if="steps"
 												:stepIndex="index"
 												:recipe="recette"
 												:columns="columnsIngredients"
 												@addIngredient="addIngredient"
-												@dupplicateIngredient="dupplicateIngredient"
 												@deleteIngredient="deleteIngredient" />
 										</div>
-										<button v-if="steps" class="button is-info" @click="addStep">Ajouter une étape</button>
-										<Ingredients
-											v-if="!steps"
+										<button v-if="steps"
+											class="button is-info"
+											@click="addStep">
+											Ajouter une étape
+										</button>
+										<Ingredients v-if="!steps"
 											:recipe="recette"
 											:columns="columnsIngredients"
 											@addIngredient="addIngredient"
-											@dupplicateIngredient="dupplicateIngredient"
 											@deleteIngredient="deleteIngredient" />
 									</b-tab-item>
 									<!-- Fin Partie 2 -->
 
 									<!-- Début Partie 3 -->
 									<b-tab-item label="Instructions">
-										<div 
-											v-if="steps"
+										<div v-if="steps"
 											v-for="(instruction, index) in recette.instructions"
 											:key="`${index}-instructions`">
 											<div class="field">
@@ -78,16 +81,14 @@
 											<b-field :label="`Titre de l'étape ${index + parseInt(1)}`">
 												<b-input v-model.trim="recette.instructions[index].title"></b-input>
 											</b-field>
-											<Instructions
-												v-if="steps"
+											<Instructions v-if="steps"
 												:stepIndex="index"
 												:recipe="recette"
 												:columns="columnsInstructions"
 												@addInstruction="addInstruction"
 												@deleteInstruction="deleteInstruction" />
 										</div>
-										<Instructions
-											v-if="!steps"
+										<Instructions v-if="!steps"
 											:recipe="recette"
 											:columns="columnsInstructions"
 											@addInstruction="addInstruction"
@@ -98,7 +99,10 @@
 									<!-- Début Partie 4 -->
 									<b-tab-item label="Conclusion">
 										<b-field label="Conclusion" label-for="conclusion">
-											<b-input v-model="recette.conclusion" id="conclusion" type="textarea"></b-input>
+											<b-input v-model="recette.conclusion"
+												id="conclusion"
+												type="textarea">
+											</b-input>
 										</b-field>
 									</b-tab-item>
 								</b-tabs>
@@ -111,19 +115,20 @@
 
 								<div class="field is-grouped">
 									<p class="control">
-										<input type="submit"
+										<input
+											type="submit"
 											class="button is-primary is-outlined"
 											@click="save(false)"
 											value="Enregistrer">
 									</p>
 									<p class="control">
-										<input type="submit"
+										<input
+											type="submit"
 											class="button is-primary"
 											@click="save(true)"
 											value="Enregistrer et quitter">
 									</p>
 								</div>
-
 							</form>
 						</div>
 
@@ -250,11 +255,6 @@ export default {
 				this.recette.ingredients.splice(index+1, 0, item)
 			} else {
 				this.recette.ingredients[step].step.splice(index+1, 0, item)
-			}
-		},
-		dupplicateIngredient(index, item) {
-			if (!this.steps) {
-				this.recette.ingredients.splice(index, 0, item)
 			}
 		},
 		deleteIngredient(ingredients, stepIndex) {

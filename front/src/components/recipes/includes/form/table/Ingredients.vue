@@ -1,16 +1,14 @@
 <template>
     <div>
 
-        <a
-            v-if="checkedRows.length > 0" 
+        <a v-if="checkedRows.length > 0" 
             class="button is-danger is-outlined"
             @click="deleteIngredient(stepIndex)"
             title="Supprimer ce ou ces ingredient(s)">
             Supprimer
         </a>
 
-        <b-table
-            :data="getIngredients"
+        <b-table :data="getIngredients"
             hoverable
             checkable
             :checked-rows.sync="checkedRows"
@@ -35,11 +33,6 @@
                     <a class="button is-info is-outlined"
                         @click="addIngredient(props.index, stepIndex)"
                         title="Ajouter un ingrédient à la suite">Ajouter</a>
-                </b-table-column>
-                <b-table-column label="Duppliquer">
-                    <a class="button is-outlined"
-                        @click="dupplicateIngredient(props.index, props.row)"
-                        title="Duppliquer cet ligne à la suite">Duppliquer</a>
                 </b-table-column>
             </template>
         </b-table>
