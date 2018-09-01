@@ -3,25 +3,29 @@
 
         <Loading :loading="loading" />
 
-        <div v-if="!loading && recipe">
+        <div v-if="!loading && recipe" class="has-background-dark">
             <Header :title="recipe.name" />
 
-            <Card :recipe="recipe"
-                :footer="true"
-                :isConnected="isConnected"
-                @fork="fork" />
-
             <div class="container">
-                <div class="columns">
-                    <div class="column is-one-quarter">
-                        <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
-                    </div>
+                <Card :recipe="recipe"
+                    :footer="true"
+                    :isConnected="isConnected"
+                    @fork="fork" />
+            </div>
 
-                    <div class="column is-three-quarters">
-                        <div v-if="recipe">
-                            <Comments :comments="comments"
-                                :isConnected="isConnected"
-                                @add="addComment" />
+            <div class="section">
+                <div class="container has-background-light hero-body">
+                    <div class="columns">
+                        <div class="column is-one-quarter">
+                            <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
+                        </div>
+
+                        <div class="column is-three-quarters">
+                            <div v-if="recipe">
+                                <Comments :comments="comments"
+                                    :isConnected="isConnected"
+                                    @add="addComment" />
+                            </div>
                         </div>
                     </div>
                 </div>

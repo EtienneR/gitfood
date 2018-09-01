@@ -106,6 +106,7 @@
 										</b-field>
 									</b-tab-item>
 								</b-tabs>
+
 								<div class="field">
 									<b-switch v-model="recette.published">
 										<span v-if="recette.published">Publier</span>

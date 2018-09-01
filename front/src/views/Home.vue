@@ -6,10 +6,10 @@
 		<div v-if="!loading">
 			<Header title="GitFood" subtitle="Partagez vos recettes" />
 
-			<section class="section">
+			<section class="section has-background-dark">
 
 				<div class="container">
-					<div class="columns is-centered">
+					<div class="columns is-centered" style="margin-top: -40px">
 						<FormSearch />
 					</div>
 
@@ -20,7 +20,7 @@
 						</router-link>
 					</b-notification>
 
-					<RecipesList :recipes="recipes" />
+					<RecipesList :recipes="recipes"/>
 				</div>
 			</section>
 		</div>

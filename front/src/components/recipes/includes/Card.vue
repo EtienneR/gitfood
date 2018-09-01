@@ -1,68 +1,104 @@
 <template>
-    <section class="section" v-if="recipe">
+    <section class="section has-background-white" v-if="recipe" style="margin-top: -20px">
 
-        <div class="container">
-            <article class="content">
-                <p>     
-                    Rédigé par
-                    <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
-                        {{ recipe.firstname }}
-                    </router-link>
-                    le 
-                    <time :datetime="recipe.created_at | iso8601">
-                        {{ recipe.created_at | moment }}
-                    </time>
-                </p>
-                <p class="has-text-centered">
-                    <img :src="`http://localhost:3000/img/${recipe.image}`" alt="Photo de suggestion">
-                </p>
-                <p><em>{{ recipe.introduction }}</em></p>
-                <div class="columns">
-                    <div class="column is-one-quarter">
-                        <h2 class="title is-3">Ingrédients</h2>
-                        <ul>
-                            <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
-                                <span v-if="ingredient.title">
-                                    <h3>{{ ingredient.title }}</h3>
+        <div class="hero-body">
+
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-7">
+                    <div class="tile">
+                        <div class="tile is-parent">
+                            <article class="tile is-child">
+                                <p>
+                                    Rédigé par
+                                    <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+                                        {{ recipe.firstname }}
+                                    </router-link>
+                                    le 
+                                    <time :datetime="recipe.created_at | iso8601">
+                                        {{ recipe.created_at | moment }}
+                                    </time>
+                                </p>
+                                <div class="has-background-light">
+                                    <p class="hero-body">
+                                        <em>{{ recipe.introduction }}</em>
+                                    </p>
+                                </div>
+                                <div class="section">
+                                    <div class="field is-grouped">
+                                        <p class="control">
+                                            <button class="button is-primary is-outlined">Liker</button>
+                                        </p>
+                                        <p class="control">
+                                            <button class="button is-primary" @click="fork()">Forker</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child">
+                        <p class="has-text-right">
+                            <img :src="`http://localhost:3000/img/${recipe.image}`" alt="Photo de suggestion" width="320px">
+                        </p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="tile is-ancestor">
+                <div class="tile is-vertical is-4">
+                    <div class="tile">
+                        <div class="tile is-parent">
+                            <article class="tile is-child">
+                                <div class="content">
+                                    <p class="title">Ingrédients</p>
                                     <ul>
-                                        <li v-for="(i, index) in ingredient.step" :key="index">
-                                            <span v-if="i.quantity.length > 0">{{ i.quantity }}</span> {{ i.mesure }} {{ i.name }}
+                                        <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
+                                            <span v-if="ingredient.title">
+                                                <h3>{{ ingredient.title }}</h3>
+                                                <ul>
+                                                    <li v-for="(i, index) in ingredient.step" :key="index">
+                                                        <span v-if="i.quantity !== 0">{{ i.quantity }}</span> {{ i.mesure }} {{ i.name }}
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                            <span v-else>
+                                                <span v-if="ingredient.quantity !== 0">{{ ingredient.quantity }}</span> {{ ingredient.mesure }} <span v-if="ingredient.mesure">de</span> {{ ingredient.name }}
+                                            </span>
                                         </li>
                                     </ul>
-                                </span>
-                                <span v-else>
-                                    <span v-if="ingredient.quantity !== 0">{{ ingredient.quantity }}</span> {{ ingredient.mesure }} <span v-if="ingredient.mesure">de</span> {{ ingredient.name }}
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="column is-three-quarters">
-                        <h2 class="title is-3">Instructions</h2>
-                        <ol>
-                            <li v-for="(instruction, index) in recipe.instructions" :key="index">
-                                <span v-if="instruction.title">
-                                    <h3>{{ instruction.title }}</h3>
-                                    <ol>
-                                        <li v-for="(a, index) in instruction.step" :key="index">{{ a.name }}</li>
-                                    </ol>
-                                </span>
-                                <span v-else>
-                                    {{ instruction.name }}
-                                </span>
-                            </li>
-                        </ol>
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child">
+                        <div class="content">
+                            <p class="title">Instructions</p>
+                            <ol>
+                                <li v-for="(instruction, index) in recipe.instructions" :key="index">
+                                    <span v-if="instruction.title">
+                                        <h3>{{ instruction.title }}</h3>
+                                        <ol>
+                                            <li v-for="(a, index) in instruction.step" :key="index">{{ a.name }}</li>
+                                        </ol>
+                                    </span>
+                                    <span v-else>
+                                        {{ instruction.name }}
+                                    </span>
+                                </li>
+                            </ol>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div v-if="recipe.conclusion">
+                <p class="title">Le petit mot de la fin</p>
                 <p>{{ recipe.conclusion }}</p>
-                <div class="field is-grouped">
-					<p class="control">
-                        <button class="button is-primary is-outlined">Liker</button>
-                    </p>
-                    <p class="control">
-                        <button class="button is-primary" @click="fork()">Forker</button>
-                    </p>
-                </div>
-            </article>
+            </div>
         </div>
 
     </section>
