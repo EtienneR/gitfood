@@ -1,6 +1,6 @@
 const express = require('express')
 const recipes = require('../models/recipes')
-const checkIntegerId = require('../helpers/middlewares')
+const m = require('../helpers/middlewares')
 const message = require('../helpers/messages')
 const router = express.Router()
 
@@ -26,12 +26,11 @@ router.get('/', async (req, res) => {
             }
         })
         .catch(err => res.status(500).json(err))
-
     }
 })
 
 /* Obtenir une recette via id_user */
-router.get('/user/:id_user', checkIntegerId, async (req, res) => {
+router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
     await recipes.getRecipesByAuthor(id_user)
@@ -46,7 +45,7 @@ router.get('/user/:id_user', checkIntegerId, async (req, res) => {
 })
 
 /* Obtenir une recette via son id */
-router.get('/:id', checkIntegerId, async (req, res) => {
+router.get('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     await recipes.getRecipe(id)
@@ -61,7 +60,7 @@ router.get('/:id', checkIntegerId, async (req, res) => {
 })
 
 /* Obtenir les autres recettes du même utilisateur */
-router.get('/user/:id_user/others/:id', checkIntegerId, async (req, res) => {
+router.get('/user/:id_user/others/:id', m.checkIntegerId, async (req, res) => {
     const { id, id_user } = req.params
 
     await recipes.getOthersRecipes(id_user, id)
@@ -75,7 +74,7 @@ router.get('/user/:id_user/others/:id', checkIntegerId, async (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-router.get('/forks/:id_user', checkIntegerId, async (req, res) => {
+router.get('/forks/:id_user', m.checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
     await recipes.getForks(id_user)
@@ -90,18 +89,14 @@ router.get('/forks/:id_user', checkIntegerId, async (req, res) => {
 })
 
 /* Ajouter une recette */
-router.post('/', async (req, res) => {
-    if (Object.keys(req.body).length > 0) {
-        await recipes.postRecipe(req.body)
-        .then(id => res.status(201).json({ message: message.recipes.created, id: id[0] }))
-        .catch(err => res.status(500).json(err))
-    } else {
-        return res.status(400).json({ message: message.emptyFields })
-    }
+router.post('/', m.checkFields, async (req, res) => {
+    await recipes.postRecipe(req.body)
+    .then(id => res.status(201).json({ message: message.recipes.created, id: id[0] }))
+    .catch(err => res.status(500).json(err))
 })
 
 /* Modifier une recette */
-router.put('/:id', checkIntegerId, async (req, res) => {
+router.put('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     if (id) {
@@ -118,7 +113,7 @@ router.put('/:id', checkIntegerId, async (req, res) => {
 })
  
 /* Supprimer une recette */
-router.delete('/:id', checkIntegerId, async (req, res) => {
+router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     if (id) {
