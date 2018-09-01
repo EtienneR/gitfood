@@ -33,8 +33,8 @@ export default {
 	data() {
 		return {
 			loading: false,
-			isConnected: true,
-			userId: 2,
+			isConnected: false,
+			userId: 1,
 			firstname: 'Toto',
 			message: false,
 			title: '',

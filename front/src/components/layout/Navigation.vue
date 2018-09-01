@@ -33,23 +33,17 @@
 								<router-link
 									class="navbar-item"
 									:to="{ name: 'addRecipe' }"
-									@click.native="isActive">
-									Ajouter une recette
+									@click.native="isActive">Ajouter une recette
 								</router-link>
 								<router-link
 									class="navbar-item"
 									:to="{ name: 'myRecipes' }"
-									@click.native="isActive">
-									Mes recettes
+									@click.native="isActive">Mes recettes
 								</router-link>
-								<a class="navbar-item">
-									Mes recettes favorites
-								</a>
 								<router-link
 									class="navbar-item"
 									:to="{ name: 'myComments'}"
-									@click.native="isActive">
-									Mes commentaires
+									@click.native="isActive">Mes commentaires
 								</router-link>
 							</div>
 						</div>
@@ -59,20 +53,14 @@
 						<div class="navbar-item has-dropdown is-hoverable">
 							<a class="navbar-link">Mon compte</a>
 							<div class="navbar-dropdown is-boxed">
-								<a class="navbar-item">
-									Modifier mon profil
-								</a>
-								<a class="navbar-item" @click="changePassword = true">
-									Changer mot de passe
-								</a>
-								<a class="navbar-item" @click="logout()">
-									Déconnexion
-								</a>
+								<a class="navbar-item">Modifier mon profil</a>
+								<a class="navbar-item" @click="changePassword = true">Changer mot de passe</a>
+								<a class="navbar-item" @click="logout()">Déconnexion</a>
 							</div>
 						</div>
 					</div>
 
-					<div class="navbar-end" v-if="!isConnected">
+					<div class="navbar-end" v-if="!isConnected" id="nav-noconnected">
 						<div class="navbar-item">
 							<div class="field is-grouped">
 								<p class="navbar-item">
@@ -90,7 +78,7 @@
 					<div class="modal-card" style="width: auto">
 						<form>
 							<header class="modal-card-head">
-								<h1>Changer mon mot de passe</h1>
+								<h1 class="modal-card-title">Changer mon mot de passe</h1>
 							</header>
 							<section class="modal-card-body">
 								<b-field label="Old Password">
@@ -112,11 +100,13 @@
 
 				<b-modal :active.sync="isModaleLogin" width="640" has-modal-card>
 					<div class="modal-card" style="width: auto">
-						<form>
+						<form action="javascript:void(0);">
 							<header class="modal-card-head">
 								<b-switch v-model="connection">
-									<span v-if="connection">Connexion</span>
-									<span v-else>Inscription</span>
+									<span class="modal-card-title">
+										<span v-if="connection">Connexion</span>
+										<span v-else>Inscription</span>
+									</span>
 								</b-switch>
 							</header>
 							<section class="modal-card-body">
@@ -124,14 +114,17 @@
 									<b-input type="email"></b-input>
 								</b-field>
 								<b-field label="Password">
-									<b-input type="password"></b-input>
+									<b-input type="password" password-reveal></b-input>
 								</b-field>
 								<b-field label="Confirm Password" v-if="!connection">
-									<b-input type="password"></b-input>
+									<b-input type="password" password-reveal></b-input>
 								</b-field>
 							</section>
 							<footer class="modal-card-foot">
-								<input type="submit" class="button is-primary" :value="connection ? 'Se connecter' : 'S\'inscrire'">
+								<input type="submit"
+									class="button is-primary"
+									:value="connection ? 'Se connecter' : `S'inscrire`"
+									@click="login">
 								<a v-if="connection">Mot de passe oublié</a>
 							</footer>
 						</form>
@@ -161,11 +154,11 @@ export default {
 	},
 	methods: {
 		isActive() {
-			if (!this.active) {
-				this.active = true
-			} else {
-				this.active = false
-			}
+			!this.active ? this.active = true : this.active = false
+		},
+		login() {
+			EventBus.$emit('logout', true)
+			this.isModaleLogin = false
 		},
 		logout() {
 			EventBus.$emit('logout', false)
@@ -176,3 +169,7 @@ export default {
 	}
 }
 </script>
+
+<style>
+
+</style>
