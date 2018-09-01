@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
             if (recettes.length > 0) {
                 res.json(recettes)
             } else {
-                res.status(202).json({ message: 'no recipes available' })
+                res.status(202).json({ message: message.recipes.nothing })
             }
         })
         .catch(err => res.status(500).json(err))

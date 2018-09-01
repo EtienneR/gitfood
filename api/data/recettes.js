@@ -410,5 +410,87 @@ module.exports = [
     ],
     conclusion: 'Vous pouvez remplacez la poudre d\'anis par un mélange de 4 épices spéciales pain d\'épice et en y ajoutant un cuillère de cannelle.',
     published: true
-  }
+  },
+	{
+    id: 9,
+    name: 'Smoothie​ à la​ banane',
+    user_id: 1,
+		introduction: 'Lorem Ipseum',
+		ingredients: [
+      {
+        quantity: 1,
+        mesure: '',
+        name: 'banane'
+      },
+      {
+        quantity: 25,
+        mesure: 'cl',
+        name: 'lait'
+      },
+      {
+        quantity: 4,
+        mesure: '',
+        name: 'glaçons'
+      },
+      {
+        quantity: 1,
+        mesure: 'CàC',
+        name: 'canelle'
+      }
+		],
+		instructions: [
+      { name: 'Verser le lait dans le mixeur' },
+      { name: 'Couper en fines rondelles la banane dans le mixeur ainsi que la canelle.' },
+      { name: 'Mixer quelques secondes par intermitence pour éviter la surchauffe.' }
+    ],
+		conclusion: 'Ce boit très frais',
+		published: true
+  },
+	{
+    id: 10,
+    name: 'Quatres quarts',
+    user_id: 1,
+		introduction: 'Lorem Ipsum',
+		ingredients: [
+      {
+        quantity: 3,
+        mesure: '',
+        name: 'oeufs'
+      },
+      {
+        quantity: 0,
+        mesure: '',
+        name: 'beurre demi-salé'
+      },
+      {
+        quantity: 0,
+        mesure: '',
+        name: 'sucre'
+      },
+      {
+        quantity: 0,
+        mesure: '',
+        name: 'farine'
+      },
+      {
+        quantity: 1,
+        mesure: 'sachet',
+        name: 'levure'
+      },
+      {
+        quantity: 1,
+        mesure: 'CàS',
+        name: 'vanille'
+      }
+		],
+		instructions: [
+      { name: 'Pesez​ ​l’ensemble​​ des​ oeufs​ (environ 180​ grammes​ pour​ des oeufs​ moyens).​ Enlevez​ 30 grammes​​ pour​ ​le​ beurre​ ​et​​ le​​ sucre.' },
+      { name: 'Dans​ un​ ​saladier,​ ​mélangez​ ​farine,​ poudres​ ​et​ ​l’oeuf.' },
+      { name: 'Versez​ ​le​​ mélange​ ​dans​ ​un​ ​moule​ ​à ​cake.' },
+      { name: '​Préchauffez​ ​le​ ​four​ ​à ​150°C.'},
+      { name: 'Enfournez​ ​le​ moule​ ​pour​ 45​ ​minutes.' }
+    ],
+		conclusion: 'Vous pouvez changer la vanille par de la fleur d\'oranger, des zestes de citron, d\'orange, etc...',
+		published: true
+	},
 ]

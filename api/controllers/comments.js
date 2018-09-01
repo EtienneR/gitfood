@@ -26,7 +26,7 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
         if (comment) {
             res.json(comment)
         } else {
-            res.status(400).json({ message: message.comments.notFound })
+            res.status(404).json({ message: message.comments.notFound })
         }
     })
     .catch(err => res.status(500).json(err))

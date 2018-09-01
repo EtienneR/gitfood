@@ -4,6 +4,7 @@ module.exports = {
         notFound: 'this page doesn\'t exists'
     },
     recipes: {
+        nothing: 'no recipes available',
         notFound: 'Recipe not found',
         missingId: 'Missing recipe id',
         created: 'Recipe created',
