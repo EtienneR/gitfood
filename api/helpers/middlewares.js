@@ -1,9 +1,13 @@
 const message = require('./messages')
 
 function checkIntegerId(req, res, next) {
-    const { id, id_user } = req.params
+    let { id, id_user } = req.params
 
-    if (id || id_user) {
+    if (id_user) {
+        id = id_user
+    }
+
+    if (id) {
         if (!Number.isInteger(parseInt(id))) {
             return res.status(400).json({ message: message.idNotInteger })
         }
