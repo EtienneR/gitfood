@@ -12,9 +12,4 @@ app.use(morgan('tiny'))
 app.use(helmet())
 app.use(require('./controllers'))
 
-// Routes non définies = 404
-app.all('/*', (req, res) => {
-    return res.status(404).json({ 'error': 'this page doesn\'t exists' })
-})
-
 module.exports = app

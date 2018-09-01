@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+
+  db_test:
+    image: postgres:10-alpine
+    env_file:
+      - "./.test.env"
+    ports:
+      - "5433:5432"
+    restart:
+      always
+
+  api_test:
+    build: ./api
+    command: sh -c 'node_modules/.bin/wait-port db_test:5432 && node_modules/.bin/knex migrate:latest && npm run dev'
+    volumes:
+      - ./api:/usr/src/app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db_test
+    env_file:
+      - "./.test.env"
+    restart:
+      always

@@ -19,6 +19,10 @@ Cela aura pour conséquence de créer 3 containers :
 - API (ExpressJS)
 - Front (VueJS)
 
+### Tests Unitaires
+
+Lancez le docker-compose.test.yml avec la commande `$ docker-compose -f docker-compose.test.yml` et les tests dans le dossier api `npm run test`.
+
 ### Récapitulatif
 
 | Nom | Port | Accès |
@@ -26,6 +30,8 @@ Cela aura pour conséquence de créer 3 containers :
 | Postgres | 5432 | `$ docker-compose run db psql -h db -U root -d gitfood` |
 | API | 3000 | |
 | Front | 8080 | |
+| Postgres test | 5433 | |
+| API test | 3001 | |
 
 ## Todolist des features
 
@@ -51,7 +57,7 @@ Liste non exhaustive...
 | Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
 | FormWizard | Front | En cours | Provisoire (accessibilité) |
 | Ajout image | Back & front | En cours | Pour illustrer une recette |
-| Tests unitaires avec Jest | Back | Backlog | Soucis avec les promesses |
+| Tests unitaires avec Jest | Back | En cours | docker-compose.test.yml et npm run test |
 | Authentification | Api & Front | Backlog | |
 
 ## Sources

@@ -1,8 +1,10 @@
 const express = require('express')
-
-module.exports = express.Router()
+const message = require('../helpers/messages')
+const router = express.Router()
 
 /* Page d'accueil */
-.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the GitFood API' })
+router.get('/', (req, res) => {
+    res.json({ message: message.home.welcome })
 })
+
+module.exports = router

@@ -2,13 +2,12 @@ const express = require('express')
 const recipes = require('../models/recipes')
 const checkIntegerId = require('../helpers/middlewares')
 const message = require('../helpers/messages')
-
-module.exports = express.Router()
+const router = express.Router()
 
 /* Toutes les recettes */
-.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (req.query.q) {
-        recipes.getRecipesSearch(req.query.q)
+        await recipes.getRecipesSearch(req.query.q)
         .then(recettes => {
             if (recettes.length > 0) {
                 res.json(recettes)
@@ -18,17 +17,24 @@ module.exports = express.Router()
         })
         .catch(err => res.status(500).json(err))
     } else {
-        recipes.getRecipes()
-        .then(recettes => res.json(recettes))
+        await recipes.getRecipes()
+        .then(recettes => {
+            if (recettes.length > 0) {
+                res.json(recettes)
+            } else {
+                res.status(202).json({ message: 'no recipes available' })
+            }
+        })
         .catch(err => res.status(500).json(err))
+
     }
 })
 
 /* Obtenir une recette via id_user */
-.get('/user/:id_user', checkIntegerId, (req, res) => {
+router.get('/user/:id_user', checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
-    recipes.getRecipesByAuthor(id_user)
+    await recipes.getRecipesByAuthor(id_user)
     .then(recette => {
         if (recette.length > 0) {
             res.json(recette)
@@ -40,10 +46,10 @@ module.exports = express.Router()
 })
 
 /* Obtenir une recette via son id */
-.get('/:id', checkIntegerId, (req, res) => {
+router.get('/:id', checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    recipes.getRecipe(id)
+    await recipes.getRecipe(id)
     .then(recette => {
         if (recette) {
             res.json(recette)
@@ -55,10 +61,10 @@ module.exports = express.Router()
 })
 
 /* Obtenir les autres recettes du même utilisateur */
-.get('/user/:id_user/others/:id', checkIntegerId, (req, res) => {
+router.get('/user/:id_user/others/:id', checkIntegerId, async (req, res) => {
     const { id, id_user } = req.params
 
-    recipes.getOthersRecipes(id_user, id)
+    await recipes.getOthersRecipes(id_user, id)
     .then(recettes => {
         if (recettes && recettes.length > 0) {
             res.json(recettes)
@@ -69,10 +75,10 @@ module.exports = express.Router()
     .catch(err => res.status(500).json(err))
 })
 
-.get('/forks/:id_user', checkIntegerId, (req, res) => {
+router.get('/forks/:id_user', checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
-    recipes.getForks(id_user)
+    await recipes.getForks(id_user)
     .then(recettes => {
         if (recettes && recettes.length > 0) {
             res.json(recettes)
@@ -84,9 +90,9 @@ module.exports = express.Router()
 })
 
 /* Ajouter une recette */
-.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     if (Object.keys(req.body).length > 0) {
-        recipes.postRecipe(req.body)
+        await recipes.postRecipe(req.body)
         .then(id => res.status(201).json({ message: message.recipes.created, id: id[0] }))
         .catch(err => res.status(500).json(err))
     } else {
@@ -95,12 +101,12 @@ module.exports = express.Router()
 })
 
 /* Modifier une recette */
-.put('/:id', checkIntegerId, (req, res) => {
+router.put('/:id', checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     if (id) {
         if (Object.keys(req.body).length > 0) {
-            recipes.updateRecipe(id, req.body)
+            await recipes.updateRecipe(id, req.body)
             .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
             .catch(err => res.status(500).json(err))
         } else {
@@ -112,14 +118,16 @@ module.exports = express.Router()
 })
  
 /* Supprimer une recette */
-.delete('/:id', checkIntegerId, (req, res) => {
+router.delete('/:id', checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     if (id) {
-        recipes.deleteRecipe(id)
+        await recipes.deleteRecipe(id)
         .then(() => res.json({ message: message.recipes.deleted(id) }) )
         .catch(err => res.status(500).json(err))
     } else {
         return res.status(400).json({ message: message.recipes.missingId })
     }
 })
+
+module.exports = router

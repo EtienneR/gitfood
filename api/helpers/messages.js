@@ -1,4 +1,8 @@
 module.exports = {
+    home: {
+        welcome: 'Welcome to the GitFood API',
+        notFound: 'this page doesn\'t exists'
+    },
     recipes: {
         notFound: 'Recipe not found',
         missingId: 'Missing recipe id',

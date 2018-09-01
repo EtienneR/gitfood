@@ -59,7 +59,6 @@ module.exports = express.Router()
 
 /* Ajouter un commentaire */
 .post('/', (req, res) => {
-    console.log('req.body', req.body)
     if (Object.keys(req.body).length > 0) {
         comments.postComment(req.body)
         .then(id => res.status(201).json({ message: message.comments.created, id: id[0] }))
