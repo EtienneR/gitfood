@@ -1,5 +1,5 @@
 const database = require('./index.js').database
-const table = 'recettes'
+const table = 'recipes'
 
 function getRecipes() {
     return database(table)

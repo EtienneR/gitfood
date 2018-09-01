@@ -8,9 +8,9 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     if (req.query.q) {
         await recipes.getRecipesSearch(req.query.q)
-        .then(recettes => {
-            if (recettes.length > 0) {
-                res.json(recettes)
+        .then(recipes => {
+            if (recipes.length > 0) {
+                res.json(recipes)
             } else {
                 res.status(404).json({ message: 'no recipes found' })
             }
@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
         .catch(err => res.status(500).json(err))
     } else {
         await recipes.getRecipes()
-        .then(recettes => {
-            if (recettes.length > 0) {
-                res.json(recettes)
+        .then(recipes => {
+            if (recipes.length > 0) {
+                res.json(recipes)
             } else {
                 res.status(202).json({ message: message.recipes.nothing })
             }
@@ -34,9 +34,9 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
     await recipes.getRecipesByAuthor(id_user)
-    .then(recette => {
-        if (recette.length > 0) {
-            res.json(recette)
+    .then(recipe => {
+        if (recipe.length > 0) {
+            res.json(recipe)
         } else {
             res.status(404).json({ message: message.recipes.noRecipes })
         }
@@ -49,9 +49,9 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     await recipes.getRecipe(id)
-    .then(recette => {
-        if (recette) {
-            res.json(recette)
+    .then(recipe => {
+        if (recipe) {
+            res.json(recipe)
         } else {
             res.status(404).json({ message: message.recipes.notFound })
         }
@@ -64,11 +64,11 @@ router.get('/user/:id_user/others/:id', m.checkIntegerId, async (req, res) => {
     const { id, id_user } = req.params
 
     await recipes.getOthersRecipes(id_user, id)
-    .then(recettes => {
-        if (recettes && recettes.length > 0) {
-            res.json(recettes)
+    .then(recipes => {
+        if (recipes.length > 0) {
+            res.json(recipes)
         } else {
-            res.status(400).json({ message: message.users.notFound })
+            res.status(404).json({ message: message.users.notFound })
         }
     })
     .catch(err => res.status(500).json(err))
@@ -78,11 +78,11 @@ router.get('/forks/:id_user', m.checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
     await recipes.getForks(id_user)
-    .then(recettes => {
-        if (recettes && recettes.length > 0) {
-            res.json(recettes)
+    .then(recipes => {
+        if (recipes && recipes.length > 0) {
+            res.json(recipes)
         } else {
-            res.status(404).json({message: message.recipes.notFound})
+            res.status(404).json({ message: message.recipes.notFound })
         }
     })
     .catch(err => res.status(500).json(err))

@@ -79,10 +79,10 @@ export default {
 	},
 	computed: {
 		getPublishedRecipes() {
-			return this.recipes.filter(recette => recette.published)
+			return this.recipes.filter(recipe => recipe.published)
 		},
 		getUnpublishedRecipes() {
-			return this.recipes.filter(recette => !recette.published)
+			return this.recipes.filter(recipe => !recipe.published)
 		},
 		getForksNumbers() {
 			return this.forks.length

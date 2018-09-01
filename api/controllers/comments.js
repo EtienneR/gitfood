@@ -33,10 +33,10 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
 })
 
 /* Commentaires par recette */
-router.get('/recipe/:recette_id', m.checkIntegerId, async (req, res) => {
-    const { recette_id } = req.params
+router.get('/recipe/:recipe_id', m.checkIntegerId, async (req, res) => {
+    const { recipe_id } = req.params
 
-    await comments.getCommentsByRecipe(recette_id)
+    await comments.getCommentsByRecipe(recipe_id)
     .then(comments => {
         if (comments.length > 0) {
             res.json(comments)

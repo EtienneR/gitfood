@@ -33,10 +33,10 @@ function getCommentsByUser(user_id) {
     return database(table)
     .select(`${table}.id`,
             `${table}.content`,
-            'recettes.name')
+            'recipes.name')
     .where(`${table}.user_id`, user_id)
     .leftJoin('users', `${table}.user_id`, 'users.id')
-    .leftJoin('recettes', `${table}.recette_id`, 'recettes.id')
+    .leftJoin('recipes', `${table}.recette_id`, 'recipes.id')
     .orderBy(`${table}.id`, 'DESC')
 }
 

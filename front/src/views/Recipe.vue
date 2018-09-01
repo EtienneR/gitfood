@@ -106,6 +106,9 @@ export default {
                 .then(res => {
                     this.recipes = res.data
                 })
+                .catch(err => {
+                    console.error(err)
+                })
                 await api.getCommentsByRecipe(this.$route.params.id)
                 .then(res => {
                     this.comments = res.data
@@ -128,7 +131,7 @@ export default {
             return api.addComment({
                     content: content,
                     user_id: self.userId,
-                    recette_id: self.$route.params.id
+                    recipe_id: self.$route.params.id
                 })
                 .then(comment => {
                     // Ajout du nouveau commentaire dans le tableau existant
