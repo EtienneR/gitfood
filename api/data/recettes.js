@@ -449,7 +449,7 @@ module.exports = [
 	{
     id: 10,
     name: 'Quatres quarts',
-    user_id: 1,
+    user_id: 3,
 		introduction: 'Lorem Ipsum',
 		ingredients: [
       {

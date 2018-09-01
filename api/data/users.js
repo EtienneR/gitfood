@@ -19,12 +19,5 @@ module.exports = [
         email: 'tutu@yahoo.fr',
         password: '123soleil',
         active: true
-    },
-    {
-        id: 4,
-        firstname: 'tutu',
-        email: 'titi@yahoo.fr',
-        password: '123soleil',
-        active: true
     }
 ]
