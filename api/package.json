@@ -16,14 +16,12 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.4",
-    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "knex": "^0.14.6",
     "morgan": "^1.9.0",
     "pg": "^7.4.1",
     "supertest": "^3.1.0",
-    "supertest-as-promised": "^4.0.2",
     "wait-port": "^0.2.2"
   },
   "devDependencies": {
