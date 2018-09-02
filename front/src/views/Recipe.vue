@@ -13,7 +13,7 @@
                     @fork="fork"
                     :isLiking="isLiking"
                     @like="like"
-                    :numberLikes="numberLikes" />
+                    :numberLikes="recipe.nbLikes" />
             </div>
 
             <div class="section">
@@ -78,8 +78,7 @@ export default {
             recipes: [],
             comments: [],
             message: {},
-            loading: false,
-            numberLikes: 42
+            loading: false
         }
     },
     computed: {
@@ -155,15 +154,13 @@ export default {
         like() {
             api.addLike({ user_id: this.userId, recipe_id: this.recipe.id })
             .then(res => {
-                this.numberLikes = this.numberLikes + 1
+                this.recipe.nbLikes = this.recipe.nbLikes + 1
             })
             .catch(err => {
-                //console.info(JSON.parse(err.request.response).id)
                 const id = JSON.parse(err.request.response).id
-                console.log(id)
                 api.removeLike(id)
                 .then(() => {
-                    this.numberLikes = this.numberLikes - 1
+                    this.recipe.nbLikes = this.recipe.nbLikes - 1
                 })
             })
         }
