@@ -1,8 +1,9 @@
 const express = require('express')
+const router = express.Router()
 const recipes = require('../models/recipes')
+const comments = require('../models/comments')
 const m = require('../helpers/middlewares')
 const message = require('../helpers/messages')
-const router = express.Router()
 
 /* Toutes les recettes */
 router.get('/', async (req, res) => {
@@ -117,9 +118,36 @@ router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     if (id) {
-        await recipes.deleteRecipe(id)
-        .then(() => res.json({ message: message.recipes.deleted(id) }) )
-        .catch(err => res.status(500).json(err))
+        // Vérification des commentaires associés
+        await comments.getCommentsByRecipe(id)
+        .then(c => {
+            if (c.length > 0) {
+                // Récupération des id dans un tableau
+                let ids = []
+                c.forEach(comment => {
+                    ids.push(comment.id)
+                })
+                // Suppression des commentaires associés
+                comments.deleteComments(ids)
+                .then(() => {
+                    // Suppression de la recette
+                    recipes.deleteRecipe(id)
+                    .then(() => res.json({ message: message.recipes.deleted(id) }))
+                    .catch(err => res.status(500).json(err))
+                })
+            } else {
+                // Suppression de la recette
+                recipes.deleteRecipe(id)
+                .then(recipe => {
+                    if (recipe.length > 0) {
+                        res.json({ message: message.recipes.deleted(id) })
+                    } else {
+                        res.json({ message: message.recipes.notFound })
+                    }
+                })
+                .catch(err => res.status(500).json(err))
+            }
+        }) 
     } else {
         return res.status(400).json({ message: message.recipes.missingId })
     }

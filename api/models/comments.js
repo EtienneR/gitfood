@@ -56,11 +56,19 @@ function deleteComment(id) {
     .del()
 }
 
+/* Supprimer un tableau de commentaires */
+function deleteComments(ids) {
+    return database(table)
+    .whereIn('id', ids)
+    .del()
+}
+
 module.exports = {
     getComments,
     getComment,
     getCommentsByRecipe,
     getCommentsByUser,
     postComment,
-    deleteComment
+    deleteComment,
+    deleteComments
 }

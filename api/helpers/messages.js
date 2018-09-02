@@ -21,6 +21,8 @@ module.exports = {
     },
     comments: {
         notFound: 'Comment not found',
+        missingId: 'Missing comment id',
+        deleted: (id => `Comment ${id} deleted`),
         noCommentsForThisRecipe: 'No comments for this recipe',
         noCommentsForThisUser: 'No comments for this user',
         created: 'Comment created'
