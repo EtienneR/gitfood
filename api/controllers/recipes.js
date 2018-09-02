@@ -53,11 +53,17 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     try {
         // Récupération du nombre de likes
         const l = await likes.getLikesByRecipe(id)
-        const nblikes = { nbLikes : l.length }
+        const nbLikes = { nbLikes : l.length }
+        // Récupération des commentaires 
+        const c = await comments.getCommentsByRecipe(id)
+        const nbComments = { nbComments : c.length }
         // Récupération de la recette
         const recipe = await recipes.getRecipe(id)
+        // Récupération autre recettes du même auteur
+        const s = await recipes.getOthersRecipes(recipe.user_id, id)
+        const nbSameAuthor = { nbSameAuthor: s.length }
         // Ajout du nombre de likes dans la recette
-        const result = {...recipe, ...nblikes}
+        const result = {...recipe, ...nbLikes, ...nbComments, ...nbSameAuthor}
 
         res.json(result)
     } catch(err) {

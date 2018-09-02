@@ -20,7 +20,7 @@
                 <div class="container has-background-light hero-body">
                     <div class="columns">
                         <div class="column is-one-quarter">
-                            <SameAuthor v-if="recipes.length > 0" :recipes="recipes" />
+                            <SameAuthor :recipes="recipes" />
                         </div>
 
                         <div class="column is-three-quarters">
@@ -105,6 +105,18 @@ export default {
             .then(res => {
                 this.recipe = res.data
                 EventBus.$emit('title', res.data.name)
+                if (res.data.nbComments > 0) {
+                    api.getCommentsByRecipe(this.$route.params.id)
+                    .then(res => {
+                        this.comments = res.data
+                    })
+                }
+                if (res.data.nbSameAuthor > 0) {
+                    api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
+                    .then(res => {
+                        this.recipes = res.data
+                    })
+                }
             }).catch(err => {
                 if (err.response.status === 404) {
                     this.message.title = 'Erreur 404'
@@ -114,22 +126,6 @@ export default {
                     EventBus.$emit('message', true)
                 }
             })
-            if (this.recipe) {
-                await api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
-                .then(res => {
-                    this.recipes = res.data
-                })
-                .catch(err => {
-                    console.error(err)
-                })
-                await api.getCommentsByRecipe(this.$route.params.id)
-                .then(res => {
-                    this.comments = res.data
-                })
-                .catch(() => {
-                    console.info('no comments')
-                })
-            }
             this.loading = false
         },
         fork(id_recipe) {
