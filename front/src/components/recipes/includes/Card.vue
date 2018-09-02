@@ -26,7 +26,7 @@
                                 <div class="section">
                                     <div class="field is-grouped">
                                         <p class="control">
-                                            <button class="button is-primary is-outlined">Liker</button>
+                                            <button class="button is-primary is-outlined" @click="like()">Liker</button>
                                         </p>
                                         <p class="control">
                                             <button class="button is-primary" @click="fork()">Forker</button>
@@ -114,12 +114,14 @@ export default {
         isConnected: Boolean
 	},
     methods: {
+        like() {
+            !this.isConnected ? this.$dialog.alert(this.customMessage('liker')) : this.$dialog.alert('Fonctionnalité non disponible')
+        },
         fork() {
-            if (!this.isConnected) {
-                this.$dialog.alert('Vous devez être connecté pour forker pour cette recette.')
-            } else {
-                this.$emit('fork', this.recipe.id)
-            }
+            !this.isConnected ? this.$dialog.alert(this.customMessage('forker')) : this.$emit('fork', this.recipe.id)
+        },
+        customMessage(action) {
+            return `Vous devez être connecté pour ${action} pour cette recette.`
         }
     },
     filters: {
