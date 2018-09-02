@@ -12,6 +12,7 @@
                             <router-link :to="{ name: 'user', params: { id: comment.user_id }}">
                                 {{ comment.firstname }}
                             </router-link>
+                            - le {{comment.created_at | moment }}
                         </p>
                         <p v-html="comment.content"></p>
                     </div>
@@ -36,6 +37,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
 	props: {
 		comments: Array,
@@ -54,6 +57,11 @@ export default {
             } else {
                 this.$dialog.alert('Merci de remplir ce champ')
             }
+        }
+    },
+    filters: {
+        moment: function (date) {
+            return moment(date).format('DD/MM/YYYY à HH:mm:ss')
         }
     }
 }

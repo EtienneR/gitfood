@@ -21,6 +21,7 @@ function getCommentsByRecipe(recipe_id) {
     return database(table)
     .select(`${table}.id`,
             `${table}.content`,
+            `${table}.created_at`,
             `${table}.user_id`,
             'users.firstname')
     .where(`${table}.recipe_id`, recipe_id)
