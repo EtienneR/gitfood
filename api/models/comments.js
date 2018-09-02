@@ -34,6 +34,7 @@ function getCommentsByUser(user_id) {
     return database(table)
     .select(`${table}.id`,
             `${table}.content`,
+            `${table}.created_at`,
             'recipes.name')
     .where(`${table}.user_id`, user_id)
     .leftJoin('users', `${table}.user_id`, 'users.id')

@@ -41,7 +41,7 @@ router.get('/recipe/:recipe_id', m.checkIntegerId, async (req, res) => {
         if (comments.length > 0) {
             res.json(comments)
         } else {
-            res.status(404).json({ message: message.comments.noCommentsForThisRecipe })
+            res.status(202).json({ message: message.comments.noCommentsForThisRecipe })
         }
     })
     .catch(err => res.status(500).json(err))
@@ -56,7 +56,7 @@ router.get('/user/:user_id', m.checkIntegerId, async (req, res) => {
         if (comments.length > 0) {
             res.json(comments)
         } else {
-            res.status(404).json({ message: message.comments.noCommentsForThisUser })
+            res.status(202).json({ message: message.comments.noCommentsForThisUser })
         }
     })
     .catch(err => res.status(500).json(err))

@@ -38,6 +38,9 @@ export default {
     addComment(content) {
         return axios.post(`${API_URL}/comments`, content)
     },
+    removeComment(id_comment) {
+        return axios.delete(`${API_URL}/recipes/${id_comment}`)
+    },
     addLike(content) {
         return axios.post(`${API_URL}/likes`, content)
     },
