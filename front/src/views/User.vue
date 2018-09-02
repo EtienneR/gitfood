@@ -59,7 +59,7 @@ export default {
             this.loading = true
             await api.getRecipesByAuthor(this.$route.params.id)
             .then(res => {
-                this.recipes = res.data
+                this.recipes = res.data.recipes
                 EventBus.$emit('title', `Les recettes de ${this.recipes[0].firstname}`)
             }).catch(err => {
                 if (err.response.status === 404) {
