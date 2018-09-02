@@ -36,20 +36,29 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     try {
+        // Récupération de la recette
+        const recipe = await recipes.getRecipe(id)
+        if (!recipe) {
+            res.status(404).json({ message: message.recipes.noRecipes })
+        }
+
         // Récupération du nombre de likes
         const l = await likes.getLikesByRecipe(id)
         const nbLikes = { nbLikes: l.length }
+
         // Récupération des commentaires 
         const c = await comments.getCommentsByRecipe(id)
         const nbComments = { nbComments : c.length }
         // Récupération de la recette
-        const recipe = await recipes.getRecipe(id)
+
         // Récupération autre recettes du même auteur
         const s = await recipes.getOthersRecipes(recipe.user_id, id)
         const nbSameAuthor = { nbSameAuthor: s.length }
+
         // Ajout du nombre de likes dans la recette
         const result = { ...recipe, ...nbLikes, ...nbComments, ...nbSameAuthor }
         res.json(result)
+
     } catch(err) {
         res.status(500).json(err)
     }
@@ -60,22 +69,28 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
     const { id_user } = req.params
 
     try {
+        // Récupération des recettes par utilisateur
         const r = await recipes.getRecipesByAuthor(id_user)
         if (r.length > 0) {
+            // Récupération du nombre de forks obtenus
             const forks = await recipes.getForks(id_user)
             const nbForks = { nbForks: forks.length }
+
+            // Récupération du nombre de likes obtenus
             let ids = []
             r.forEach(recipe => {
                 ids.push(recipe.id)
             })
             const like = await likes.existingLikeArray(ids)
             const nbLikes = { nbLikes: like.length }
+
             const array = { recipes: r }
             const result = { ...array, ...nbForks, ...nbLikes }
             res.json(result)
         } else {
             res.status(404).json({ message: message.recipes.noRecipes })
         }
+
     } catch(err) {
         res.status(500).json(err)
     }
@@ -121,16 +136,12 @@ router.post('/', m.checkFields, async (req, res) => {
 router.put('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    if (id) {
-        if (Object.keys(req.body).length > 0) {
-            await recipes.updateRecipe(id, req.body)
-            .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
-            .catch(err => res.status(500).json(err))
-        } else {
-            return res.status(400).json({ message: message.emptyFields })
-        }
+    if (Object.keys(req.body).length > 0) {
+        await recipes.updateRecipe(id, req.body)
+        .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
+        .catch(err => res.status(500).json(err))
     } else {
-        return res.status(400).json({ message: message.recipes.missingId })
+        return res.status(400).json({ message: message.emptyFields })
     }
 })
  
@@ -138,66 +149,38 @@ router.put('/:id', m.checkIntegerId, async (req, res) => {
 router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    // Vérification des commentaires associés
-    await comments.getCommentsByRecipe(id)
-    .then(c => {
-        if (c.length > 0) {
-            // Récupération des id dans un tableau
+    try {
+        // Récupération des commentaires associés
+        const getComments = await comments.getCommentsByRecipe(id)
+        if (getComments.length > 0) {
+            // Récupération des ids des commentaires associés
             let ids = []
-            c.forEach(comment => {
+            getComments.forEach(comment => {
                 ids.push(comment.id)
             })
             // Suppression des commentaires associés
-            comments.deleteComments(ids)
-            .then(() => {
-                likes.getLikesByRecipe(id)
-                .then(l => {
-                    if (l.length > 0) {
-                        let ids = []
-                        l.forEach(like => {
-                            ids.push(likes.id)
-                        })
-                        // Suppression des likes associés
-                        likes.deleteLikes(ids)
-                        .then(() => {
-                            // Suppression de la recette
-                            recipes.deleteRecipe(id)
-                            .then(() => res.json({ message: message.recipes.deleted(id) }))
-                            .catch(err => res.status(500).json(err))
-                        })
-                    } else {
-                        // Suppression de la recette
-                        recipes.deleteRecipe(id)
-                        .then(() => res.json({ message: message.recipes.deleted(id) }))
-                        .catch(err => res.status(500).json(err))
-                    }
-                })
-            })
-        } else {
-            likes.getLikesByRecipe(id)
-            .then(l => {
-                if (l.length > 0) {
-                    let ids = []
-                    l.forEach(like => {
-                        ids.push(like.id)
-                    })
-                    // Suppression des likes associés
-                    likes.deleteLikes(ids)
-                    .then(() => {
-                        // Suppression de la recette
-                        recipes.deleteRecipe(id)
-                        .then(() => res.json({ message: message.recipes.deleted(id) }))
-                        .catch(err => res.status(500).json(err))
-                    })
-                } else {
-                    // Suppression de la recette
-                    recipes.deleteRecipe(id)
-                    .then(() => res.json({ message: message.recipes.deleted(id) }))
-                    .catch(err => res.status(500).json(err))
-                }
-            })
+            await comments.deleteComments(ids)
         }
-    })
+
+        // Récupération des likes associés
+        const getLikes = await likes.getLikesByRecipe(id)
+        if (getLikes.length > 0) {
+            // Récupération des ids des likes associés
+            let ids = []
+            getLikes.forEach(like => {
+                ids.push(like.id)
+            })
+            // Suppression des likes associés
+            await likes.deleteLikes(ids)
+        }
+
+        // Suppression de la recette
+        await recipes.deleteRecipe(id)
+        res.json({ message: message.recipes.deleted(id) })
+
+    } catch(err) {
+        res.status(500).json(err)
+    }
 })
 
 module.exports = router
