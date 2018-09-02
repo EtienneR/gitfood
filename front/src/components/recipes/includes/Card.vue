@@ -108,6 +108,7 @@
 
 <script>
 import moment from 'moment'
+require('moment/locale/fr')
 
 export default {
 	props: {
@@ -130,7 +131,7 @@ export default {
     },
     filters: {
         moment: function (date) {
-            return moment(date).format('DD/MM/YYYY')
+            return moment(date).format('D MMMM YYYY à HH:mm')
         },
         iso8601: function (date) {
             return moment(date).format()
