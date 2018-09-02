@@ -31,21 +31,6 @@ router.get('/', async (req, res) => {
     }
 })
 
-/* Obtenir une recette via id_user */
-router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
-    const { id_user } = req.params
-
-    await recipes.getRecipesByAuthor(id_user)
-    .then(recipe => {
-        if (recipe.length > 0) {
-            res.json(recipe)
-        } else {
-            res.status(404).json({ message: message.recipes.noRecipes })
-        }
-    })
-    .catch(err => res.status(500).json(err))
-})
-
 /* Obtenir une recette via son id */
 router.get('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
@@ -69,7 +54,36 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     } catch(err) {
         res.status(500).json(err)
     }
+})
 
+/* Obtenir une recette via id_user */
+router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
+    const { id_user } = req.params
+
+    try {
+        const r = await recipes.getRecipesByAuthor(id_user)
+        if (r.length > 0) {
+            const forks = await recipes.getForks(id_user)
+            const nbForks = { nbForks: forks.length }
+            const array = {recipes: r}
+            const result = {...array, ...nbForks}
+            res.json(result)
+        } else {
+            res.status(404).json({ message: message.recipes.noRecipes })
+        }
+    } catch(err) {
+        res.status(500).json(err)
+    }
+
+    // await recipes.getRecipesByAuthor(id_user)
+    // .then(recipe => {
+    //     if (recipe.length > 0) {
+    //         res.json(recipe)
+    //     } else {
+    //         res.status(404).json({ message: message.recipes.noRecipes })
+    //     }
+    // })
+    // .catch(err => res.status(500).json(err))
 })
 
 /* Obtenir les autres recettes du même utilisateur */

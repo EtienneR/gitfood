@@ -70,7 +70,7 @@ export default {
 		return {
 			loading: false,
 			recipes: [],
-			forks: []
+			forks: Number
 		}
 	},
 	async created() {
@@ -85,7 +85,7 @@ export default {
 			return this.recipes.filter(recipe => !recipe.published)
 		},
 		getForksNumbers() {
-			return this.forks.length
+			return this.forks
 		}
 	},
 	methods: {
@@ -94,15 +94,8 @@ export default {
 			// Récupération des recettes de l'utilisateur
 			await api.getRecipesByAuthor(this.userId)
 			.then(res => {
-				this.recipes = res.data
-				// Récupération des recettes forkées
-				api.getForks(this.userId)
-				.then(res => {
-					this.forks = res.data
-				})
-				.catch(() => {
-					console.info('No forks for this user')
-				})
+				this.recipes = res.data.recipes
+				this.forks = res.data.nbForks
 			})
 			.catch(err => {
 				if (err.response.status === 500) {
