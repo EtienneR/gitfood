@@ -48,17 +48,25 @@ export default {
 				message: value,
 				action: 'OK'
 			})
+		},
+		logout() {
+			const self = this
+			EventBus.$on('logout', value => {
+				self.isConnected = value
+				EventBus.$emit('login', false)
+			})
 		}
 	},
+    watch: {
+        '$route': 'logout'
+    },
 	created() {
 		const self = this
 		EventBus.$on('toast', function (value) {
 			self.toast = value
 			self.snackbar(value)
 		})
-		EventBus.$on('logout', function (value) {
-			self.isConnected = value
-		})
+
 		EventBus.$on('message', function (value) {
 			self.message = value
 		})

@@ -22,11 +22,11 @@ Vue.use(Meta)
 
 const routes = [
 	{ path: '/', name: 'home', component: Home },
-	{ path: '/menu', name: 'myRecipes', component: MyRecipes },
-	{ path: '/menu/ajouter', name:'addRecipe', component: FormRecipe },
-	{ path: '/menu/modifier/:id', name:'editRecipe', component: FormRecipe },
-	{ path: '/menu/fork/:id', name:'forkRecipe', component: FormRecipe },
-	{ path: '/menu/comments', name: 'myComments', component: MyComments },
+	{ path: '/menu', name: 'myRecipes', component: MyRecipes, meta: { requiresAuth: true } },
+	{ path: '/menu/ajouter', name:'addRecipe', component: FormRecipe, meta: { requiresAuth: true } },
+	{ path: '/menu/modifier/:id', name:'editRecipe', component: FormRecipe, meta: { requiresAuth: true } },
+	{ path: '/menu/fork/:id', name:'forkRecipe', component: FormRecipe, meta: { requiresAuth: true } },
+	{ path: '/menu/comments', name: 'myComments', component: MyComments, meta: { requiresAuth: true }  },
 	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/about', name: 'about', component: About },
 	{ path: '/search', name: 'search', component: Search },
@@ -47,6 +47,23 @@ function checkId(route) {
 const router = new VueRouter({
 	mode: 'history',
 	routes
+})
+
+import { EventBus } from '@/event-bus.js'
+let self = {
+	isConnected: false
+}
+
+EventBus.$on('login', function (value) {
+	self.isConnected = value
+})
+router.beforeEach((to, from, next) => {
+	if (to.matched.some(record => record.meta.requiresAuth) && !self.isConnected) {
+	  	next({ name: 'home'})
+	} else {
+	  	next()
+	}
+	next()
 })
 
 Vue.config.productionTip = false
