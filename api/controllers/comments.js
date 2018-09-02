@@ -69,4 +69,17 @@ router.post('/', m.checkFields, async (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
+/* Supprimer un commentaire */
+router.delete('/:id', m.checkIntegerId, async (req, res) => {
+    const { id } = req.params
+
+    if (id) {
+        await comments.deleteComment(id)
+        .then(() => res.json({ message: message.comments.deleted(id) }) )
+        .catch(err => res.status(500).json(err))
+    } else {
+        return res.status(400).json({ message: message.noCommentsForThisRecipe.missingId })
+    }
+})
+
 module.exports = router

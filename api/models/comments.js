@@ -17,13 +17,13 @@ function getComment(id) {
 }
 
 /* Commentaires par recette */
-function getCommentsByRecipe(recette_id) {
+function getCommentsByRecipe(recipe_id) {
     return database(table)
     .select(`${table}.id`,
             `${table}.content`,
             `${table}.user_id`,
             'users.firstname')
-    .where(`${table}.recette_id`, recette_id)
+    .where(`${table}.recipe_id`, recipe_id)
     .leftJoin('users', `${table}.user_id`, 'users.id')
     .orderBy(`${table}.id`, 'DESC')
 }
@@ -36,17 +36,24 @@ function getCommentsByUser(user_id) {
             'recipes.name')
     .where(`${table}.user_id`, user_id)
     .leftJoin('users', `${table}.user_id`, 'users.id')
-    .leftJoin('recipes', `${table}.recette_id`, 'recipes.id')
+    .leftJoin('recipes', `${table}.recipe_id`, 'recipes.id')
     .orderBy(`${table}.id`, 'DESC')
 }
 
 /* Ajouter un commentaire */
-function postComment({ content, user_id, recette_id }) {
+function postComment({ content, user_id, recipe_id }) {
     return database(table).insert({
         content: content,
         user_id: user_id,
-        recette_id: recette_id
+        recipe_id: recipe_id
     }).returning('id')
+}
+
+/* Supprimer un commentaire */
+function deleteComment(id) {
+    return database(table)
+    .where('id', id)
+    .del()
 }
 
 module.exports = {
@@ -54,5 +61,6 @@ module.exports = {
     getComment,
     getCommentsByRecipe,
     getCommentsByUser,
-    postComment
+    postComment,
+    deleteComment
 }
