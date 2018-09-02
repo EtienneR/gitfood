@@ -10,7 +10,10 @@
                 <Card :recipe="recipe"
                     :footer="true"
                     :isConnected="isConnected"
-                    @fork="fork" />
+                    @fork="fork"
+                    :isLiking="isLiking"
+                    @like="like"
+                    :numberLikes="numberLikes" />
             </div>
 
             <div class="section">
@@ -61,7 +64,7 @@ export default {
     },
     metaInfo() {
         return {
-            title: this.recipe ?  `${this.recipe.name} de ${this.recipe.firstname}` : 'Erreur 404'
+            title: this.recipe ? `${this.recipe.name} de ${this.recipe.firstname}` : 'Erreur 404'
         }
     },
 	props: {
@@ -75,7 +78,17 @@ export default {
             recipes: [],
             comments: [],
             message: {},
-            loading: false
+            loading: false,
+            numberLikes: 42
+        }
+    },
+    computed: {
+        isLiking () {
+            if (this.isConnected && this.userId != this.recipe.user_id) {
+                return true
+            } else {
+                return false
+            }
         }
     },
     async created () {
@@ -129,19 +142,34 @@ export default {
             const content = sanitizeHtml(comment).replace(new RegExp('\r?\n','g'), '<br />')
             const self = this
             return api.addComment({
+                content: content,
+                user_id: self.userId,
+                recipe_id: self.$route.params.id
+            })
+            .then(comment => {
+                // Ajout du nouveau commentaire dans le tableau existant
+                this.comments.push({
                     content: content,
-                    user_id: self.userId,
-                    recipe_id: self.$route.params.id
+                    firstname: self.firstname,
+                    id: comment.data.id,
+                    user_id: self.userId
                 })
-                .then(comment => {
-                    // Ajout du nouveau commentaire dans le tableau existant
-                    this.comments.push({
-                        content: content,
-                        firstname: self.firstname,
-                        id: comment.data.id,
-                        user_id: self.userId
-                    })
+            })
+        },
+        like() {
+            api.addLike({ user_id: this.userId, recipe_id: this.recipe.id })
+            .then(res => {
+                this.numberLikes = this.numberLikes + 1
+            })
+            .catch(err => {
+                //console.info(JSON.parse(err.request.response).id)
+                const id = JSON.parse(err.request.response).id
+                console.log(id)
+                api.removeLike(id)
+                .then(() => {
+                    this.numberLikes = this.numberLikes - 1
                 })
+            })
         }
     }
 }

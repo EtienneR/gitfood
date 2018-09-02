@@ -26,7 +26,9 @@
                                 <div class="section">
                                     <div class="field is-grouped">
                                         <p class="control">
-                                            <button class="button is-primary is-outlined" @click="like()">Liker</button>
+                                            <button class="button is-primary is-outlined"
+                                            @click="like"
+                                            :disabled="!isLiking">Liker ({{ this.recipe.nbLikes }})</button>
                                         </p>
                                         <p class="control">
                                             <button class="button is-primary" @click="fork()">Forker</button>
@@ -111,11 +113,13 @@ export default {
 	props: {
 		recipe: Object,
         footer: Boolean,
-        isConnected: Boolean
+        isConnected: Boolean,
+        isLiking: Boolean,
+        numberLikes: Number
 	},
     methods: {
         like() {
-            !this.isConnected ? this.$dialog.alert(this.customMessage('liker')) : this.$dialog.alert('Fonctionnalité non disponible')
+            this.$emit('like')
         },
         fork() {
             !this.isConnected ? this.$dialog.alert(this.customMessage('forker')) : this.$emit('fork', this.recipe.id)

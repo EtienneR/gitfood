@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const recipes = require('../models/recipes')
 const comments = require('../models/comments')
+const likes = require('../models/likes')
 const m = require('../helpers/middlewares')
 const message = require('../helpers/messages')
 
@@ -49,15 +50,20 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
 router.get('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    await recipes.getRecipe(id)
-    .then(recipe => {
-        if (recipe) {
-            res.json(recipe)
-        } else {
-            res.status(404).json({ message: message.recipes.notFound })
-        }
-    })
-    .catch(err => res.status(500).json(err))
+    try {
+        // Récupération du nombre de likes
+        const l = await likes.getLikesByRecipe(id)
+        const nblikes = { nbLikes : l.length }
+        // Récupération de la recette
+        const recipe = await recipes.getRecipe(id)
+        // Ajout du nombre de likes dans la recette
+        const result = {...recipe, ...nblikes}
+
+        res.json(result)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+
 })
 
 /* Obtenir les autres recettes du même utilisateur */
@@ -130,22 +136,52 @@ router.delete('/:id', m.checkIntegerId, async (req, res) => {
                 // Suppression des commentaires associés
                 comments.deleteComments(ids)
                 .then(() => {
-                    // Suppression de la recette
-                    recipes.deleteRecipe(id)
-                    .then(() => res.json({ message: message.recipes.deleted(id) }))
-                    .catch(err => res.status(500).json(err))
+                    likes.getLikesByRecipe(id)
+                    .then(l => {
+                        if (l.length > 0) {
+                            let ids = []
+                            l.forEach(like => {
+                                ids.push(likes.id)
+                            })
+                            // Suppression des likes associés
+                            likes.deleteLikes(ids)
+                            .then(() => {
+                                // Suppression de la recette
+                                recipes.deleteRecipe(id)
+                                .then(() => res.json({ message: message.recipes.deleted(id) }))
+                                .catch(err => res.status(500).json(err))
+                            })
+                        } else {
+                            // Suppression de la recette
+                            recipes.deleteRecipe(id)
+                            .then(() => res.json({ message: message.recipes.deleted(id) }))
+                            .catch(err => res.status(500).json(err))
+                        }
+                    })
                 })
             } else {
-                // Suppression de la recette
-                recipes.deleteRecipe(id)
-                .then(recipe => {
-                    if (recipe.length > 0) {
-                        res.json({ message: message.recipes.deleted(id) })
+                likes.getLikesByRecipe(id)
+                .then(l => {
+                    if (l.length > 0) {
+                        let ids = []
+                        l.forEach(like => {
+                            ids.push(like.id)
+                        })
+                        // Suppression des likes associés
+                        likes.deleteLikes(ids)
+                        .then(() => {
+                            // Suppression de la recette
+                            recipes.deleteRecipe(id)
+                            .then(() => res.json({ message: message.recipes.deleted(id) }))
+                            .catch(err => res.status(500).json(err))
+                        })
                     } else {
-                        res.json({ message: message.recipes.notFound })
+                        // Suppression de la recette
+                        recipes.deleteRecipe(id)
+                        .then(() => res.json({ message: message.recipes.deleted(id) }))
+                        .catch(err => res.status(500).json(err))
                     }
                 })
-                .catch(err => res.status(500).json(err))
             }
         }) 
     } else {

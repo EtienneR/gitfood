@@ -3,8 +3,8 @@ module.exports = [
     id: 1,
     name: 'Pizza',
     user_id: 1,
-		introduction: 'Lorem Ipseum',
-		ingredients: [
+    introduction: 'Lorem Ipseum',
+    ingredients: [
       {
         quantity: 15,
         mesure: 'cl',
@@ -25,25 +25,25 @@ module.exports = [
         mesure: 'g',
         name: 'farine'
       }
-		],
-		instructions: [
+    ],
+    instructions: [
       { name: 'Délayez​​ la​ ​levure​ ​dans​ l’eau.' },
       { name: 'Versez​​ la​ ​farine​ ​dans​ un​ saladier et ​formez​ une​ ​fontaine​ (trou​ ​au​ ​milieu).' },
       { name: 'Ajoutez​ l’huile​ d’olive​ ​et​ ​le​​ mélange​ eau​ ​+ levure.​ ​Mélangez​ ​doucement​ ​le​ ​liquide​ ​ et​ ​la​ ​farine avec​ ​vos​ ​mains' },
-			{ name: 'Malaxez​ la​ ​pâte​ pendant​​ une​ dizaine​ ​de​ minutes​ jusqu’à​​ ce​ que​ ​la​ ​pâte​ ​soit​ ​homogène​ ​et​ se détache​ ​bien​ ​des​​ mains.' },
-			{ name: 'Laissez​​ reposer la​ ​pâte​ ​dans​ le​ ​saladier​ ​pendant​ ​une heure​ ​en​ couvran​t le	saladier​ ​d’un​ ​torchon.' },
-			{ name: 'Passer​​ l’heure,​ la​ pâte​ ​va​ ​doubler​ de​ ​volume.​ ​"Dégazer" ​la​ ​pâte​ ​en​​ frappant​​ énergiquement sur​ celle-ci.​ ​Puis,​ ​étalez​ ​la​​ pâte​ ​dans​ ​un​ plat.​ ​Préchauffez​ ​votre four​ ​à ​250°C' },
-			{ name: 'Enfournez​​ la​ pizza​​ dans​ ​le​ four​ ​sur​ la​​ grille​ ​inférieure​​ pendant​ 11 minutes.' }
+      { name: 'Malaxez​ la​ ​pâte​ pendant​​ une​ dizaine​ ​de​ minutes​ jusqu’à​​ ce​ que​ ​la​ ​pâte​ ​soit​ ​homogène​ ​et​ se détache​ ​bien​ ​des​​ mains.' },
+      { name: 'Laissez​​ reposer la​ ​pâte​ ​dans​ le​ ​saladier​ ​pendant​ ​une heure​ ​en​ couvran​t le	saladier​ ​d’un​ ​torchon.' },
+      { name: 'Passer​​ l’heure,​ la​ pâte​ ​va​ ​doubler​ de​ ​volume.​ ​"Dégazer" ​la​ ​pâte​ ​en​​ frappant​​ énergiquement sur​ celle-ci.​ ​Puis,​ ​étalez​ ​la​​ pâte​ ​dans​ ​un​ plat.​ ​Préchauffez​ ​votre four​ ​à ​250°C' },
+      { name: 'Enfournez​​ la​ pizza​​ dans​ ​le​ four​ ​sur​ la​​ grille​ ​inférieure​​ pendant​ 11 minutes.' }
     ],
-		conclusion: 'Lorem Ipsum',
-		published: true
-	},
-	{
+    conclusion: 'Lorem Ipsum',
+    published: true
+  },
+  {
     id: 2,
     name: 'Lemon curd',
     user_id: 1,
-		introduction: 'Lorem Ipseum',
-		ingredients: [
+    introduction: 'Lorem Ipseum',
+    ingredients: [
       {
         quantity: 1,
         mesure: '',
@@ -64,44 +64,44 @@ module.exports = [
         mesure: 'g',
         name: 'beurre'
       }
-		],
-		instructions: [
+    ],
+    instructions: [
       { name: 'Dans​​ une​ ​petite​ casserole,​ fouetter​ l’oeuf​ et​​ le​ sucre.' },
       { name: 'Ajouter ​le​ ​citron​ et​​ le​ ​beurre.' },
       { name: 'Mélanger​ à ​feu​ doux​ jusqu’à​ ce​ que​ le​ mélange​ épaississe.' },
       { name: 'Passer​​ à ​la passoire​ dans​ un​ bocal.' }
     ],
-		conclusion: 'Lorem Ipsum',
-		published: true
-	},
-	{
+    conclusion: 'Lorem Ipsum',
+    published: true
+  },
+  {
     id: 3,
     name: 'Petits carrés aux amandes caramélisées',
     user_id: 1,
-		ingredients: [
-			{
-				title: 'Pour le biscuit (shortbread)',
-				step: [
-				{ 
-					quantity: 115,
-					mesure: 'g',
-					name: 'beurre'
-				},
-				{ 
-					quantity: 50,
-					mesure: 'g',
-					name: 'sucre'
-				},
-				{ 
-					quantity: 175,
-					mesure: 'g',
-					name: 'farine'
-				}
-				]
-			},
-			{
-				title: 'Pour les amandes caramélisées',
-				step: [
+    ingredients: [
+      {
+        title: 'Pour le biscuit (shortbread)',
+        step: [
+          { 
+            quantity: 115,
+            mesure: 'g',
+            name: 'beurre'
+          },
+          { 
+            quantity: 50,
+            mesure: 'g',
+            name: 'sucre'
+          },
+          { 
+            quantity: 175,
+            mesure: 'g',
+            name: 'farine'
+          }
+        ]
+      },
+      {
+        title: 'Pour les amandes caramélisées',
+        step: [
           { 
             quantity: 1,
             mesure: 'CàS',
@@ -127,11 +127,11 @@ module.exports = [
             mesure: 'g',
             name: 'amandes effilées'
           }
-				]
-			},
-		],
-		instructions: [
-			{
+        ]
+      },
+    ],
+    instructions: [
+      {
         title: 'Préparation du biscuit',
         step: [
           { name: 'Préchauffez le four à 180°C.' },
@@ -139,18 +139,18 @@ module.exports = [
           { name: 'Posez​ ​la​ pâte​​ au​​ fond​ d’un​ moule​ ​chemisé​ ​beurré​ ​et​ fariné​ ​(c’est​ mieux​ de​ ​ mettre​ du​ ​papier de​ ​cuisson​ à ​la​ ​place...).​ ​Étalez​ ​bien​ ​la​ ​pâte​ ​à ​l’aide​ ​de​ ​votre​ ​poignet.' },
           { name: 'Enfournez pour 15 min.' }
         ]
-        },
-        {
+      },
+      {
         title: 'Préparation des amandes caramélisées',
         step: [
           { name: '​Dans​​ une​ casserole,​ faites​ chauffer​ ​la​ ​crème​ ​fraîche,​ le​ ​miel,​ ​le​ ​beurre​ ​et​ ​le​ ​sucre​ à ​feu doux.' },
           { name: '​Dès​​ que le​ mélange​ ​est​ lisse,​ ajoutez​ ​les​ amandes​ ​effilées.' },
           { name: 'Répartissez​ ​le​​ mélange​ sur​ le​ ​biscuit​ ​et​​ remettez​ ​au​ ​four​ ​20​ minutes​ à 180°C​ ​(jusqu’à​ ​ce​ ​que les​​ amandes​ ​soient​ ​dorées).' },
         ]
-			}
-		],
-		conclusion: 'Laissez refroidir le moule à température ambiante puis découpez en petits carrés de 5 cm et dégustez :)',
-		published: true
+      }
+    ],
+    conclusion: 'Laissez refroidir le moule à température ambiante puis découpez en petits carrés de 5 cm et dégustez :)',
+    published: true
   },
   {
     id: 4,
@@ -411,12 +411,12 @@ module.exports = [
     conclusion: 'Vous pouvez remplacez la poudre d\'anis par un mélange de 4 épices spéciales pain d\'épice et en y ajoutant un cuillère de cannelle.',
     published: true
   },
-	{
+  {
     id: 9,
     name: 'Smoothie​ à la​ banane',
     user_id: 1,
-		introduction: 'Lorem Ipseum',
-		ingredients: [
+    introduction: 'Lorem Ipseum',
+    ingredients: [
       {
         quantity: 1,
         mesure: '',
@@ -437,21 +437,21 @@ module.exports = [
         mesure: 'CàC',
         name: 'canelle'
       }
-		],
-		instructions: [
+    ],
+    instructions: [
       { name: 'Verser le lait dans le mixeur' },
       { name: 'Couper en fines rondelles la banane dans le mixeur ainsi que la canelle.' },
       { name: 'Mixer quelques secondes par intermitence pour éviter la surchauffe.' }
     ],
-		conclusion: 'Ce boit très frais',
-		published: true
+    conclusion: 'Se boit très frais',
+    published: true
   },
-	{
+  {
     id: 10,
     name: 'Quatres quarts',
     user_id: 3,
-		introduction: 'Lorem Ipsum',
-		ingredients: [
+    introduction: 'Lorem Ipsum',
+    ingredients: [
       {
         quantity: 3,
         mesure: '',
@@ -482,15 +482,15 @@ module.exports = [
         mesure: 'CàS',
         name: 'vanille'
       }
-		],
-		instructions: [
+    ],
+    instructions: [
       { name: 'Pesez​ ​l’ensemble​​ des​ oeufs​ (environ 180​ grammes​ pour​ des oeufs​ moyens).​ Enlevez​ 30 grammes​​ pour​ ​le​ beurre​ ​et​​ le​​ sucre.' },
       { name: 'Dans​ un​ ​saladier,​ ​mélangez​ ​farine,​ poudres​ ​et​ ​l’oeuf.' },
       { name: 'Versez​ ​le​​ mélange​ ​dans​ ​un​ ​moule​ ​à ​cake.' },
       { name: '​Préchauffez​ ​le​ ​four​ ​à ​150°C.'},
       { name: 'Enfournez​ ​le​ moule​ ​pour​ 45​ ​minutes.' }
     ],
-		conclusion: 'Vous pouvez changer la vanille par de la fleur d\'oranger, des zestes de citron, d\'orange, etc...',
-		published: true
-	},
+    conclusion: 'Vous pouvez changer la vanille par de la fleur d\'oranger, des zestes de citron, d\'orange, etc...',
+    published: true
+  }
 ]

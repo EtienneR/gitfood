@@ -6,6 +6,7 @@ router.use('/', require('./home'))
 router.use('/api/v1/recipes', require('./recipes'))
 router.use('/api/v1/users', require('./users'))
 router.use('/api/v1/comments', require('./comments'))
+router.use('/api/v1/likes', require('./likes'))
 
 // Routes non définies = 404
 router.all('/*', (req, res) => {

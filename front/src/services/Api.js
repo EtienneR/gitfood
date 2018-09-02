@@ -37,5 +37,11 @@ export default {
     },
     addComment(content) {
         return axios.post(`${API_URL}/comments`, content)
-    }
+    },
+    addLike(content) {
+        return axios.post(`${API_URL}/likes`, content)
+    },
+    removeLike(id_like) {
+        return axios.delete(`${API_URL}/likes/${id_like}`)
+    },
 }

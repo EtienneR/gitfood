@@ -27,6 +27,13 @@ module.exports = {
         noCommentsForThisUser: 'No comments for this user',
         created: 'Comment created'
     },
+    likes: {
+        nothing: 'no likes available',
+        notFound: 'Like not found',
+        missingId: 'Missing like id',
+        deleted: (id => `Comment ${id} deleted`),
+        created: 'Like created'
+    },
     idNotInteger: 'Id must be an integer',
     emptyFields: 'Empty fields'
 }
