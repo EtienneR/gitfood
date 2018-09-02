@@ -10,7 +10,8 @@
 				<Informations :recipes="recipes"
 					:getPublishedRecipes="getPublishedRecipes.length"
 					:getUnpublishedRecipes="getUnpublishedRecipes.length"
-					:getForksNumbers="getForksNumbers" />
+					:getForksNumbers="getForksNumbers"
+					:getLikesNumbers="getLikesNumbers" />
 
 				<div class="container is-centered">
 					<router-link class="button is-primary" :to="{ name: 'addRecipe'}">
@@ -70,7 +71,8 @@ export default {
 		return {
 			loading: false,
 			recipes: [],
-			forks: Number
+			forks: Number,
+			like: Number
 		}
 	},
 	async created() {
@@ -86,6 +88,9 @@ export default {
 		},
 		getForksNumbers() {
 			return this.forks
+		},
+		getLikesNumbers() {
+			return this.likes
 		}
 	},
 	methods: {
@@ -96,6 +101,7 @@ export default {
 			.then(res => {
 				this.recipes = res.data.recipes
 				this.forks = res.data.nbForks
+				this.likes = res.data.nbLikes
 			})
 			.catch(err => {
 				if (err.response.status === 500) {

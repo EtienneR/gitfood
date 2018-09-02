@@ -38,7 +38,7 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     try {
         // Récupération du nombre de likes
         const l = await likes.getLikesByRecipe(id)
-        const nbLikes = { nbLikes : l.length }
+        const nbLikes = { nbLikes: l.length }
         // Récupération des commentaires 
         const c = await comments.getCommentsByRecipe(id)
         const nbComments = { nbComments : c.length }
@@ -48,7 +48,7 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
         const s = await recipes.getOthersRecipes(recipe.user_id, id)
         const nbSameAuthor = { nbSameAuthor: s.length }
         // Ajout du nombre de likes dans la recette
-        const result = {...recipe, ...nbLikes, ...nbComments, ...nbSameAuthor}
+        const result = { ...recipe, ...nbLikes, ...nbComments, ...nbSameAuthor }
 
         res.json(result)
     } catch(err) {
@@ -65,8 +65,15 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
         if (r.length > 0) {
             const forks = await recipes.getForks(id_user)
             const nbForks = { nbForks: forks.length }
-            const array = {recipes: r}
-            const result = {...array, ...nbForks}
+            let ids = []
+            r.forEach(recipe => {
+                ids.push(recipe.id)
+            })
+            const like = await likes.existingLikeArray(ids)
+            console.log('like', like)
+            const nbLikes = { nbLikes: like.length }
+            const array = { recipes: r }
+            const result = { ...array, ...nbForks, ...nbLikes }
             res.json(result)
         } else {
             res.status(404).json({ message: message.recipes.noRecipes })
@@ -74,16 +81,6 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
     } catch(err) {
         res.status(500).json(err)
     }
-
-    // await recipes.getRecipesByAuthor(id_user)
-    // .then(recipe => {
-    //     if (recipe.length > 0) {
-    //         res.json(recipe)
-    //     } else {
-    //         res.status(404).json({ message: message.recipes.noRecipes })
-    //     }
-    // })
-    // .catch(err => res.status(500).json(err))
 })
 
 /* Obtenir les autres recettes du même utilisateur */

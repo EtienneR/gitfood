@@ -3,34 +3,12 @@
 
         <div class="container has-text-centered">
             <nav class="level">
-                <div class="level-item has-text-centered">
+                <div v-for="(message, index) in messages"
+                    :key="index"
+                    class="level-item has-text-centered">
                     <div>
-                        <p class="heading">Recettes</p>
-                        <p class="title">{{ recipes.length }}</p>
-                    </div>
-                </div>
-                <div class="level-item has-text-centered">
-                    <div>
-                        <p class="heading">Recettes publiées</p>
-                        <p class="title">{{ getPublishedRecipes }}</p>
-                    </div>
-                </div>
-                <div class="level-item has-text-centered">
-                    <div>
-                        <p class="heading">Recettes en attente</p>
-                        <p class="title">{{ getUnpublishedRecipes }}</p>
-                    </div>
-                </div>
-                <div class="level-item has-text-centered">
-                    <div>
-                        <p class="heading">Like</p>
-                        <p class="title">0</p>
-                    </div>
-                </div>
-                <div class="level-item has-text-centered">
-                    <div>
-                        <p class="heading">Fork</p>
-                        <p class="title">{{ getForksNumbers }}</p>
+                        <p class="heading">{{ message.name }}</p>
+                        <p class="title">{{ message.value }}</p>
                     </div>
                 </div>
             </nav>
@@ -40,13 +18,39 @@
 </template>
 
 <script>
-
 export default {
 	props: {
 		recipes: Array,
         getPublishedRecipes: Number,
         getUnpublishedRecipes: Number,
-        getForksNumbers: Number
+        getForksNumbers: Number,
+        getLikesNumbers: Number
+	},
+	data() {
+		return {
+            messages: [
+                {
+                    name: 'Recettes',
+                    value: this.recipes.length
+                },
+                {
+                    name: 'Recettes publiées',
+                    value: this.getPublishedRecipes
+                },
+                {
+                    name: 'Recettes en attentes',
+                    value: this.getUnpublishedRecipes
+                },
+                {
+                    name: 'Recettes likées',
+                    value: this.getForksNumbers
+                },
+                {
+                    name: 'Recettes forkées',
+                    value: this.getLikesNumbers
+                }
+            ]
+		}
 	}
 }
 </script>

@@ -1,18 +1,26 @@
 const database = require('./index.js').database
 const table = 'likes'
 
-/* Toutes les likes */
+/* Tous les likes */
 function getLikes() {
     return database(table)
     .select('*')
     .orderBy(`${table}.id`, 'DESC')
 }
 
-/* Touts les likes par recette */
+/* Tous les likes par recette */
 function getLikesByRecipe(recipe_id) {
     return database(table)
     .select('*')
     .where(`${table}.recipe_id`, recipe_id)
+    .orderBy(`${table}.id`, 'DESC')
+}
+
+/* Tous les likes par auteur */
+function getLikesByAuthor(user_id) {
+    return database(table)
+    .select('*')
+    .where(`${table}.user_id`, user_id)
     .orderBy(`${table}.id`, 'DESC')
 }
 
@@ -40,6 +48,12 @@ function existingLike({ user_id, recipe_id }) {
     .first()
 }
 
+function existingLikeArray(ids) {
+    return database(table)
+    .select('*')
+    .whereIn(`${table}.recipe_id`, ids)
+}
+
 /* Supprimer un like */
 function deleteLike(id) {
     return database(table)
@@ -57,9 +71,11 @@ function deleteLikes(ids) {
 module.exports = {
     getLikes,
     getLikesByRecipe,
+    getLikesByAuthor,
     getLike,
     postLike,
     existingLike,
+    existingLikeArray,
     deleteLike,
     deleteLikes
 }
