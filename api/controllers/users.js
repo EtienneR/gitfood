@@ -28,21 +28,15 @@ router.post('/', m.checkFields, async (req, res) => {
 
 /* Supprimer un utilisateur */
 router.delete('/:id', m.checkIntegerId, async (req, res) => {
-    const { id } = req.params
-
-    if (id) {
-        await users.deleteUser(id)
-        .then(user => {
-            if (user) {
-                res.json({ message: message.users.deleted(id) })
-            } else {
-                res.status(404).json({ message: message.users.notFound, })
-            }
-        })
-        .catch(err => res.status(500).json(err))
-    } else {
-        return res.status(400).json({ message: message.users.missingId })
-    }
+    await users.deleteUser(id)
+    .then(user => {
+        if (user) {
+            res.json({ message: message.users.deleted(id) })
+        } else {
+            res.status(404).json({ message: message.users.notFound, })
+        }
+    })
+    .catch(err => res.status(500).json(err))
 })
 
 module.exports = router

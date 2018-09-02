@@ -49,7 +49,6 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
         const nbSameAuthor = { nbSameAuthor: s.length }
         // Ajout du nombre de likes dans la recette
         const result = { ...recipe, ...nbLikes, ...nbComments, ...nbSameAuthor }
-
         res.json(result)
     } catch(err) {
         res.status(500).json(err)
@@ -70,7 +69,6 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
                 ids.push(recipe.id)
             })
             const like = await likes.existingLikeArray(ids)
-            console.log('like', like)
             const nbLikes = { nbLikes: like.length }
             const array = { recipes: r }
             const result = { ...array, ...nbForks, ...nbLikes }
@@ -140,49 +138,24 @@ router.put('/:id', m.checkIntegerId, async (req, res) => {
 router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    if (id) {
-        // Vérification des commentaires associés
-        await comments.getCommentsByRecipe(id)
-        .then(c => {
-            if (c.length > 0) {
-                // Récupération des id dans un tableau
-                let ids = []
-                c.forEach(comment => {
-                    ids.push(comment.id)
-                })
-                // Suppression des commentaires associés
-                comments.deleteComments(ids)
-                .then(() => {
-                    likes.getLikesByRecipe(id)
-                    .then(l => {
-                        if (l.length > 0) {
-                            let ids = []
-                            l.forEach(like => {
-                                ids.push(likes.id)
-                            })
-                            // Suppression des likes associés
-                            likes.deleteLikes(ids)
-                            .then(() => {
-                                // Suppression de la recette
-                                recipes.deleteRecipe(id)
-                                .then(() => res.json({ message: message.recipes.deleted(id) }))
-                                .catch(err => res.status(500).json(err))
-                            })
-                        } else {
-                            // Suppression de la recette
-                            recipes.deleteRecipe(id)
-                            .then(() => res.json({ message: message.recipes.deleted(id) }))
-                            .catch(err => res.status(500).json(err))
-                        }
-                    })
-                })
-            } else {
+    // Vérification des commentaires associés
+    await comments.getCommentsByRecipe(id)
+    .then(c => {
+        if (c.length > 0) {
+            // Récupération des id dans un tableau
+            let ids = []
+            c.forEach(comment => {
+                ids.push(comment.id)
+            })
+            // Suppression des commentaires associés
+            comments.deleteComments(ids)
+            .then(() => {
                 likes.getLikesByRecipe(id)
                 .then(l => {
                     if (l.length > 0) {
                         let ids = []
                         l.forEach(like => {
-                            ids.push(like.id)
+                            ids.push(likes.id)
                         })
                         // Suppression des likes associés
                         likes.deleteLikes(ids)
@@ -199,11 +172,32 @@ router.delete('/:id', m.checkIntegerId, async (req, res) => {
                         .catch(err => res.status(500).json(err))
                     }
                 })
-            }
-        }) 
-    } else {
-        return res.status(400).json({ message: message.recipes.missingId })
-    }
+            })
+        } else {
+            likes.getLikesByRecipe(id)
+            .then(l => {
+                if (l.length > 0) {
+                    let ids = []
+                    l.forEach(like => {
+                        ids.push(like.id)
+                    })
+                    // Suppression des likes associés
+                    likes.deleteLikes(ids)
+                    .then(() => {
+                        // Suppression de la recette
+                        recipes.deleteRecipe(id)
+                        .then(() => res.json({ message: message.recipes.deleted(id) }))
+                        .catch(err => res.status(500).json(err))
+                    })
+                } else {
+                    // Suppression de la recette
+                    recipes.deleteRecipe(id)
+                    .then(() => res.json({ message: message.recipes.deleted(id) }))
+                    .catch(err => res.status(500).json(err))
+                }
+            })
+        }
+    })
 })
 
 module.exports = router

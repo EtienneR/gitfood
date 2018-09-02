@@ -51,13 +51,9 @@ router.post('/', m.checkFields, async (req, res) => {
 router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    if (id) {
-        await likes.deleteLike(id)
-        .then(() => res.json({ message: message.likes.deleted(id) }) )
-        .catch(err => res.status(500).json(err))
-    } else {
-        return res.status(400).json({ message: '400' })
-    }
+    await likes.deleteLike(id)
+    .then(() => res.json({ message: message.likes.deleted(id) }) )
+    .catch(err => res.status(500).json(err))
 })
 
 module.exports = router
