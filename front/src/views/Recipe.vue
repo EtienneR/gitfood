@@ -112,7 +112,7 @@ export default {
                 }
                 if (res.data.nbSameAuthor > 0) {
                     api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
-                    .then(res => {
+                    .then((res) => {
                         this.recipes = res.data
                     })
                 }
@@ -153,7 +153,7 @@ export default {
         },
         like() {
             api.addLike({ user_id: this.userId, recipe_id: this.recipe.id })
-            .then(res => {
+            .then(() => {
                 this.recipe.nbLikes = this.recipe.nbLikes + 1
             })
             .catch(err => {

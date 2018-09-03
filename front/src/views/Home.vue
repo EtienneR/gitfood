@@ -7,7 +7,6 @@
 			<Header title="GitFood" subtitle="Partagez vos recettes" />
 
 			<section class="section has-background-dark">
-
 				<div class="container">
 					<div class="columns is-centered" style="margin-top: -40px">
 						<FormSearch />
