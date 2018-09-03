@@ -173,8 +173,9 @@ export default {
 				introduction: '',
 				ingredients: [{ quantity: '', mesure: '', name: '' }],
 				instructions: [{ name: '' }],
-				published: false,
-				conclusion: ''
+				image: 'food.jpg',
+				conclusion: '',
+				published: false
 			},
 			steps: false
 		}

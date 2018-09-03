@@ -117,12 +117,13 @@ function getForks(user_id) {
     .orderBy(`${table}.id`, 'DESC')
 }
 
-function postRecipe({ name, introduction, ingredients, instructions, conclusion, published, id_parent, user_id }) {
+function postRecipe({ name, introduction, ingredients, instructions, image, conclusion, published, id_parent, user_id }) {
     return database(table).insert({
         name: name,
         introduction: introduction,
         ingredients: JSON.stringify(ingredients),
         instructions: JSON.stringify(instructions),
+        image: image,
         conclusion: conclusion,
         published: published,
         id_parent: id_parent,
@@ -130,7 +131,7 @@ function postRecipe({ name, introduction, ingredients, instructions, conclusion,
     }).returning('id')
 }
 
-function updateRecipe(id, { name, introduction, ingredients, instructions, conclusion, published }) {
+function updateRecipe(id, { name, introduction, ingredients, instructions, image, conclusion, published }) {
     return database(table)
     .where('id', id)
     .update({
@@ -138,6 +139,7 @@ function updateRecipe(id, { name, introduction, ingredients, instructions, concl
         introduction: introduction,
         ingredients: JSON.stringify(ingredients),
         instructions: JSON.stringify(instructions),
+        image: image,
         conclusion: conclusion,
         published: published,
         updated_at: new Date(),
