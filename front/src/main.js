@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App'
 
-const Home = () => import('@/views/Home')
+import Home from '@/views/Home'
 const Recipe = () => import('@/views/Recipe')
 const Search = () => import('@/views/Search')
 const User = () => import('@/views/User')
@@ -54,17 +54,17 @@ let self = {
 	isConnected: false
 }
 
-EventBus.$on('login', function (value) {
-	self.isConnected = value
-})
-router.beforeEach((to, from, next) => {
-	if (to.matched.some(record => record.meta.requiresAuth) && !self.isConnected) {
-	  	next({ name: 'home'})
-	} else {
-	  	next()
-	}
-	next()
-})
+// EventBus.$on('login', function (value) {
+// 	self.isConnected = value
+// })
+// router.beforeEach((to, from, next) => {
+// 	if (to.matched.some(record => record.meta.requiresAuth) && !self.isConnected) {
+// 	  	next({ name: 'home'})
+// 	} else {
+// 	  	next()
+// 	}
+// 	next()
+// })
 
 Vue.config.productionTip = false
 
