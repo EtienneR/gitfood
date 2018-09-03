@@ -6,12 +6,12 @@
                 v-if="recipes.length > 0"
                 class="column is-3"
                 v-for="(recipe, index) in recipes" 
-                :key="index" >
+                :key="index">
                 <article class="box">
                     <div class="card-image">
                         <figure class="image is-4by3">
                             <router-link :to="{ name: 'recipe', params: { id: recipe.id }}">
-                                <img :src="`http://localhost:3000/img/${recipe.image}`" alt="image">
+                                <img :src="`${imgUrl}/${recipe.image}`" alt="image">
                             </router-link>
                         </figure>
                     </div>
@@ -38,11 +38,9 @@ export default {
 	props: {
 		recipes: Array,
 	},
-    data() {
-        return {
-            images: {
-                sample: require('../../../assets/128x128.png')
-            }
+    computed: {
+        imgUrl() {
+            return `http://${window.location.hostname}:3000/img`
         }
     }
 }

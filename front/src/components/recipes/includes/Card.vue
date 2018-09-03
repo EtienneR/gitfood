@@ -42,7 +42,7 @@
                 <div class="tile is-parent">
                     <article class="tile is-child">
                         <p class="has-text-right">
-                            <img :src="`http://localhost:3000/img/${recipe.image}`" alt="Photo de suggestion" width="320px">
+                            <img :src="`${imgUrl}/${recipe.image}`" alt="Photo de suggestion" width="320px">
                         </p>
                     </article>
                 </div>
@@ -118,6 +118,11 @@ export default {
         isLiking: Boolean,
         numberLikes: Number
 	},
+    computed: {
+        imgUrl() {
+            return `http://${window.location.hostname}:3000/img`
+        }
+    },
     methods: {
         like() {
             this.$emit('like')
