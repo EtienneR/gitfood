@@ -48,29 +48,24 @@ export default {
 				message: value,
 				action: 'OK'
 			})
-		},
-		logout() {
-			const self = this
-			EventBus.$on('logout', value => {
-				self.isConnected = value
-				EventBus.$emit('login', false)
-			})
 		}
 	},
-    watch: {
-        '$route': 'logout'
-    },
 	created() {
 		const self = this
-		EventBus.$on('toast', function (value) {
-			self.toast = value
+		EventBus.$on('logout', value => {
+			self.isConnected = value
+		})
+
+		EventBus.$on('toast', value => {
+			//self.toast = value
 			self.snackbar(value)
 		})
 
-		EventBus.$on('message', function (value) {
+		EventBus.$on('message', value => {
 			self.message = value
 		})
-		EventBus.$on('title', function (value) {
+
+		EventBus.$on('title', value => {
 			self.title = value
 		})
 	}

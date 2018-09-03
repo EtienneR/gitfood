@@ -49,10 +49,10 @@ const router = new VueRouter({
 	routes
 })
 
-import { EventBus } from '@/event-bus.js'
-let self = {
-	isConnected: false
-}
+// import { EventBus } from '@/event-bus.js'
+// let self = {
+// 	isConnected: false
+// }
 
 // EventBus.$on('login', function (value) {
 // 	self.isConnected = value
