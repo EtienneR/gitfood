@@ -277,28 +277,28 @@ export default {
 		},
 		async save(exit) {
 			if (this.$route.name === 'editRecipe') {
-				return await api.updateRecipe(this.$route.params.id, this.recette)
+				await api.updateRecipe(this.$route.params.id, this.recette)
 				.then(() => {
-					EventBus.$emit('toast', `Recette ${this.recette.name} modifiée`)
 					if (exit) {
 						this.$root.$router.push({
 							name: 'myRecipes'
 						})
 					}
+					EventBus.$emit('toast', `Recette ${this.recette.name} modifiée`)
 				})
 			} else {
 				if (this.$route.name === 'forkRecipe') {
 					this.recette.id_parent = this.recette.user_id
 				}
 				this.recette.user_id = this.userId
-				return await api.addRecipe(this.recette, { user_id: this.userId })
+				await api.addRecipe(this.recette, { user_id: this.userId })
 				.then(() => {
-					EventBus.$emit('toast', `Recette ${this.recette.name} ajoutée`)
 					if (exit) {
 						this.$root.$router.push({
 							name: 'myRecipes'
 						})
 					}
+					EventBus.$emit('toast', `Recette ${this.recette.name} ajoutée`)
 				})
 			}
 		}
