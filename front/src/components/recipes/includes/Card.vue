@@ -61,7 +61,7 @@
                                                 <h3>{{ ingredient.title }}</h3>
                                                 <ul>
                                                     <li v-for="(i, index) in ingredient.step" :key="index">
-                                                        <span v-if="i.quantity !== 0">{{ i.quantity }}</span> {{ i.mesure }} {{ i.name }}
+                                                        <span v-if="i.quantity !== 0">{{ i.quantity }}</span> {{ i.mesure }} <span v-if="i.mesure">de</span> {{ i.name }}
                                                     </li>
                                                 </ul>
                                             </span>
