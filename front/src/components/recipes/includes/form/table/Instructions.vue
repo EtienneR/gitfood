@@ -1,12 +1,12 @@
 <template>
     <div>
-        <a
-            v-if="checkedRows.length > 0" 
+
+        <a v-if="checkedRows.length > 0" 
             class="button is-danger is-outlined"
             @click="deleteInstruction(stepIndex)"
-            title="Supprimer cette ou ces instruction(s)">
-            Supprimer
+            title="Supprimer cette ou ces instruction(s)">Supprimer
         </a>
+
         <b-table
             :data="getInstructions"
             checkable
@@ -24,7 +24,6 @@
                         @click="addInstruction(stepIndex)"
                         title="Ajouter une instruction">Ajouter</a><br />
                 </b-table-column>
-        
             </template>
         </b-table>
 
@@ -34,8 +33,7 @@
 <script>
 export default {
 	props: {
-        columns: Array,
-        recipe: Object,
+        instructions: Array,
         stepIndex: Number
 	},
 	data() {
@@ -45,20 +43,13 @@ export default {
     },
     computed: {
         getInstructions() {
-            if (this.stepIndex || this.stepIndex === 0) {
-                return this.recipe.instructions[this.stepIndex].step
-            } else {
-                return this.recipe.instructions
-            }
+            return this.instructions
         }
     }, 
     methods: {
 		addInstruction(index) {
 			this.$emit('addInstruction', index)
 		},
-		// deleteInstruction(index, stepIndex) {
-		// 	this.$emit('deleteInstruction', { index, stepIndex })
-		// },
         deleteInstruction(stepIndex) {
             this.$emit('deleteInstruction', this.checkedRows, stepIndex)
             this.checkedRows = []

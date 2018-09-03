@@ -4,8 +4,7 @@
         <a v-if="checkedRows.length > 0" 
             class="button is-danger is-outlined"
             @click="deleteIngredient(stepIndex)"
-            title="Supprimer ce ou ces ingredient(s)">
-            Supprimer
+            title="Supprimer ce ou ces ingredient(s)">Supprimer
         </a>
 
         <b-table :data="getIngredients"
@@ -43,10 +42,9 @@
 <script>
 export default {
 	props: {
-        columns: Array,
-        recipe: Object,
+        ingredients: Array,
         stepIndex: Number
-	},
+    },
 	data() {
 		return {
             checkedRows: []
@@ -54,23 +52,13 @@ export default {
     },
     computed: {
         getIngredients() {
-            if (this.stepIndex || this.stepIndex === 0) {
-                return this.recipe.ingredients[this.stepIndex].step
-            } else {
-                return this.recipe.ingredients
-            }
+            return this.ingredients
         }
     }, 
     methods: {
 		addIngredient(index, stepIndex) {
 			this.$emit('addIngredient', index, stepIndex)
 		},
-        dupplicateIngredient(index, ingredient) {
-            this.$emit('dupplicateIngredient', index, ingredient)
-        },
-		// deleteIngredient(index, stepIndex) {
-		// 	this.$emit('deleteIngredient', { index, stepIndex })
-		// }
         deleteIngredient(stepIndex) {
             this.$emit('deleteIngredient', this.checkedRows, stepIndex)
             this.checkedRows = []

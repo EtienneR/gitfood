@@ -8,16 +8,16 @@
 
 			<section class="section">
 				<div class="container">
-
 					<div class="columns">
 						<div class="column is-two-thirds">
 							<form action="javascript:void(0);" method="POST">
 								<b-field label="Titre" label-for="name">
 									<b-input v-model.trim="recette.name" id="name"></b-input>
 								</b-field>
+
 								<p>Votre recette comporte plusieurs étapes ?</p>
 								<div class="field">
-									<b-switch v-model="steps">
+									<b-switch v-model="steps" @input="changeMe">
 										<span v-if="steps">Oui</span>
 										<span v-else>Non</span>
 									</b-switch>
@@ -26,11 +26,10 @@
 								<b-tabs position="is-centered"
 									class="block"
 									:animated="false" >
+									<!-- Début Partie 1 -->
 									<b-tab-item label="Introduction">
-										<!-- Début Partie 1 -->
 										<b-field label="Introduction" label-for="introduction">
-											<b-input
-												v-model.trim="recette.introduction"
+											<b-input v-model.trim="recette.introduction"
 												id="introduction"
 												type="textarea">
 											</b-input>
@@ -40,8 +39,7 @@
 
 									<!-- Début Partie 2 -->
 									<b-tab-item label="Ingrédients">
-										<div
-											v-if="steps"
+										<div v-if="steps"
 											v-for="(ingredient, index) in recette.ingredients"
 											:key="`${index}-ingredients`">
 											<div class="field">
@@ -52,8 +50,7 @@
 											</b-field>
 											<Ingredients v-if="steps"
 												:stepIndex="index"
-												:recipe="recette"
-												:columns="columnsIngredients"
+												:ingredients="recette.ingredients[index].step"
 												@addIngredient="addIngredient"
 												@deleteIngredient="deleteIngredient" />
 										</div>
@@ -63,8 +60,7 @@
 											Ajouter une étape
 										</button>
 										<Ingredients v-if="!steps"
-											:recipe="recette"
-											:columns="columnsIngredients"
+											:ingredients="recette.ingredients"
 											@addIngredient="addIngredient"
 											@deleteIngredient="deleteIngredient" />
 									</b-tab-item>
@@ -83,14 +79,12 @@
 											</b-field>
 											<Instructions v-if="steps"
 												:stepIndex="index"
-												:recipe="recette"
-												:columns="columnsInstructions"
+												:instructions="recette.instructions[index].step"
 												@addInstruction="addInstruction"
 												@deleteInstruction="deleteInstruction" />
 										</div>
 										<Instructions v-if="!steps"
-											:recipe="recette"
-											:columns="columnsInstructions"
+											:instructions="recette.instructions"
 											@addInstruction="addInstruction"
 											@deleteInstruction="deleteInstruction" />
 									</b-tab-item>
@@ -182,27 +176,7 @@ export default {
 				published: false,
 				conclusion: ''
 			},
-			steps: false,
-			columnsIngredients: [
-				{
-					field: 'quantity',
-					label: 'Quantité'
-				},
-				{
-					field: 'mesure',
-					label: 'Mesure'
-				},
-				{
-					field: 'name',
-					label: 'Nom'
-				}
-			],
-			columnsInstructions: [
-				{
-					field: 'name',
-					label: 'Nom'
-				}
-			]
+			steps: false
 		}
 	},
 	computed: {
@@ -217,6 +191,13 @@ export default {
 		EventBus.$emit('title', this.currentPage)
 	},
 	methods: {
+		changeMe() {
+			if (this.steps) {
+				this.recette.ingredients = []
+				this.recette.instructions = []
+				this.addStep()
+			}
+		},
 		async getRecipe() {
 			this.loading = true
 			await api.getRecipe(this.$route.params.id)
@@ -251,7 +232,7 @@ export default {
 			}
 		},
 		addIngredient(index, step) {
-			const item = [{ quantity: '', mesure: '', name: '' }]
+			const item = { quantity: '', mesure: '', name: '' }
 			if (!this.steps) {
 				this.recette.ingredients.splice(index+1, 0, item)
 			} else {
