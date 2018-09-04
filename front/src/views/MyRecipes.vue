@@ -7,11 +7,41 @@
 			<Header title="Mes recettes" />
 
 			<section class="section">
-				<Informations :recipes="recipes"
-					:getPublishedRecipes="getPublishedRecipes.length"
-					:getUnpublishedRecipes="getUnpublishedRecipes.length"
-					:getForksNumbers="getForksNumbers"
-					:getLikesNumbers="getLikesNumbers" />
+
+        		<div class="container has-text-centered is-hidden-mobile">
+					<nav class="level">
+						<div class="level-item has-text-centered">
+							<div>
+								<p class="heading">Recettes</p>
+								<p class="title">{{ recipes.length }}</p>
+							</div>
+						</div>
+						<div class="level-item has-text-centered">
+							<div>
+								<p class="heading">Recettes publiées</p>
+								<p class="title">{{ getPublishedRecipes.length }}</p>
+							</div>
+						</div>
+						<div class="level-item has-text-centered">
+							<div>
+								<p class="heading">Recettes en attente</p>
+								<p class="title">{{ getUnpublishedRecipes.length }}</p>
+							</div>
+						</div>
+						<div class="level-item has-text-centered">
+							<div>
+								<p class="heading">Recettes en likées</p>
+								<p class="title">{{ getLikesNumber }}</p>
+							</div>
+						</div>
+						<div class="level-item has-text-centered">
+							<div>
+								<p class="heading">Recettes en forkées</p>
+								<p class="title">{{ getForksNumber }}</p>
+							</div>
+						</div>
+					</nav>
+				</div>
 
 				<div class="container is-centered">
 					<router-link class="button is-primary" :to="{ name: 'addRecipe'}">
@@ -49,14 +79,12 @@ import api from '@/services/Api'
 import { EventBus } from '@/event-bus.js'
 import Loading from '@/components/Loading.vue'
 import Header from '@/components/layout/Header.vue'
-import Informations from '@/components/recipes/includes/Informations.vue'
 import Dashboard from '@/components/recipes/includes/Dashboard.vue'
 
 export default {
     components: {
         Loading,
 		Header,
-		Informations,
 		Dashboard
     },
 	metaInfo() {
@@ -71,8 +99,8 @@ export default {
 		return {
 			loading: false,
 			recipes: [],
-			forks: Number,
-			like: Number
+			forks: 0,
+			like: 0
 		}
 	},
 	async created() {
@@ -86,10 +114,10 @@ export default {
 		getUnpublishedRecipes() {
 			return this.recipes.filter(recipe => !recipe.published)
 		},
-		getForksNumbers() {
+		getForksNumber() {
 			return this.forks
 		},
-		getLikesNumbers() {
+		getLikesNumber() {
 			return this.likes
 		}
 	},
@@ -115,8 +143,7 @@ export default {
 			await api.removeRecipe(id)
 			.then(() => {
 				// Suppression du tableau
-				const index = this.recipes.findIndex(r => r.id == id)
-				this.recipes.splice(index, 1)
+				this.recipes = this.recipes.filter(recipe => recipe.id != id)
 				EventBus.$emit('toast', `Recette ${id} supprimée`)
 			})
 		}
