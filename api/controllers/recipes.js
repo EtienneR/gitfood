@@ -150,31 +150,6 @@ router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     try {
-        // Récupération des commentaires associés
-        const getComments = await comments.getCommentsByRecipe(id)
-        if (getComments.length > 0) {
-            // Récupération des ids des commentaires associés
-            let ids = []
-            getComments.forEach(comment => {
-                ids.push(comment.id)
-            })
-            // Suppression des commentaires associés
-            await comments.deleteComments(ids)
-        }
-
-        // Récupération des likes associés
-        const getLikes = await likes.getLikesByRecipe(id)
-        if (getLikes.length > 0) {
-            // Récupération des ids des likes associés
-            let ids = []
-            getLikes.forEach(like => {
-                ids.push(like.id)
-            })
-            // Suppression des likes associés
-            await likes.deleteLikes(ids)
-        }
-
-        // Suppression de la recette
         await recipes.deleteRecipe(id)
         res.json({ message: message.recipes.deleted(id) })
 

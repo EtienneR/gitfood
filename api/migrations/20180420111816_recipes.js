@@ -20,21 +20,26 @@ exports.up = function(knex, Promise) {
             table.boolean('published')
             table.timestamps(true, true)
             table.integer('id_parent').unsigned()
-            table.integer('user_id').unsigned().references('users.id')
+            table.integer('user_id').unsigned()
+            table.foreign('user_id').references('users.id').onDelete('CASCADE')
         }),
 
         knex.schema.withSchema('public').createTable('comments', table => {
             table.increments('id').primary()
             table.text('content')
             table.timestamps(true, true)
-            table.integer('user_id').unsigned().references('users.id')
-            table.integer('recipe_id').unsigned().references('recipes.id')
+            table.integer('user_id').unsigned()
+            table.foreign('user_id').references('users.id').onDelete('CASCADE')
+            table.integer('recipe_id').unsigned()
+            table.foreign('recipe_id').references('recipes.id').onDelete('CASCADE')
         }),
 
         knex.schema.withSchema('public').createTable('likes', table => {
             table.increments('id').primary()
-            table.integer('user_id').unsigned().references('users.id')
-            table.integer('recipe_id').unsigned().references('recipes.id')
+            table.integer('user_id').unsigned()
+            table.foreign('user_id').references('users.id').onDelete('CASCADE')
+            table.integer('recipe_id').unsigned()
+            table.foreign('recipe_id').references('recipes.id').onDelete('CASCADE')
         })
     ])
 }
