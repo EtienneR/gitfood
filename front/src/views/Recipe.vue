@@ -4,41 +4,41 @@
         <Loading :loading="loading" />
 
         <div v-if="!loading" class="has-background-dark">
-            <Header :title="recipe.name" />
+            <Error v-if="Object.keys(message).length > 0" :message="message" />
+            <div v-else>
+                <Header :title="recipe.name" />
 
-            <div class="container">
-                <Card :recipe="recipe"
-                    :footer="true"
-                    :isConnected="isConnected"
-                    @fork="fork"
-                    :isLiking="isLiking"
-                    @like="like"
-                    :numberLikes="recipe.nbLikes" />
-            </div>
+                <div class="container">
+                    <Card :recipe="recipe"
+                        :footer="true"
+                        :isConnected="isConnected"
+                        @fork="fork"
+                        :isLiking="isLiking"
+                        @like="like"
+                        :numberLikes="recipe.nbLikes" />
+                </div>
 
-            <div class="section">
-                <div class="container has-background-light hero-body">
-                    <div class="columns">
-                        <div class="column is-one-quarter">
-                            <SameAuthor :recipes="recipes" />
-                        </div>
+                <div class="section">
+                    <div class="container has-background-light hero-body">
+                        <div class="columns">
+                            <div class="column is-one-quarter">
+                                <SameAuthor :recipes="recipes" />
+                            </div>
 
-                        <div class="column is-three-quarters">
-                            <div v-if="recipe">
-                                <Comments :comments="comments"
-                                    :isConnected="isConnected"
-                                    @add="addComment" />
+                            <div class="column is-three-quarters">
+                                <div v-if="recipe">
+                                    <Comments :comments="comments"
+                                        :isConnected="isConnected"
+                                        @add="addComment" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <Error v-if="Object.keys(message).length > 0" :message="message" />
 
     </div>
-
 </template>
 
 <script>
