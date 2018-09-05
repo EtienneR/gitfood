@@ -3,20 +3,20 @@
 
         <Loading :loading="loading" />
 
-        <Header :title="title"
-            :subtitle="q" />
+        <Header :title="title" :subtitle="q" />
 
         <section class="section">
 			<div class="container">
-               <div class="section">
-                    <div class="section">
-                        <b-message v-if="recipes.length > 0" type="is-info">
-                            {{recipes.length}} <span v-if="recipes.length === 1">{{successSingle}}</span><span v-else>{{successPlural}}</span> par magie !
-                        </b-message>
-                        <b-message v-if="recipes.length === 0" type="is-warning">
-                            Dommage, il n'y a aucune correspondance avec le terme "{{q}}".
-                        </b-message>
-                    </div>
+                <div class="section">
+                    <b-message v-if="q && q.length > 0 && recipes.length > 0" type="is-info">
+                        {{ recipes.length }} <span v-if="recipes.length === 1">{{ successSingle }}</span><span v-else>{{ successPlural }}</span> par magie !
+                    </b-message>
+                    <b-message v-if="q && q.length > 0 && recipes.length === 0" type="is-warning">
+                        Dommage, il n'y a aucune correspondance avec le terme "{{ q }}".
+                    </b-message>
+                    <b-message v-if="q == null || q.length === 0" type="is-warning">
+                        Le champ de recherche n'a pas été renseigné.
+                    </b-message>
                 </div>
 
                 <RecipesList :recipes="recipes" />
@@ -42,7 +42,7 @@ export default {
     data() {
         return {
             loading: false,
-            title: 'Recherche ' + this.$route.query.q,
+            title: this.$route.query.q ? 'Recherche ' + this.$route.query.q : 'Recherche',
             q: '',
             recipes: [],
             successSingle: 'resultat est sorti',
@@ -62,22 +62,27 @@ export default {
 	methods: {
 		async getRecipes(q) {
             this.q = q
-			this.loading = true
-			await api.searchRecipes(q)
-            .then(res => {
-                if (res.status === 200) {
-                    this.recipes = res.data
-                } else {
-                    this.recipes = []
-                }
+            if (q) {
+                this.loading = true
+                await api.searchRecipes(q)
+                .then(res => {
+                    if (res.status === 200) {
+                        this.recipes = res.data
+                    } else {
+                        this.recipes = []
+                    }
 
-                EventBus.$emit('title', `${this.title} (${this.recipes.length})`)
+                    EventBus.$emit('title', `${this.title} (${this.recipes.length})`)
+                    EventBus.$emit('breadcrumb', this.title)
+                    this.loading = false
+                })
+                .catch(() => {
+                    this.loading = false
+                })
+            } else {
+                EventBus.$emit('title', this.title)
                 EventBus.$emit('breadcrumb', this.title)
-                this.loading = false
-			})
-			.catch(() => {
-                this.loading = false
-			})
+            }
 		}
 	}
 }
