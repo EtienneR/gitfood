@@ -42,10 +42,6 @@ export default {
 		FormSearch,
 		RecipesList
     },
-	metaInfo: {
-		title: 'GitFood - Partagez vos recettes',
-		titleTemplate: null
-	},
 	props: {
 		isConnected: Boolean,
 		userId: Number
@@ -61,6 +57,7 @@ export default {
 	},
 	methods: {
 		async getAllRecipes() {
+			EventBus.$emit('title', `GitFood - Partagez vos recettes`)
 			this.loading = true
 			await api.getAllRecipes()
 			.then(res => {

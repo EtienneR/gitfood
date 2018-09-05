@@ -47,7 +47,7 @@ Liste non exhaustive...
 | Organisation MVC | API | Done |  |
 | Ajout EventBus | Front | Done | Pour les notifications / toast |
 | Ajout page Erreur 404 | Front | Done |
-| Ajout vue-meta | Front | Done | Seulement la balise title |
+| Ajout vue-meta | Front | Done | Remplacé par vue-headful |
 | Formater date | Front | Done | Date formatée avec Moment |
 | Fil d'Arianne | Front | Done |  |
 | Moteur de recherche | API & Front | Done | |

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App'
 
-import Home from '@/views/Home'
+//import Home from '@/views/Home'
+const Home = () => import('@/views/Home')
 const Recipe = () => import('@/views/Recipe')
 const Search = () => import('@/views/Search')
 const User = () => import('@/views/User')
@@ -14,11 +15,12 @@ const Error404 = () => import('@/views/Error404')
 
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
-import Meta from 'vue-meta'
+import vueHeadful from 'vue-headful'
 
 Vue.use(Buefy)
 Vue.use(VueRouter)
-Vue.use(Meta)
+ 
+Vue.component('vue-headful', vueHeadful);
 
 const routes = [
 	{ path: '/', name: 'home', component: Home },

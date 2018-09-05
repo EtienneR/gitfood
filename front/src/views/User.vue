@@ -36,11 +36,6 @@ export default {
         isConnected: Boolean,
         userId: Number
     },
-    metaInfo() {
-        return {
-            title: this.recipes && this.recipes[0] ? `Les recettes de ${this.recipes[0].firstname}` : 'Erreur 404'
-        }
-    },
     data() {
         return {
             loading: false,
@@ -61,17 +56,24 @@ export default {
             .then(res => {
                 this.recipes = res.data.recipes
                 EventBus.$emit('title', `Les recettes de ${this.recipes[0].firstname}`)
+                EventBus.$emit('breadcrumb', `Les recettes de ${this.recipes[0].firstname}`)
+                this.loading = false
             }).catch(err => {
                 if (err.response.status === 404) {
                     this.message.title = 'Erreur 404'
                     this.message.content = 'Cette utilisateur n\'existe pas ou n\'existe plus.'
-                    EventBus.$emit('title', 'Erreur 404')
+                    EventBus.$emit('title', this.message.title)
+                    EventBus.$emit('breadcrumb', this.message.title)
                 }
+        
                 if (err.response.status === 500) {
+                    this.message.title = 'Erreur 500'
                     EventBus.$emit('message', true)
+                    EventBus.$emit('title', this.title)
                 }
+    
+                this.loading = false
             })
-            this.loading = false
         }
     }
 }

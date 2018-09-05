@@ -20,13 +20,9 @@ export default {
 			title: 'Erreur 404'
 		}
 	},
-	metaInfo() {
-		return {
-			title: this.title
-		}
-	},
     created () {
         EventBus.$emit('title', this.title)
+		EventBus.$emit('breadcrumb', this.title)
     }
 
 }

@@ -8,7 +8,7 @@
 
 			<section class="section">
 
-        		<div class="container has-text-centered is-hidden-mobile">
+				<div class="container has-text-centered is-hidden-mobile content">
 					<nav class="level">
 						<div class="level-item has-text-centered">
 							<div>
@@ -87,25 +87,23 @@ export default {
 		Header,
 		Dashboard
     },
-	metaInfo() {
-		return {
-			title: this.recipes && `Mes recettes (${this.recipes.length})`
-		}
-	},
 	props: {
 		userId: Number
 	},
 	data() {
 		return {
 			loading: false,
+			title: 'Mes recettes',
 			recipes: [],
 			forks: 0,
-			like: 0
+			like: 0,
 		}
 	},
 	async created() {
 		this.myRecipes()
-		EventBus.$emit('title', 'Mes recettes')
+		EventBus.$emit('title', this.title)
+		EventBus.$emit('breadcrumb', this.title)
+		
 	},
 	computed: {
 		getPublishedRecipes() {
@@ -133,7 +131,10 @@ export default {
 			})
 			.catch(err => {
 				if (err.response.status === 500) {
+					const title = 'Erreur 500'
 					EventBus.$emit('message', true)
+                    EventBus.$emit('title', title)
+                    EventBus.$emit('breadcrumb', title)
 				}
 			})
 			this.loading = false

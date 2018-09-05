@@ -46,11 +46,6 @@ export default {
         Loading,
 		Header
     },
-    metaInfo() {
-        return {
-            title: this.comments && `Mes commentaires (${this.comments.length})`
-        }
-    },
 	props: {
 		isConnected: Boolean,
         userId: Number,
@@ -59,11 +54,11 @@ export default {
     data() {
         return {
             loading: false,
+            title: 'Mes commentaires',
             comments: []
         }
     },
     async created () {
-        EventBus.$emit('title', 'Mes commentaires')
         this.getCommentsByAuthor()
     },
     methods: {
@@ -73,7 +68,12 @@ export default {
             .then(comments => {
                 if (comments.data.length > 0) {
                     this.comments = comments.data
+                    EventBus.$emit('title', `Mes commentaires (${comments.data.length})`)
+                } else {
+                    EventBus.$emit('title', this.title)
                 }
+    
+                EventBus.$emit('breadcrumb', this.title)
             })
             this.loading = false
         },

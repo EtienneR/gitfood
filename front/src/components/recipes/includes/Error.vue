@@ -22,13 +22,9 @@ export default {
 			title: 'Erreur 404 sur cette recette'
 		}
 	},
-	metaInfo() {
-		return {
-			title: this.title
-		}
-	},
     created () {
         EventBus.$emit('title', this.title)
+		EventBus.$emit('breadcrumb', 'Erreur 404')
     }
 }
 </script>

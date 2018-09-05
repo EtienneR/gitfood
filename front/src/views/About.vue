@@ -28,16 +28,12 @@ export default {
     },
 	data() {
 		return {
-			title: 'A propos',
-		}
-	},
-	metaInfo() {
-		return {
-			title: this.title
+			title: 'A propos'
 		}
 	},
     created () {
         EventBus.$emit('title', this.title)
+        EventBus.$emit('breadcrumb', this.title)
     }
 }
 </script>

@@ -3,7 +3,7 @@
 
         <Loading :loading="loading" />
 
-        <div v-if="!loading && recipe" class="has-background-dark">
+        <div v-if="!loading" class="has-background-dark">
             <Header :title="recipe.name" />
 
             <div class="container">
@@ -62,11 +62,6 @@ export default {
         Header,
         Error
     },
-    metaInfo() {
-        return {
-            title: this.recipe ? `${this.recipe.name} de ${this.recipe.firstname}` : 'Erreur 404'
-        }
-    },
 	props: {
 		isConnected: Boolean,
         userId: Number,
@@ -74,11 +69,11 @@ export default {
 	},
     data() {
         return {
-            recipe: null,
+            loading: false,
+            recipe: {},
             recipes: [],
             comments: [],
-            message: {},
-            loading: false
+            message: {}
         }
     },
     computed: {
@@ -103,29 +98,40 @@ export default {
             await api.getRecipe(this.$route.params.id)
             .then(res => {
                 this.recipe = res.data
-                EventBus.$emit('title', res.data.name)
+                EventBus.$emit('title', `${res.data.name} de ${res.data.firstname}`)
+                EventBus.$emit('breadcrumb', `${res.data.name}`)
                 if (res.data.nbComments > 0) {
                     api.getCommentsByRecipe(this.$route.params.id)
                     .then(res => {
                         this.comments = res.data
                     })
                 }
+
                 if (res.data.nbSameAuthor > 0) {
                     api.getOthersRecipes(this.recipe.user_id, this.$route.params.id)
-                    .then((res) => {
+                    .then(res => {
                         this.recipes = res.data
                     })
                 }
+
+                this.loading = false
             }).catch(err => {
                 if (err.response.status === 404) {
                     this.message.title = 'Erreur 404'
                     this.message.content = 'Cette recette n\'existe pas ou n\'existe plus.'
+                    EventBus.$emit('title', this.message.title)
+                    EventBus.$emit('breadcrumb', this.message.title)
                 }
+
                 if (err.response.status === 500) {
+                    const title = 'Erreur 500'
                     EventBus.$emit('message', true)
+                    EventBus.$emit('title', title)
+                    EventBus.$emit('breadcrumb', title)
                 }
+
+                this.loading = false
             })
-            this.loading = false
         },
         fork(id_recipe) {
             this.$root.$router.push({

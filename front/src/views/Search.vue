@@ -42,18 +42,13 @@ export default {
     data() {
         return {
             loading: false,
-            title: 'Recherche',
+            title: 'Recherche ' + this.$route.query.q,
             q: '',
             recipes: [],
             successSingle: 'resultat est sorti',
             successPlural: 'résultats sont sortis'
         }
     },
-	metaInfo() {
-		return {
-			title: this.title
-		}
-	},
     watch: {
         '$route.query.q'() {
             this.recipes = []
@@ -75,6 +70,9 @@ export default {
                 } else {
                     this.recipes = []
                 }
+
+                EventBus.$emit('title', `${this.title} (${this.recipes.length})`)
+                EventBus.$emit('breadcrumb', this.title)
                 this.loading = false
 			})
 			.catch(() => {

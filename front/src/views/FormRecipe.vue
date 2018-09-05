@@ -155,11 +155,6 @@ export default {
 		Instructions,
 		Preview
     },
-	metaInfo() {
-		return {
-			title: this.currentPage
-		}
-	},
 	props: {
 		isConnected: Boolean,
 		userId: Number
@@ -189,7 +184,9 @@ export default {
 		if (this.$route.params.id) {
 			this.getRecipe()
 		}
+
 		EventBus.$emit('title', this.currentPage)
+		EventBus.$emit('breadcrumb', this.currentPage)
 	},
 	methods: {
 		changeMe() {

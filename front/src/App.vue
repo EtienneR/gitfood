@@ -1,7 +1,9 @@
 <template>
 	<div>
+
+        <vue-headful :title="getTitle" />
 		<navigation :isConnected="isConnected" />
-		<SubMenu v-if="this.$route.name !== 'home' && title" :title="title" />
+		<SubMenu v-if="this.$route.name !== 'home' && breadcrumb" :title="breadcrumb" />
 		<b-notification type="is-warning" v-if="message">
 			Oups... il semblerait qu'il y ait un problème avec l'API et / ou la BDD
 		</b-notification>
@@ -10,7 +12,8 @@
 			:userId="userId"
 			:firstname="firstname">
 		</router-view>
-		<copyright />
+		<copyright v-if="getTitle"/>
+
 	</div>
 </template>
 
@@ -21,9 +24,6 @@ import Copyright from '@/components/layout/Copyright'
 import { EventBus } from '@/event-bus.js'
 
 export default {
-    metaInfo: {
-		titleTemplate: '%s - Gitfood'
-    },
 	components: {
 		Navigation,
 		SubMenu,
@@ -37,6 +37,16 @@ export default {
 			firstname: 'Toto',
 			message: false,
 			title: '',
+			breadcrumb: ''
+		}
+	},
+	computed: {
+		getTitle() {
+			if (this.breadcrumb.length > 0) {
+				return this.title + ' - Gitfood'
+			} else {
+				return this.title
+			}
 		}
 	},
 	methods: {
@@ -66,6 +76,10 @@ export default {
 
 		EventBus.$on('title', value => {
 			self.title = value
+		})
+
+		EventBus.$on('breadcrumb', value => {
+			self.breadcrumb = value
 		})
 	}
 }
