@@ -65,6 +65,13 @@ export default {
                     EventBus.$emit('title', this.message.title)
                     EventBus.$emit('breadcrumb', this.message.title)
                 }
+
+                if (err.response.status === 400) {
+                    this.message.title = 'Erreur 400'
+                    this.message.content = 'Cette utilisateur n\'existe pas.'
+                    EventBus.$emit('title', this.message.title)
+                    EventBus.$emit('breadcrumb', this.message.title)
+                }
         
                 if (err.response.status === 500) {
                     this.message.title = 'Erreur 500'

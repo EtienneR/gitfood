@@ -123,6 +123,13 @@ export default {
                     EventBus.$emit('breadcrumb', this.message.title)
                 }
 
+                if (err.response.status === 400) {
+                    this.message.title = 'Erreur 400'
+                    this.message.content = 'Cette recette ou cette page n\'existe pas.'
+                    EventBus.$emit('title', this.message.title)
+                    EventBus.$emit('breadcrumb', this.message.title)
+                }
+
                 if (err.response.status === 500) {
                     const title = 'Erreur 500'
                     EventBus.$emit('message', true)
