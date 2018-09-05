@@ -27,8 +27,13 @@
                                     <div class="field is-grouped">
                                         <p class="control">
                                             <button class="button is-primary is-outlined"
-                                            @click="like"
-                                            :disabled="!isLiking">Liker ({{ this.recipe.nbLikes }})</button>
+                                                @mouseover="mouseDislike"
+                                                @mouseout="mouseLike"
+                                                @click="like"
+                                                :disabled="!isLiking">
+                                                <b-icon :icon="likeIcon"></b-icon>
+                                                <span>Liker ({{ this.recipe.nbLikes }})</span>
+                                            </button>
                                         </p>
                                         <p class="control">
                                             <button class="button is-primary" @click="fork()">Forker</button>
@@ -118,6 +123,11 @@ export default {
         isLiking: Boolean,
         numberLikes: Number
 	},
+    data() {
+        return {
+            likeIcon: 'thumb-up'
+        }
+    },
     computed: {
         imgUrl() {
             return `http://${window.location.hostname}:3000/img`
@@ -132,6 +142,16 @@ export default {
         },
         customMessage(action) {
             return `Vous devez être connecté pour ${action} pour cette recette.`
+        },
+        mouseDislike() {
+            if (this.isLiking && this.numberLikes > 0) {
+                this.likeIcon = 'thumb-down'
+            }
+        },
+        mouseLike() {
+            if (this.isLiking) {
+                this.likeIcon = 'thumb-up'
+            }
         }
     },
     filters: {

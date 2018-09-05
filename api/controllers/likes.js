@@ -32,6 +32,19 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
+/* Like d'un utilisateur */
+router.get('/user/:id', m.checkIntegerId, async (req, res) => {
+    const { id } = req.params
+    
+    await likes.getLikesByAuthor(id)
+    .then(likes => {
+        if (likes.length) {
+            res.json(likes)
+        }
+    })
+    .catch(err => res.status(500).json(err))
+})
+
 /* Ajouter un like */
 router.post('/', m.checkFields, async (req, res) => {
     await likes.existingLike(req.body)
