@@ -1,15 +1,14 @@
 <template>
 	<div>
 		<navigation :isConnected="isConnected" />
-		<SubMenu v-if="this.$route.name !== 'home'" :title="title" />
+		<SubMenu v-if="this.$route.name !== 'home' && title" :title="title" />
 		<b-notification type="is-warning" v-if="message">
 			Oups... il semblerait qu'il y ait un problème avec l'API et / ou la BDD
 		</b-notification>
 		<router-view
 			:isConnected="isConnected"
 			:userId="userId"
-			:firstname="firstname"
-			title="">
+			:firstname="firstname">
 		</router-view>
 		<copyright />
 	</div>
