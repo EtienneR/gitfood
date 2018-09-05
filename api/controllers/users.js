@@ -33,7 +33,7 @@ router.delete('/:id', m.checkIntegerId, async (req, res) => {
         if (user) {
             res.json({ message: message.users.deleted(id) })
         } else {
-            res.status(404).json({ message: message.users.notFound, })
+            res.status(404).json({ message: message.users.notFound })
         }
     })
     .catch(err => res.status(500).json(err))

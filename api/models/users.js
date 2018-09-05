@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 
 function getUser(id) {
-    return database(table).where('id', parseInt(id)).first()
+    return database(table)
+    .where('id', parseInt(id))
+    .first()
 }
 
 function createUser({ firstname, email, password }) {
@@ -19,7 +21,9 @@ function createUser({ firstname, email, password }) {
 }
 
 function deleteUser(id) {
-    return database(table).where('id', id).del()
+    return database(table)
+    .where('id', id)
+    .del()
 }
 
 module.exports = {
@@ -27,4 +31,3 @@ module.exports = {
     createUser,
     deleteUser
 }
-  
