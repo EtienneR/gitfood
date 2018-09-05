@@ -81,9 +81,7 @@ export default {
         }
     },
 	filters: {
-		moment (date) {
-			return moment(date).format('DD/MM/YYYY à HH:mm')
-		}
+		moment: date => moment(date).format('D MMMM YYYY à HH:mm')
 	}
 }
 </script>

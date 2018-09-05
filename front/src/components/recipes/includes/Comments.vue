@@ -12,7 +12,7 @@
                             <router-link :to="{ name: 'user', params: { id: comment.user_id }}">
                                 {{ comment.firstname }}
                             </router-link>
-                            - le {{comment.created_at | moment }}
+                            - le {{ comment.created_at | moment }}
                         </p>
                         <p v-html="comment.content"></p>
                     </div>
@@ -60,9 +60,7 @@ export default {
         }
     },
     filters: {
-        moment: function (date) {
-            return moment(date).format('DD/MM/YYYY à HH:mm:ss')
-        }
+        moment: date => moment(date).format('D MMMM YYYY à HH:mm')
     }
 }
 </script>

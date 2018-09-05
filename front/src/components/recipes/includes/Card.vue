@@ -155,12 +155,8 @@ export default {
         }
     },
     filters: {
-        moment: function (date) {
-            return moment(date).format('D MMMM YYYY à HH:mm')
-        },
-        iso8601: function (date) {
-            return moment(date).format()
-        }
+        moment: date => moment(date).format('D MMMM YYYY à HH:mm'),
+        iso8601: date => moment(date).format()
     }
 }
 </script>
