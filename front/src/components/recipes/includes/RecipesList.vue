@@ -22,9 +22,12 @@
                             </router-link>
                         </h2>
                         par 
-                        <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+                        <router-link v-if="$route.name !== 'user'" :to="{ name: 'user', params: { id: recipe.user_id }}">
                             {{ recipe.firstname }}
                         </router-link>
+                        <span v-else>
+                            {{ recipe.firstname }}
+                        </span>
                     </div>
                 </article>
             </div>
