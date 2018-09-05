@@ -165,14 +165,16 @@ export default {
 			staticName: '',
 			recette: {
 				name: '',
+				image: 'food.jpg',
 				introduction: '',
 				ingredients: [{ quantity: '', mesure: '', name: '' }],
 				instructions: [{ name: '' }],
-				image: 'food.jpg',
 				conclusion: '',
 				published: false
 			},
-			steps: false
+			steps: false,
+			saveAndUpdate: false,
+			idSaveAndUpdate: 0
 		}
 	},
 	computed: {
@@ -274,8 +276,8 @@ export default {
 			})
 		},
 		async save(exit) {
-			if (this.$route.name === 'editRecipe') {
-				await api.updateRecipe(this.$route.params.id, this.recette)
+			if (this.$route.name === 'editRecipe' || this.saveAndUpdate) {
+				await api.updateRecipe(this.recette.id, this.recette)
 				.then(() => {
 					if (exit) {
 						this.$root.$router.push({
@@ -290,11 +292,16 @@ export default {
 				}
 				this.recette.user_id = this.userId
 				await api.addRecipe(this.recette, { user_id: this.userId })
-				.then(() => {
+				.then(res => {
 					if (exit) {
 						this.$root.$router.push({
 							name: 'myRecipes'
 						})
+					} else {
+						console.log('inside')
+						console.log(res.data)
+						this.saveAndUpdate = true
+						this.recette.id = res.data.id
 					}
 					EventBus.$emit('toast', `Recette ${this.recette.name} ajoutée`)
 				})
