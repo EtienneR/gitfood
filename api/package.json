@@ -2,19 +2,23 @@
   "name": "api",
   "jest": {
     "verbose": true,
-    "testMatch": [ "**/__tests__/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)" ]
+    "testMatch": [
+      "**/__tests__/**/*.js?(x)",
+      "**/?(*.)+(spec|test).js?(x)"
+    ]
   },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node_modules/.bin/nodemon", 
+    "dev": "node_modules/.bin/nodemon",
     "test": "NODE_ENV=test jest --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "3.0.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.13.0",

@@ -2,6 +2,9 @@ const recipesData = require('../recipes.js')
 const usersData = require('../users.js')
 const commentsData = require('../comments.js')
 
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+
 /* Création d'une recette avec son user_id associé */
 const createRecette = (knex, recipe, user) => {
 	return knex('recipes').insert({
@@ -16,13 +19,33 @@ const createRecette = (knex, recipe, user) => {
 	})
 }
 
+const createUser = (knex, user) => {
+	return bcrypt.hash(user.password, saltRounds).then(hash => {
+		return knex('users').insert({
+			firstname: user.firstname,
+			email: user.email,
+			password: hash,
+			active: user.active
+		})
+	})
+}
+
+
 exports.seed = function(knex, Promise) {
 	// Suppression des données
 	return knex('recipes').del()
-	.then(() => knex('comments').del())
 	.then(() => knex('users').del())
+	.then(() => knex('comments').del())
 	// Insertion des données dans la table "users"
-	.then(() => knex('users').insert(usersData))
+	.then(() => {
+		let userPromises = []
+		usersData.forEach(user => {
+			// Ajout de chaque user dans le tableau des users
+			userPromises.push(createUser(knex, user))
+		})
+
+		return Promise.all(userPromises)
+	})
 	.then(() => {
 		// Création d'un tableau pour les recettes
 		let recettePromises = []
