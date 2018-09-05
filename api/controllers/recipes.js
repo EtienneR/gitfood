@@ -133,29 +133,21 @@ router.post('/', m.checkFields, async (req, res) => {
 })
 
 /* Modifier une recette */
-router.put('/:id', m.checkIntegerId, async (req, res) => {
+router.put('/:id', m.checkIntegerId, m.checkFields, async (req, res) => {
     const { id } = req.params
 
-    if (Object.keys(req.body).length > 0) {
-        await recipes.updateRecipe(id, req.body)
-        .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
-        .catch(err => res.status(500).json(err))
-    } else {
-        return res.status(400).json({ message: message.emptyFields })
-    }
+    await recipes.updateRecipe(id, req.body)
+    .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
+    .catch(err => res.status(500).json(err))
 })
  
 /* Supprimer une recette */
 router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
-    try {
-        await recipes.deleteRecipe(id)
-        res.json({ message: message.recipes.deleted(id) })
-
-    } catch(err) {
-        res.status(500).json(err)
-    }
+    await recipes.deleteRecipe(id)
+    .then(id => res.json({ message: message.recipes.deleted(id) }))
+    .catch(err => res.status(500).json(err))
 })
 
 module.exports = router
