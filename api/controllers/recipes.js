@@ -39,7 +39,7 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
         // Récupération de la recette
         const recipe = await recipes.getRecipe(id)
         if (!recipe) {
-            res.status(404).json({ message: message.recipes.noRecipes })
+            res.status(404).json({ message: message.recipes.notFound })
         }
 
         // Récupération du nombre de likes
