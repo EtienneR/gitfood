@@ -1,6 +1,5 @@
 module.exports = [
 	{
-    id: 1,
     name: 'Pizza',
     user_id: 1,
     introduction: 'Lorem Ipseum',
@@ -39,7 +38,6 @@ module.exports = [
     published: true
   },
   {
-    id: 2,
     name: 'Lemon curd',
     user_id: 1,
     introduction: 'Lorem Ipseum',
@@ -75,7 +73,6 @@ module.exports = [
     published: true
   },
   {
-    id: 3,
     name: 'Petits carrés aux amandes caramélisées',
     user_id: 1,
     ingredients: [
@@ -153,7 +150,6 @@ module.exports = [
     published: true
   },
   {
-    id: 4,
     name: 'Pancakes',
     user_id: 2,
     introduction: 'Pour des brunchs ensoleillés',
@@ -205,7 +201,6 @@ module.exports = [
     published: true
   },
   {
-    id: 5,
     name: 'Flan parisien',
     user_id: 2,
     introduction: 'Aussi bon et moins chez que chez le boulanger',
@@ -252,7 +247,6 @@ module.exports = [
     published: true
   },
   {
-    id: 6,
     name: 'Moelleux au chocolat',
     user_id: 2,
     introduction: 'Rapide et terriblement simple à faire',
@@ -295,7 +289,6 @@ module.exports = [
     published: true
   },
   {
-    id: 7,
     name: 'Far breton',
     user_id: 2,
     introduction: 'Important, il vous faudra un moule à haut rebord (avec fond amovible, c\'est le top) car la pâte sera liquide (pâte à crêpes).',
@@ -343,7 +336,6 @@ module.exports = [
     published: true
   },
   {
-    id: 8,
     name: 'Pain d\'épices à l\'anis',
     user_id: 1,
     introduction: 'Réconfortant en période d\'hiver. A préparer avec du miel de forêt ou de montagne pour son gout fort et sa couleur ambre',
@@ -412,7 +404,6 @@ module.exports = [
     published: true
   },
   {
-    id: 9,
     name: 'Smoothie​ à la​ banane',
     user_id: 1,
     introduction: 'Lorem Ipseum',
@@ -447,7 +438,6 @@ module.exports = [
     published: true
   },
   {
-    id: 10,
     name: 'Quatres quarts',
     user_id: 3,
     introduction: 'Lorem Ipsum',
