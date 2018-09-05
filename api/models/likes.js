@@ -61,13 +61,6 @@ function deleteLike(id) {
     .del()
 }
 
-/* Supprimer un tableau de likes */
-function deleteLikes(ids) {
-    return database(table)
-    .whereIn('id', ids)
-    .del()
-}
-
 module.exports = {
     getLikes,
     getLikesByRecipe,
@@ -76,6 +69,5 @@ module.exports = {
     postLike,
     existingLike,
     existingLikeArray,
-    deleteLike,
-    deleteLikes
+    deleteLike
 }
