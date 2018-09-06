@@ -6,7 +6,6 @@ function checkIntegerId(req, res, next) {
     if (id_user) {
         id = id_user
     }
-
     if (id) {
         if (!Number.isInteger(parseInt(id))) {
             return res.status(400).json({ message: message.idNotInteger })

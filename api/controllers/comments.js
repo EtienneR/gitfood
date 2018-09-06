@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         if (comments.length > 0) {
             res.json(comments)
         } else {
-            res.status(202).json({ message: 'no comment available' })
+            res.status(202).json({ message: message.comments.nothing })
         }
     })
     .catch(err => res.status(500).json(err))
@@ -65,7 +65,7 @@ router.get('/user/:user_id', m.checkIntegerId, async (req, res) => {
 /* Ajouter un commentaire */
 router.post('/', m.checkFields, async (req, res) => {
     await comments.postComment(req.body)
-    .then(id => res.status(201).json({ message: message.comments.created, id: id[0] }))
+    .then(id => res.status(201).json({ message: message.comments.created(id[0]), id: id[0] }))
     .catch(err => res.status(500).json(err))
 })
 

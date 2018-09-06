@@ -22,7 +22,7 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
 /* Ajouter un utilisateur */
 router.post('/', m.checkFields, async (req, res) => {
     await users.createUser(req.body)
-    .then(id => res.status(201).json({ message: message.users.created, id: id[0] }))
+    .then(id => res.status(201).json({ message: message.users.created(id[0]), id: id[0] }))
     .catch(err => res.status(500).json(err))
 })
 

@@ -128,7 +128,7 @@ router.get('/forks/:id_user', m.checkIntegerId, async (req, res) => {
 /* Ajouter une recette */
 router.post('/', m.checkFields, async (req, res) => {
     await recipes.postRecipe(req.body)
-    .then(id => res.status(201).json({ message: message.recipes.created, id: id[0] }))
+    .then(id => res.status(201).json({ message: message.recipes.created(id[0]), id: id[0] }))
     .catch(err => res.status(500).json(err))
 })
 
@@ -137,7 +137,13 @@ router.put('/:id', m.checkIntegerId, m.checkFields, async (req, res) => {
     const { id } = req.params
 
     await recipes.updateRecipe(id, req.body)
-    .then(id => res.json({ message: message.recipes.updated, id: id[0] }) )
+    .then(recipe => {
+        if (recipe) {
+            res.json({ message: message.recipes.updated(id) })
+        } else {
+            res.status(404).json({ message: message.recipes.notFound })
+        }
+    })
     .catch(err => res.status(500).json(err))
 })
  
@@ -146,7 +152,13 @@ router.delete('/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
 
     await recipes.deleteRecipe(id)
-    .then(id => res.json({ message: message.recipes.deleted(id) }))
+    .then(recipe => {
+        if (recipe) {
+            res.json({ message: message.recipes.deleted(id) })
+        } else {
+            res.status(404).json({ message: message.recipes.notFound })
+        }
+    })
     .catch(err => res.status(500).json(err))
 })
 

@@ -5,34 +5,30 @@ module.exports = {
     },
     recipes: {
         nothing: 'no recipes available',
-        notFound: 'Recipe not found',
-        missingId: 'Missing recipe id',
-        created: 'Recipe created',
-        updated: 'Recipe updated',
-        deleted: (id => `Recipe ${id} deleted`),
-        noRecipes: 'No recipes for this user'
+        notFound: 'recipe not found',
+        created: (id => `recipe ${id} created`),
+        updated: (id => `recipe ${id} updated`),
+        deleted: (id => `recipe ${id} deleted`),
+        noRecipes: 'no recipes for this user'
     },
     users: {
-        notFound: 'User not found',
-        missingId: 'Missing user id',
-        created: 'User created',
-        updated: 'User updated',
+        notFound: 'user not found',
+        created: (id => `User ${id} created`),
         deleted: (id => `User ${id} deleted`)
     },
     comments: {
-        notFound: 'Comment not found',
-        missingId: 'Missing comment id',
-        deleted: (id => `Comment ${id} deleted`),
-        noCommentsForThisRecipe: 'No comments for this recipe',
-        noCommentsForThisUser: 'No comments for this user',
-        created: 'Comment created'
+        nothing: 'no comment available',
+        notFound: 'comment not found',
+        created: (id => `comment ${id} created`),
+        deleted: (id => `comment ${id} deleted`),
+        noCommentsForThisRecipe: 'no comments for this recipe',
+        noCommentsForThisUser: 'no comments for this user'
     },
     likes: {
         nothing: 'no likes available',
         notFound: 'Like not found',
-        missingId: 'Missing like id',
-        deleted: (id => `Comment ${id} deleted`),
-        created: 'Like created'
+        created: (id => `like ${id} created`),
+        deleted: (id => `like ${id} deleted`),
     },
     idNotInteger: 'Id must be an integer',
     emptyFields: 'Empty fields'

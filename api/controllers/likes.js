@@ -51,7 +51,7 @@ router.post('/', m.checkFields, async (req, res) => {
     .then(e => {
         if (!e) {
             likes.postLike(req.body)
-            .then(id => res.status(201).json({ message: message.likes.created, id: id[0] }))
+            .then(id => res.status(201).json({ message: message.likes.created(id[0]), id: id[0] }))
             .catch(err => res.status(500).json(err))
         } else {
             res.status(400).json({ message: 'existing', id: e.id })
