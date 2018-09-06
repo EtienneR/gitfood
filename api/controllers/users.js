@@ -28,6 +28,8 @@ router.post('/', m.checkFields, async (req, res) => {
 
 /* Supprimer un utilisateur */
 router.delete('/:id', m.checkIntegerId, async (req, res) => {
+    const { id } = req.params
+
     await users.deleteUser(id)
     .then(user => {
         if (user) {
