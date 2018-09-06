@@ -8,7 +8,7 @@ describe('Comments', () => {
         const response = await request(server).get(url)
         expect(response).toBeDefined()
         expect(response.statusCode).toBe(202)
-        expect(response.body.message).toBe('no comment available')
+        expect(response.body).toEqual({ message: message.comments.nothing })
     })
 
     test('GET /1 - Comments - Empty object', async () => {

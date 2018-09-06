@@ -21,7 +21,10 @@ Cela aura pour conséquence de créer 3 containers :
 
 ### Tests Unitaires
 
-Lancez le docker-compose.test.yml avec la commande `$ docker-compose -f docker-compose.test.yml` et les tests dans le dossier api `npm run test`.
+Lancez le docker-compose.test.yml avec la commande `$ docker-compose -f docker-compose.test.yml up` et les tests dans le dossier api. 
+
+- `npm run tests` : lance tous les fichiers de tests ;
+- `npm run test -- file.test.js` : lance un fichier de test spécifique.
 
 ### Récapitulatif
 

@@ -1,11 +1,7 @@
 {
   "name": "api",
   "jest": {
-    "verbose": true,
-    "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)+(spec|test).js?(x)"
-    ]
+    "verbose": true
   },
   "version": "1.0.0",
   "description": "",
@@ -13,7 +9,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node_modules/.bin/nodemon",
-    "test": "NODE_ENV=test jest --detectOpenHandles"
+    "test": "NODE_ENV=test jest",
+    "tests": "NODE_ENV=test jest --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",

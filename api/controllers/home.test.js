@@ -2,7 +2,7 @@ const request = require('supertest')
 const server = require('../index')
 const message = require('../helpers/messages')
 
-describe('Route Home', () => {	
+describe('Route Home', () => {
     test('GET / - Home', async () => {
         const response = await request(server).get('/')
         expect(response).toBeDefined()
@@ -11,7 +11,7 @@ describe('Route Home', () => {
     })
 })
 
-describe('Route 404', () => {	
+describe('Route 404', () => {
     test('GET / - 404', async () => {
         const response = await request(server).get('/404')
         expect(response).toBeDefined()

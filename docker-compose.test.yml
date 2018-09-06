@@ -12,7 +12,7 @@ services:
 
   api_test:
     build: ./api
-    command: sh -c 'node_modules/.bin/wait-port db_test:5432 && node_modules/.bin/knex migrate:latest && npm run dev'
+    command: sh -c 'node_modules/.bin/wait-port db_test:5432 && node_modules/.bin/knex migrate:latest && npm run start'
     volumes:
       - ./api:/usr/src/app
     ports:
