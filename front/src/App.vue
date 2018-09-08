@@ -7,7 +7,7 @@
 		<b-notification type="is-warning" v-if="message">
 			Oups... il semblerait qu'il y ait un problème avec l'API et / ou la BDD
 		</b-notification>
-		<router-view
+		<router-view 
 			:isConnected="isConnected"
 			:userId="userId"
 			:firstname="firstname">

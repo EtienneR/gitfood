@@ -117,7 +117,7 @@ function getForks(user_id) {
     .orderBy(`${table}.id`, 'DESC')
 }
 
-function postRecipe({ name, introduction, ingredients, instructions, image, conclusion, published, id_parent, user_id }) {
+function postRecipe({ name, introduction, ingredients, instructions, image, conclusion, published, user_id }) {
     return database(table).insert({
         name: name,
         introduction: introduction,
@@ -126,7 +126,6 @@ function postRecipe({ name, introduction, ingredients, instructions, image, conc
         image: image,
         conclusion: conclusion,
         published: published,
-        id_parent: id_parent,
         user_id: user_id
     }).returning('id')
 }

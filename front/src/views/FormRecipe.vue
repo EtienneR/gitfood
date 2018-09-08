@@ -15,12 +15,14 @@
 									<b-input v-model.trim="recette.name" id="name"></b-input>
 								</b-field>
 
-								<p>Votre recette comporte plusieurs étapes ?</p>
-								<div class="field">
-									<b-switch v-model="steps" @input="changeMe">
-										<span v-if="steps">Oui</span>
-										<span v-else>Non</span>
-									</b-switch>
+								<div v-if="!this.$route.name === 'editRecipe'">
+									<p>Votre recette comporte plusieurs étapes ?</p>
+									<div class="field">
+										<b-switch v-model="steps" @input="changeMe">
+											<span v-if="steps">Oui</span>
+											<span v-else>Non</span>
+										</b-switch>
+									</div>
 								</div>
 
 								<b-tabs position="is-centered"

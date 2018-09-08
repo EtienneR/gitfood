@@ -1,4 +1,6 @@
 module.exports = {
+    idNotInteger: 'id must be an integer',
+    emptyFields: 'empty fields',
     home: {
         welcome: 'Welcome to the GitFood API',
         notFound: 'this page doesn\'t exists'
@@ -26,10 +28,8 @@ module.exports = {
     },
     likes: {
         nothing: 'no likes available',
-        notFound: 'Like not found',
+        notFound: 'like not found',
         created: (id => `like ${id} created`),
         deleted: (id => `like ${id} deleted`),
-    },
-    idNotInteger: 'Id must be an integer',
-    emptyFields: 'Empty fields'
+    }
 }

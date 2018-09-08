@@ -128,6 +128,7 @@ export default {
 				this.recipes = res.data.recipes
 				this.forks = res.data.nbForks
 				this.likes = res.data.nbLikes
+				this.loading = false
 			})
 			.catch(err => {
 				if (err.response.status === 500) {
@@ -135,9 +136,9 @@ export default {
 					EventBus.$emit('message', true)
                     EventBus.$emit('title', title)
                     EventBus.$emit('breadcrumb', title)
+					this.loading = false
 				}
 			})
-			this.loading = false
 		},
 		// Suppression d'une recette
 		async remove(id) {

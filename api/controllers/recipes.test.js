@@ -103,7 +103,7 @@ const newRecipe = {
 beforeAll(async () => {
     await knex.migrate.rollback()
     await knex.migrate.latest()
-    await knex.seed.run(['1_user.js'])
+    await knex.seed.run()
 })
 
 describe('Recipes', () => {
