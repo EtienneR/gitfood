@@ -60,17 +60,9 @@
 						</div>
 					</div>
 
-					<div class="navbar-end" v-if="!isConnected" id="nav-noconnected">
-						<div class="navbar-item">
-							<div class="field is-grouped">
-								<p class="navbar-item">
-									<a @click="isModaleLogin = true, connection = true">Connexion</a>
-								</p>
-								<p class="navbar-item">
-									<a @click="isModaleLogin = true, connection = false">Inscription</a>
-								</p>
-							</div>
-						</div>
+					<div class="navbar-end has-text-centered" v-if="!isConnected" id="nav-noconnected">
+						<a class="navbar-item" @click="isModaleLogin = true, connection = true">Connexion</a>
+						<a class="navbar-item" @click="isModaleLogin = true, connection = false">Inscription</a>
 					</div>
 				</div>
 
