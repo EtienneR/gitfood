@@ -11,7 +11,7 @@ services:
 
   api:
     build: ./api
-    command: sh -c 'node_modules/.bin/wait-port db:5432 && node_modules/.bin/knex migrate:latest && node_modules/.bin/knex seed:run && node_modules/.bin/nodemon'
+    command: sh -c 'node_modules/.bin/wait-port db:5432 && node_modules/.bin/knex migrate:rollback && node_modules/.bin/knex migrate:latest && node_modules/.bin/knex seed:run && node_modules/.bin/nodemon'
     volumes:
       - ./api:/usr/src/app
     ports:
