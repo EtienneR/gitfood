@@ -2,8 +2,9 @@
 node_modules
 
 # Images
-!*/public/img/food.jpg
-/public/img
+public/img/*
+!public/img/food.jpg
+!public/img/seeds
 
 # Log files
 npm-debug.log*

@@ -1,6 +1,7 @@
 module.exports = [
 	{
     name: 'Pizza',
+    image: 'pizza.jpg',
     user_id: 1,
     introduction: 'Lorem Ipseum',
     ingredients: [
@@ -39,6 +40,7 @@ module.exports = [
   },
   {
     name: 'Lemon curd',
+    image: 'lemon_curd.png',
     user_id: 1,
     introduction: 'Lorem Ipseum',
     ingredients: [
@@ -74,6 +76,7 @@ module.exports = [
   },
   {
     name: 'Petits carrés aux amandes caramélisées',
+    image: 'carres_amandes.jpg',
     user_id: 1,
     ingredients: [
       {
@@ -151,6 +154,7 @@ module.exports = [
   },
   {
     name: 'Pancakes',
+    image: 'pancakes.jpg',
     user_id: 2,
     introduction: 'Pour des brunchs ensoleillés',
     ingredients: [
@@ -202,6 +206,7 @@ module.exports = [
   },
   {
     name: 'Flan parisien',
+    image: 'flans.jpg',
     user_id: 2,
     introduction: 'Aussi bon et moins chez que chez le boulanger',
     ingredients: [
@@ -248,6 +253,7 @@ module.exports = [
   },
   {
     name: 'Moelleux au chocolat',
+    image: 'moelleux_chocolat.jpg',
     user_id: 2,
     introduction: 'Rapide et terriblement simple à faire',
     ingredients: [
@@ -290,6 +296,7 @@ module.exports = [
   },
   {
     name: 'Far breton',
+    image: 'far_breton.jpg',
     user_id: 2,
     introduction: 'Important, il vous faudra un moule à haut rebord (avec fond amovible, c\'est le top) car la pâte sera liquide (pâte à crêpes).',
     ingredients: [
@@ -337,6 +344,7 @@ module.exports = [
   },
   {
     name: 'Pain d\'épices à l\'anis',
+    image: 'pain_depices.jpg',
     user_id: 1,
     introduction: 'Réconfortant en période d\'hiver. A préparer avec du miel de forêt ou de montagne pour son gout fort et sa couleur ambre',
     ingredients: [
@@ -405,6 +413,7 @@ module.exports = [
   },
   {
     name: 'Smoothie​ à la​ banane',
+    image: 'smoothie_banane.jpg',
     user_id: 1,
     introduction: 'Lorem Ipseum',
     ingredients: [
@@ -439,6 +448,7 @@ module.exports = [
   },
   {
     name: 'Quatres quarts',
+    image: 'quatre-quarts-de-bretagne.png',
     user_id: 3,
     introduction: 'Lorem Ipsum',
     ingredients: [
