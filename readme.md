@@ -56,10 +56,10 @@ Liste non exhaustive...
 | Moteur de recherche | API & Front | Done | |
 | Ajout dialogue suppression recette | Front | Done | Ajout Dialog |
 | Helmet (Express) | API | Done | Ajout de sécurité |
-| Migration avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
-| Seed avec Knex | API | En cours | Seulement les recettes, les utilisateurs et les commentaires |
+| Migration avec Knex | API | Done | |
+| Seed avec Knex | API | Done | |
 | FormWizard | Front | En cours | Provisoire (accessibilité) |
-| Ajout image | Back & front | En cours | Pour illustrer une recette |
+| Ajout image | Back & front | En cours | Pas de formulaire d'upload |
 | Tests unitaires avec Jest | Back | En cours | docker-compose.test.yml et npm run test |
 | Authentification | Api & Front | Backlog | |
 
