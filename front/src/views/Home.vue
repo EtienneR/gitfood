@@ -6,20 +6,15 @@
 		<div v-if="!loading">
 			<Header title="GitFood" subtitle="Partagez vos recettes" />
 
-			<section class="section has-background-dark">
+			<section class="has-background-dark">
+				<div class="columns is-centered">
+					<FormSearch id="search" />
+				</div>
+
 				<div class="container">
-					<div class="columns is-centered" style="margin-top: -40px">
-						<FormSearch />
-					</div>
-
-					<b-notification v-if="!isConnected">
-						Bienvenue sur GitFood, le site de partage de recettes. En vous inscrivant, vous pouvez poster vos recettes et les partager à tout le monde. Si une recette, vous pouvez la dupliquer :) - Inscription -
-						<router-link :to="{ name: 'about'}">
-							Plus d'informations
-						</router-link>
-					</b-notification>
-
-					<RecipesList :recipes="recipes"/>
+					<RecipesList class="section"
+						:recipes="recipes"
+						:isConnected="isConnected" />
 				</div>
 			</section>
 		</div>
@@ -62,14 +57,27 @@ export default {
 			await api.getAllRecipes()
 			.then(res => {
 				this.recipes = res.data
+				this.loading = false
 			})
 			.catch(err => {
 				if (err.response == null || err.response.status === 500) {
 					EventBus.$emit('message', true)
 				}
+				this.loading = false
 			})
-			this.loading = false
 		}
 	}
 }
 </script>
+
+<style scoped>
+#search {
+    margin-top: -24px;
+}
+@media screen and (max-width: 768px) {
+    #search {
+		padding: 0 2.25rem;
+        margin-top: 10px;
+    }
+}
+</style>

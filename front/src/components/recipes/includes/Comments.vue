@@ -2,7 +2,7 @@
     <div>
 
         <h2 v-if="comments.length > 0" class="title">Les commentaires ({{ comments.length }})</h2>
-        <h2 v-else class="title">Aucun commentaire</h2>
+        <h2 v-else class="title title is-4">Aucun commentaire</h2>
 
         <div class="box" v-for="(comment, index) in comments" :key="index">
             <article class="media">

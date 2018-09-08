@@ -1,5 +1,5 @@
 <template>
-    <section class="hero is-light">
+    <section class="hero">
 
         <div class="hero-body is-hidden-mobile">
             <div class="container has-text-centered">

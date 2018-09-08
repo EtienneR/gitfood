@@ -5,20 +5,20 @@
 
         <div v-if="!loading">
             <Error v-if="Object.keys(message).length > 0" :message="message" />
-            <div v-else class="has-background-dark">
+            <div v-else>
                 <Header :title="recipe.name" />
-
-                <div class="container">
-                    <Card :recipe="recipe"
-                        :footer="true"
-                        :isConnected="isConnected"
-                        @fork="fork"
-                        :isLiking="isLiking"
-                        @like="like"
-                        :numberLikes="recipe.nbLikes" />
-                </div>
-
                 <div class="section has-background-dark">
+                    <div class="container has-background-white">
+                        <Card :recipe="recipe"
+                            :footer="true"
+                            :isConnected="isConnected"
+                            @fork="fork"
+                            :isLiking="isLiking"
+                            @like="like"
+                            :numberLikes="recipe.nbLikes" />
+                    </div>
+
+
                     <div class="container has-background-light hero-body">
                         <div class="columns">
                             <div class="column is-one-quarter">

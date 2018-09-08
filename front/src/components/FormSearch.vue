@@ -1,11 +1,15 @@
 <template>
-    <div class="column is-one-quarter">
-        <form action="javascript:void(0);" @keyup.enter="search">
-            <b-input 
-                type="search"
+    <div>
+
+        <form action="javascript:void(0);"
+            @keyup.enter="search"
+            id="formSearch">
+            <b-input type="search"
+                icon="magnify"
                 v-model.trim="q"
                 placeholder="Rechercher" />
         </form>
+
     </div>
 </template>
 
@@ -26,3 +30,13 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@media screen and (max-width: 768px) {
+    #formSearch {
+        padding-top: 2%;
+        padding-bottom: 2%;
+        margin-bottom: 4%;
+    }
+}
+</style>

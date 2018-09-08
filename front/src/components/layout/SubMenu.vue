@@ -18,9 +18,7 @@
                         </ul>
                     </nav>
                 </div>
-
-                <FormSearch />
-
+                <FormSearch class="column is-one-quarter"  />
             </div>
         </div>
 
@@ -40,9 +38,17 @@ export default {
 }
 </script>
 
-<style>
-.section {
-    padding: 10px 0
+<style scoped>
+@media screen and (min-width: 1025px) {
+    .section {
+        padding: 10px 0;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .section {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
 .breadcrumb {
     margin-top: 5px
