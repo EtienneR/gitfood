@@ -5,19 +5,17 @@
 
         <Header :title="title" :subtitle="q" />
 
-        <section class="section">
+        <section class="section has-background-dark">
 			<div class="container">
-                <div class="section">
-                    <b-message v-if="q && q.length > 0 && recipes.length > 0" type="is-info">
-                        {{ recipes.length }} <span v-if="recipes.length === 1">{{ successSingle }}</span><span v-else>{{ successPlural }}</span> par magie !
-                    </b-message>
-                    <b-message v-if="q && q.length > 0 && recipes.length === 0" type="is-warning">
-                        Dommage, il n'y a aucune correspondance avec le terme "{{ q }}".
-                    </b-message>
-                    <b-message v-if="q == null || q.length === 0" type="is-warning">
-                        Le champ de recherche n'a pas été renseigné.
-                    </b-message>
-                </div>
+                <b-message v-if="q && q.length > 0 && recipes.length > 0" type="is-info">
+                    {{ recipes.length }} <span v-if="recipes.length === 1">{{ successSingle }}</span><span v-else>{{ successPlural }}</span> par magie !
+                </b-message>
+                <b-message v-if="q && q.length > 0 && recipes.length === 0" type="is-warning">
+                    Dommage, il n'y a aucune correspondance avec le terme "{{ q }}".
+                </b-message>
+                <b-message v-if="q == null || q.length === 0" type="is-warning">
+                    Le champ de recherche n'a pas été renseigné.
+                </b-message>
 
                 <RecipesList :recipes="recipes" />
             </div>

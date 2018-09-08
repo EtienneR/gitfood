@@ -3,9 +3,9 @@
 
         <Loading :loading="loading" />
 
-        <div v-if="!loading" class="has-background-dark">
+        <div v-if="!loading">
             <Error v-if="Object.keys(message).length > 0" :message="message" />
-            <div v-else>
+            <div v-else class="has-background-dark">
                 <Header :title="recipe.name" />
 
                 <div class="container">
@@ -18,7 +18,7 @@
                         :numberLikes="recipe.nbLikes" />
                 </div>
 
-                <div class="section">
+                <div class="section has-background-dark">
                     <div class="container has-background-light hero-body">
                         <div class="columns">
                             <div class="column is-one-quarter">

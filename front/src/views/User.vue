@@ -6,7 +6,7 @@
         <Header v-if="recipes.length > 0"
             :title="recipes[0].firstname"
             subtitle="Toutes ses recettes" />
-        <section class="section">
+        <section class="section has-background-dark">
 			<div class="container">
                 <RecipesList v-if="recipes.length > 0" :recipes="recipes" />
             </div>
