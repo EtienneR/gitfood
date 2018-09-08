@@ -61,6 +61,7 @@
 
 <script>
 import moment from 'moment'
+require('moment/locale/fr')
 
 export default {
 	props: {
