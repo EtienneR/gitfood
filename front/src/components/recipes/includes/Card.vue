@@ -10,7 +10,7 @@
                             <article class="tile is-child">
                                 <p>
                                     Rédigé par
-                                    <router-link :to="{ name: 'user', params: { id: recipe.user_id }}">
+                                    <router-link class="has-text-black" :to="{ name: 'user', params: { id: recipe.user_id }}">
                                         {{ recipe.firstname }}
                                     </router-link>
                                     le 
@@ -26,7 +26,7 @@
                                 <div class="section">
                                     <div class="field is-grouped">
                                         <p class="control">
-                                            <button class="button is-primary is-outlined"
+                                            <button class="button is-info is-outlined"
                                                 @mouseover="mouseDislike"
                                                 @mouseout="mouseLike"
                                                 @click="like"
@@ -36,7 +36,7 @@
                                             </button>
                                         </p>
                                         <p class="control">
-                                            <button class="button is-primary" @click="fork()">Forker</button>
+                                            <button class="button is-info" @click="fork()">Forker</button>
                                         </p>
                                     </div>
                                 </div>

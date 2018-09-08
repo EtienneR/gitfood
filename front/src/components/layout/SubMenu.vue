@@ -7,10 +7,10 @@
                     <nav class="breadcrumb" aria-label="breadcrumbs">
                         <ul>
                             <li>
-                                <router-link to="/">Accueil</router-link>
+                                <router-link to="/" class="has-text-black">Accueil</router-link>
                             </li>
                             <li v-if="this.$route.name === 'addRecipe' || this.$route.name === 'editRecipe' || this.$route.name === 'forkRecipe'">
-                                <router-link :to="{ name: 'myRecipes' }">Mes recettes</router-link>
+                                <router-link class="has-text-black" :to="{ name: 'myRecipes' }">Mes recettes</router-link>
                             </li>
                             <li class="is-active">
                                 <a href="#" aria-current="page">{{ title }}</a>
