@@ -40,6 +40,12 @@
 									<!-- Fin Partie 1 -->
 
 									<!-- Début Partie 2 -->
+									<b-tab-item label="Image">
+									<img :src="`${imgUrl}/${recipe.image}`" alt="Aperçu non disponible" />
+									</b-tab-item>
+									<!-- Fin Partie 2 -->
+
+									<!-- Début Partie 3 -->
 									<b-tab-item label="Ingrédients">
 										<div v-if="steps"
 											v-for="(ingredient, index) in recipe.ingredients"
@@ -66,9 +72,9 @@
 											@addIngredient="addIngredient"
 											@deleteIngredient="deleteIngredient" />
 									</b-tab-item>
-									<!-- Fin Partie 2 -->
+									<!-- Fin Partie 3 -->
 
-									<!-- Début Partie 3 -->
+									<!-- Début Partie 4 -->
 									<b-tab-item label="Instructions">
 										<div v-if="steps"
 											v-for="(instruction, index) in recipe.instructions"
@@ -90,9 +96,9 @@
 											@addInstruction="addInstruction"
 											@deleteInstruction="deleteInstruction" />
 									</b-tab-item>
-									<!-- Fin Partie 3 -->
+									<!-- Fin Partie 4 -->
 
-									<!-- Début Partie 4 -->
+									<!-- Début Partie 5 -->
 									<b-tab-item label="Conclusion">
 										<b-field label="Conclusion" label-for="conclusion">
 											<b-input v-model="recipe.conclusion"
@@ -101,6 +107,7 @@
 											</b-input>
 										</b-field>
 									</b-tab-item>
+									<!-- Fin Partie 5 -->
 								</b-tabs>
 
 								<div class="field">
@@ -182,7 +189,10 @@ export default {
 	computed: {
 		currentPage() {
 			return this.$route.params.id ? 'Modifier la recette' : 'Ajouter une recette'
-		}
+		},
+        imgUrl() {
+            return `http://${window.location.hostname}:3000/img`
+        }
 	},
 	async created() {
 		if (this.$route.params.id) {
