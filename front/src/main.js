@@ -22,11 +22,11 @@ Vue.component('vue-headful', vueHeadful);
 
 const routes = [
 	{ path: '/', name: 'home', component: Home },
-	{ path: '/menu', name: 'myRecipes', component: MyRecipes, meta: { requiresAuth: true } },
-	{ path: '/menu/ajouter', name:'addRecipe', component: FormRecipe, meta: { requiresAuth: true } },
-	{ path: '/menu/modifier/:id', name:'editRecipe', component: FormRecipe, meta: { requiresAuth: true } },
-	{ path: '/menu/fork/:id', name:'forkRecipe', component: FormRecipe, meta: { requiresAuth: true } },
-	{ path: '/menu/comments', name: 'myComments', component: MyComments, meta: { requiresAuth: true }  },
+	{ path: '/menu', name: 'myRecipes', component: MyRecipes },
+	{ path: '/menu/ajouter', name:'addRecipe', component: FormRecipe },
+	{ path: '/menu/modifier/:id', name:'editRecipe', component: FormRecipe },
+	{ path: '/menu/fork/:id', name:'forkRecipe', component: FormRecipe },
+	{ path: '/menu/comments', name: 'myComments', component: MyComments },
 	{ path: '/user/:id', name: 'user', component: User },
 	{ path: '/about', name: 'about', component: About },
 	{ path: '/search', name: 'search', component: Search },
