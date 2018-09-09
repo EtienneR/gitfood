@@ -34,7 +34,10 @@
                                         </button>
                                     </p>
                                     <p class="control">
-                                        <button class="button is-info" @click="fork()">Forker</button>
+                                        <button class="button is-info" @click="fork()">
+                                            <b-icon icon="source-fork"></b-icon>
+                                            <span>Forker</span>
+                                        </button>
                                     </p>
                                 </div>
                             </div>
@@ -56,46 +59,14 @@
                 <div class="tile">
                     <div class="tile is-parent">
                         <article class="tile is-child">
-                            <div class="content">
-                                <h2 class="title is-4">Ingrédients</h2>
-                                <ul>
-                                    <li v-for="(ingredient, index) in recipe.ingredients" :key="index">
-                                        <span v-if="ingredient.title">
-                                            <h3>{{ ingredient.title }}</h3>
-                                            <ul>
-                                                <li v-for="(i, index) in ingredient.step" :key="index">
-                                                    <span v-if="i.quantity !== 0">{{ i.quantity }}</span> {{ i.mesure }} <span v-if="i.mesure">de</span> {{ i.name }}
-                                                </li>
-                                            </ul>
-                                        </span>
-                                        <span v-else>
-                                            <span v-if="ingredient.quantity !== 0">{{ ingredient.quantity }}</span> {{ ingredient.mesure }} <span v-if="ingredient.mesure">de</span> {{ ingredient.name }}
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
+                            <DisplayIngredients :ingredients="recipe.ingredients" />
                         </article>
                     </div>
                 </div>
             </div>
             <div class="tile is-parent">
                 <article class="tile is-child">
-                    <div class="content">
-                        <h2 class="title is-4">Instructions</h2>
-                        <ol>
-                            <li v-for="(instruction, index) in recipe.instructions" :key="index">
-                                <span v-if="instruction.title">
-                                    <h3>{{ instruction.title }}</h3>
-                                    <ol>
-                                        <li v-for="(a, index) in instruction.step" :key="index">{{ a.name }}</li>
-                                    </ol>
-                                </span>
-                                <span v-else>
-                                    {{ instruction.name }}
-                                </span>
-                            </li>
-                        </ol>
-                    </div>
+                    <DisplayInstructions :instructions="recipe.instructions" />
                 </article>
             </div>
         </div>
@@ -112,7 +83,14 @@
 import moment from 'moment'
 require('moment/locale/fr')
 
+import DisplayIngredients from '@/components/recipes/includes/DisplayIngredients'
+import DisplayInstructions from '@/components/recipes/includes/DisplayInstructions'
+
 export default {
+    components: {
+        DisplayIngredients,
+        DisplayInstructions
+    },
 	props: {
 		recipe: Object,
         footer: Boolean,
@@ -120,9 +98,10 @@ export default {
         isLiking: Boolean,
         numberLikes: Number
 	},
+
     data() {
         return {
-            likeIcon: 'thumb-up'
+            likeIcon: 'heart'
         }
     },
     computed: {
@@ -142,12 +121,12 @@ export default {
         },
         mouseDislike() {
             if (this.isLiking && this.numberLikes > 0) {
-                this.likeIcon = 'thumb-down'
+                this.likeIcon = 'heart-outline'
             }
         },
         mouseLike() {
             if (this.isLiking) {
-                this.likeIcon = 'thumb-up'
+                this.likeIcon = 'heart'
             }
         }
     },
