@@ -12,7 +12,7 @@
 						<div class="column is-two-thirds">
 							<form action="javascript:void(0);" method="POST">
 								<b-field label="Titre" label-for="name">
-									<b-input v-model.trim="recette.name" id="name"></b-input>
+									<b-input v-model.trim="recipe.name" id="name"></b-input>
 								</b-field>
 
 								<div v-if="!this.$route.name === 'editRecipe'">
@@ -27,11 +27,11 @@
 
 								<b-tabs position="is-centered"
 									class="block"
-									:animated="false" >
+									:animated="false">
 									<!-- Début Partie 1 -->
 									<b-tab-item label="Introduction">
 										<b-field label="Introduction" label-for="introduction">
-											<b-input v-model.trim="recette.introduction"
+											<b-input v-model.trim="recipe.introduction"
 												id="introduction"
 												type="textarea">
 											</b-input>
@@ -42,17 +42,17 @@
 									<!-- Début Partie 2 -->
 									<b-tab-item label="Ingrédients">
 										<div v-if="steps"
-											v-for="(ingredient, index) in recette.ingredients"
+											v-for="(ingredient, index) in recipe.ingredients"
 											:key="`${index}-ingredients`">
 											<div class="field">
 												<a @click="deleteStep(index)">Delete</a>
 											</div>
 											<b-field :label="`Titre de l'étape ${index + parseInt(1)}`">
-												<b-input v-model.trim="recette.ingredients[index].title"></b-input>
+												<b-input v-model.trim="recipe.ingredients[index].title"></b-input>
 											</b-field>
 											<Ingredients v-if="steps"
 												:stepIndex="index"
-												:ingredients="recette.ingredients[index].step"
+												:ingredients="recipe.ingredients[index].step"
 												@addIngredient="addIngredient"
 												@deleteIngredient="deleteIngredient" />
 										</div>
@@ -62,7 +62,7 @@
 											Ajouter une étape
 										</button>
 										<Ingredients v-if="!steps"
-											:ingredients="recette.ingredients"
+											:ingredients="recipe.ingredients"
 											@addIngredient="addIngredient"
 											@deleteIngredient="deleteIngredient" />
 									</b-tab-item>
@@ -71,22 +71,22 @@
 									<!-- Début Partie 3 -->
 									<b-tab-item label="Instructions">
 										<div v-if="steps"
-											v-for="(instruction, index) in recette.instructions"
+											v-for="(instruction, index) in recipe.instructions"
 											:key="`${index}-instructions`">
 											<div class="field">
 												<a @click="deleteStep(index)">Delete</a>
 											</div>
 											<b-field :label="`Titre de l'étape ${index + parseInt(1)}`">
-												<b-input v-model.trim="recette.instructions[index].title"></b-input>
+												<b-input v-model.trim="recipe.instructions[index].title"></b-input>
 											</b-field>
 											<Instructions v-if="steps"
 												:stepIndex="index"
-												:instructions="recette.instructions[index].step"
+												:instructions="recipe.instructions[index].step"
 												@addInstruction="addInstruction"
 												@deleteInstruction="deleteInstruction" />
 										</div>
 										<Instructions v-if="!steps"
-											:instructions="recette.instructions"
+											:instructions="recipe.instructions"
 											@addInstruction="addInstruction"
 											@deleteInstruction="deleteInstruction" />
 									</b-tab-item>
@@ -95,7 +95,7 @@
 									<!-- Début Partie 4 -->
 									<b-tab-item label="Conclusion">
 										<b-field label="Conclusion" label-for="conclusion">
-											<b-input v-model="recette.conclusion"
+											<b-input v-model="recipe.conclusion"
 												id="conclusion"
 												type="textarea">
 											</b-input>
@@ -104,8 +104,8 @@
 								</b-tabs>
 
 								<div class="field">
-									<b-switch v-model="recette.published">
-										<span v-if="recette.published">Publier</span>
+									<b-switch v-model="recipe.published">
+										<span v-if="recipe.published">Publier</span>
 										<span v-else>Brouillon</span>
 									</b-switch>
 								</div>
@@ -130,7 +130,7 @@
 						</div>
 
 						<div class="column">
-							<Preview :recipe="recette" />
+							<Preview :recipe="recipe" />
 						</div>
 					</div>
 				</div>
@@ -165,7 +165,7 @@ export default {
 		return {
 			loading: false,
 			staticName: '',
-			recette: {
+			recipe: {
 				name: '',
 				image: 'food.jpg',
 				introduction: '',
@@ -195,8 +195,8 @@ export default {
 	methods: {
 		changeMe() {
 			if (this.steps) {
-				this.recette.ingredients = []
-				this.recette.instructions = []
+				this.recipe.ingredients = []
+				this.recipe.instructions = []
 				this.addStep()
 			}
 		},
@@ -204,7 +204,7 @@ export default {
 			this.loading = true
 			await api.getRecipe(this.$route.params.id)
 			.then(res => {
-				this.recette = res.data
+				this.recipe = res.data
 				this.staticName = res.data.name
 				if (!res.data.instructions[0].name) {
 					this.steps = true
@@ -213,15 +213,15 @@ export default {
 			})
 		},
 		addStep() {
-			this.recette.ingredients.push({ title: '', step: [{ quantity: '', mesure: '', name: '' }] })
-			this.recette.instructions.push({ title: '', step: [{ name: '' }] })
+			this.recipe.ingredients.push({ title: '', step: [{ quantity: '', mesure: '', name: '' }] })
+			this.recipe.instructions.push({ title: '', step: [{ name: '' }] })
 		},
 		deleteStep(index) {
-			const ingredients = this.recette.ingredients
+			const ingredients = this.recipe.ingredients
 			const ingredient = ingredients.indexOf(ingredients[index])
 			ingredients.splice(ingredient, 1)
 
-			const instructions = this.recette.instructions
+			const instructions = this.recipe.instructions
 			const instruction = instructions.indexOf(instructions[index])
 			instructions.splice(instruction, 1) 
 
@@ -236,36 +236,36 @@ export default {
 		addIngredient(index, step) {
 			const item = { quantity: '', mesure: '', name: '' }
 			if (!this.steps) {
-				this.recette.ingredients.splice(index+1, 0, item)
+				this.recipe.ingredients.splice(index+1, 0, item)
 			} else {
-				this.recette.ingredients[step].step.splice(index+1, 0, item)
+				this.recipe.ingredients[step].step.splice(index+1, 0, item)
 			}
 		},
 		deleteIngredient(ingredients, stepIndex) {
 			if (!this.steps) {
-				this.recette.ingredients = this.arrayDiff(this.recette.ingredients, ingredients)
-				if (this.recette.ingredients.length === 0) {
+				this.recipe.ingredients = this.arrayDiff(this.recipe.ingredients, ingredients)
+				if (this.recipe.ingredients.length === 0) {
 					this.addIngredient(0)
 				}
 			} else {
-				this.recette.ingredients[stepIndex].step = this.arrayDiff(this.recette.ingredients[stepIndex].step, ingredients)
-				if (this.recette.ingredients[stepIndex].step.length === 0) {
+				this.recipe.ingredients[stepIndex].step = this.arrayDiff(this.recipe.ingredients[stepIndex].step, ingredients)
+				if (this.recipe.ingredients[stepIndex].step.length === 0) {
 					this.addIngredient(0, stepIndex)
 				}
 			}
 		},
 		addInstruction(index) {
 			if (!this.steps) {
-				this.recette.instructions.push({ name: '' })
+				this.recipe.instructions.push({ name: '' })
 			} else {
-				this.recette.instructions[index].step.push({ name: '' })
+				this.recipe.instructions[index].step.push({ name: '' })
 			}
 		},
 		deleteInstruction(instructions, stepIndex) {
 			if (!this.steps) {
-				this.recette.instructions = this.arrayDiff(this.recette.instructions, instructions)
+				this.recipe.instructions = this.arrayDiff(this.recipe.instructions, instructions)
 			} else {
-				this.recette.instructions[stepIndex].step = this.arrayDiff(this.recette.instructions[stepIndex].step, instructions)
+				this.recipe.instructions[stepIndex].step = this.arrayDiff(this.recipe.instructions[stepIndex].step, instructions)
 			}
 		},
 		arrayDiff(a, b) {
@@ -279,33 +279,31 @@ export default {
 		},
 		async save(exit) {
 			if (this.$route.name === 'editRecipe' || this.saveAndUpdate) {
-				await api.updateRecipe(this.recette.id, this.recette)
+				await api.updateRecipe(this.recipe.id, this.recipe)
 				.then(() => {
 					if (exit) {
 						this.$root.$router.push({
 							name: 'myRecipes'
 						})
 					}
-					EventBus.$emit('toast', `Recette ${this.recette.name} modifiée`)
+					EventBus.$emit('toast', `Recette ${this.recipe.name} modifiée`)
 				})
 			} else {
 				if (this.$route.name === 'forkRecipe') {
-					this.recette.id_parent = this.recette.user_id
+					this.recipe.id_parent = this.recipe.user_id
 				}
-				this.recette.user_id = this.userId
-				await api.addRecipe(this.recette, { user_id: this.userId })
+				this.recipe.user_id = this.userId
+				await api.addRecipe(this.recipe, { user_id: this.userId })
 				.then(res => {
 					if (exit) {
 						this.$root.$router.push({
 							name: 'myRecipes'
 						})
 					} else {
-						console.log('inside')
-						console.log(res.data)
 						this.saveAndUpdate = true
-						this.recette.id = res.data.id
+						this.recipe.id = res.data.id
 					}
-					EventBus.$emit('toast', `Recette ${this.recette.name} ajoutée`)
+					EventBus.$emit('toast', `Recette ${this.recipe.name} ajoutée`)
 				})
 			}
 		}
