@@ -61,69 +61,81 @@
 					</div>
 
 					<div class="navbar-end has-text-centered" v-if="!isConnected" id="nav-noconnected">
-						<a class="navbar-item" @click="isModaleLogin = true, connection = true">Connexion</a>
-						<a class="navbar-item" @click="isModaleLogin = true, connection = false">Inscription</a>
+						<div class="navbar-item">
+							<div class="field is-grouped">
+								<p class="control">
+									<a class="button is-info is-outlined" @click="isModaleLogin = true, connection = true">
+										<span>Connexion</span>
+									</a>
+								</p>
+								<p class="control">
+									<a class="button is-info" @click="isModaleLogin = true, connection = false">
+										<span>Inscription</span>
+									</a>
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
-
-				<b-modal :active.sync="changePassword" width="640" has-modal-card>
-					<div class="modal-card" style="width: auto">
-						<form>
-							<header class="modal-card-head">
-								<h1 class="modal-card-title">Changer mon mot de passe</h1>
-							</header>
-							<section class="modal-card-body">
-								<b-field label="Old Password">
-									<b-input type="password"></b-input>
-								</b-field>
-								<b-field label="New Password">
-									<b-input type="password"></b-input>
-								</b-field>
-								<b-field label="Confirm Password">
-									<b-input type="password"></b-input>
-								</b-field>
-							</section>
-							<footer class="modal-card-foot">
-								<input type="submit" class="button is-primary" value="Modifier">
-							</footer>
-						</form>
-					</div>
-				</b-modal>
-
-				<b-modal :active.sync="isModaleLogin" width="640" has-modal-card>
-					<div class="modal-card" style="width: auto">
-						<form action="javascript:void(0);">
-							<header class="modal-card-head">
-								<b-switch v-model="connection">
-									<span class="modal-card-title">
-										<span v-if="connection">Connexion</span>
-										<span v-else>Inscription</span>
-									</span>
-								</b-switch>
-							</header>
-							<section class="modal-card-body">
-								<b-field label="Email">
-									<b-input type="email"></b-input>
-								</b-field>
-								<b-field label="Password">
-									<b-input type="password" password-reveal></b-input>
-								</b-field>
-								<b-field label="Confirm Password" v-if="!connection">
-									<b-input type="password" password-reveal></b-input>
-								</b-field>
-							</section>
-							<footer class="modal-card-foot">
-								<input type="submit"
-									class="button is-primary"
-									:value="connection ? 'Se connecter' : `S'inscrire`"
-									@click="login">
-								<a v-if="connection">Mot de passe oublié</a>
-							</footer>
-						</form>
-					</div>
-				</b-modal>
 			</div>
 		</nav>
+
+		<b-modal :active.sync="isModaleLogin" width="640" has-modal-card>
+			<div class="modal-card" style="width: auto">
+				<form action="javascript:void(0);">
+					<header class="modal-card-head">
+						<b-switch v-model="connection">
+							<span class="modal-card-title">
+								<span v-if="connection">Connexion</span>
+								<span v-else>Inscription</span>
+							</span>
+						</b-switch>
+					</header>
+					<section class="modal-card-body">
+						<b-field label="Email">
+							<b-input type="email"></b-input>
+						</b-field>
+						<b-field label="Password">
+							<b-input type="password" password-reveal></b-input>
+						</b-field>
+						<b-field label="Confirm Password" v-if="!connection">
+							<b-input type="password" password-reveal></b-input>
+						</b-field>
+					</section>
+					<footer class="modal-card-foot">
+						<input type="submit"
+							class="button is-primary"
+							:value="connection ? 'Se connecter' : `S'inscrire`"
+							@click="login">
+						<a v-if="connection">Mot de passe oublié</a>
+					</footer>
+				</form>
+			</div>
+		</b-modal>
+
+		<b-modal :active.sync="changePassword" width="640" has-modal-card>
+			<div class="modal-card" style="width: auto">
+				<form>
+					<header class="modal-card-head">
+						<h1 class="modal-card-title">Changer mon mot de passe</h1>
+					</header>
+					<section class="modal-card-body">
+						<b-field label="Old Password">
+							<b-input type="password"></b-input>
+						</b-field>
+						<b-field label="New Password">
+							<b-input type="password"></b-input>
+						</b-field>
+						<b-field label="Confirm Password">
+							<b-input type="password"></b-input>
+						</b-field>
+					</section>
+					<footer class="modal-card-foot">
+						<input type="submit" class="button is-primary" value="Modifier">
+					</footer>
+				</form>
+			</div>
+		</b-modal>
 
 	</section>
 </template>
