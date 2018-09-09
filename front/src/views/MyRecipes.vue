@@ -45,7 +45,8 @@
 
 				<div class="container is-centered">
 					<router-link class="button is-primary" :to="{ name: 'addRecipe'}">
-						Ajouter une recette
+						<b-icon icon="pencil"></b-icon>
+						<span>Ajouter une recette</span>
 					</router-link>
 				</div>
 

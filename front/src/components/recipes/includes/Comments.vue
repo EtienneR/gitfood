@@ -27,11 +27,15 @@
             </b-input>
         </b-field>
 
-        <input type="submit"
-            class="button is-primary"
-            :value="isConnected ? 'Envoyer' : 'Vous devez être connecté'"
+        <button class="button is-primary"
             @click="addComment()"
-            :disabled="!isConnected || this.comment.length == 0">
+            :disabled="!isConnected ||comment.length === 0">
+            <b-icon icon="comment-plus-outline"></b-icon>
+            <span v-if="isConnected">
+                <span>Envoyer</span>
+            </span>
+            <span v-else>Vous devez être connecté</span>
+        </button>
 
     </div>
 </template>

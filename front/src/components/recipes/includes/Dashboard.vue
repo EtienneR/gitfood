@@ -11,8 +11,8 @@
                 </b-table-column>
 
                 <b-table-column label="Statut" field="published" sortable>
-                    <span v-if="props.row.published">Publiée</span>
-                    <span v-else>Brouillon</span>
+                    <b-tag type="is-success" v-if="props.row.published">Publiée</b-tag>
+                    <b-tag v-else>Brouillon</b-tag>
                 </b-table-column>
 
                 <b-table-column label="Date de création" field="created_at" sortable>
@@ -32,11 +32,12 @@
                 </b-table-column>
     
                 <b-table-column label="Supprimer">
-                    <a class="button is-danger"
+                    <button class="button is-danger"
                         @click="remove(props.row.id, props.index)"
                         :title="`Supprimer la recette ${props.row.name}`">
-                        Supprimer
-                    </a>
+                        <b-icon icon="delete-variant"></b-icon>
+                        <span>Supprimer</span>
+                    </button>
                 </b-table-column>
             </template>
 
