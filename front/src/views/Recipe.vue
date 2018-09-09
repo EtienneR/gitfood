@@ -18,7 +18,6 @@
                             :numberLikes="recipe.nbLikes" />
                     </div>
 
-
                     <div class="container has-background-light hero-body">
                         <div class="columns">
                             <div class="column is-one-quarter">
@@ -168,12 +167,14 @@ export default {
             api.addLike({ user_id: this.userId, recipe_id: this.recipe.id })
             .then(() => {
                 this.recipe.nbLikes = this.recipe.nbLikes + 1
+                EventBus.$emit('toast', `Recette ${this.recipe.name} likée`)
             })
             .catch(err => {
                 const id = JSON.parse(err.request.response).id
                 api.removeLike(id)
                 .then(() => {
                     this.recipe.nbLikes = this.recipe.nbLikes - 1
+                    EventBus.$emit('toast', `Recette ${this.recipe.name} délikée`)
                 })
             })
         }
