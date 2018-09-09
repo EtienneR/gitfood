@@ -7,15 +7,20 @@ services:
       - "./.docker.env"
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   api:
     build: ./api
-    command: sh -c 'node_modules/.bin/wait-port db:5432 && node_modules/.bin/knex migrate:rollback && node_modules/.bin/knex migrate:latest && node_modules/.bin/knex seed:run && node_modules/.bin/nodemon'
+    command: > 
+      bash -c 'node_modules/.bin/wait-port db:5432
+      && node_modules/.bin/knex migrate:rollback
+      && node_modules/.bin/knex migrate:latest
+      && node_modules/.bin/knex seed:run
+      && npm run dev'
     volumes:
       - ./api:/usr/src/app
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - db
     env_file:
@@ -28,5 +33,5 @@ services:
     volumes:
       - ./front:/usr/src/app
     ports:
-      - "8080:8080"
+      - 8080:8080
     restart: always
