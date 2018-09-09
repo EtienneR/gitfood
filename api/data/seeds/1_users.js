@@ -6,6 +6,7 @@ const saltRounds = 10
 const createUser = (knex, user) => {
 	return bcrypt.hash(user.password, saltRounds).then(hash => {
 		return knex('users').insert({
+			id: user.id,
 			firstname: user.firstname,
 			email: user.email,
 			password: hash,

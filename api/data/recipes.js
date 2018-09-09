@@ -1,5 +1,6 @@
 module.exports = [
 	{
+    id: 1,
     name: 'Pizza',
     image: 'pizza.jpg',
     user_id: 1,
@@ -39,10 +40,11 @@ module.exports = [
     published: true
   },
   {
+    id: 2,
     name: 'Lemon curd',
     image: 'lemon_curd.png',
     user_id: 1,
-    introduction: 'Lorem Ipseum',
+    introduction: 'Lorem Ipsum',
     ingredients: [
       {
         quantity: 1,
@@ -75,9 +77,11 @@ module.exports = [
     published: true
   },
   {
+    id: 3,
     name: 'Petits carrés aux amandes caramélisées',
     image: 'carres_amandes.jpg',
     user_id: 1,
+    introduction: 'Un délicieux biscuit surmonté d\'amandes caramélisées.',
     ingredients: [
       {
         title: 'Pour le biscuit (shortbread)',
@@ -153,6 +157,7 @@ module.exports = [
     published: true
   },
   {
+    id: 4,
     name: 'Pancakes',
     image: 'pancakes.jpg',
     user_id: 2,
@@ -205,6 +210,7 @@ module.exports = [
     published: true
   },
   {
+    id: 5,
     name: 'Flan parisien',
     image: 'flans.jpg',
     user_id: 2,
@@ -252,6 +258,7 @@ module.exports = [
     published: true
   },
   {
+    id: 6,
     name: 'Moelleux au chocolat',
     image: 'moelleux_chocolat.jpg',
     user_id: 2,
@@ -295,6 +302,7 @@ module.exports = [
     published: true
   },
   {
+    id: 7,
     name: 'Far breton',
     image: 'far_breton.jpg',
     user_id: 2,
@@ -343,6 +351,7 @@ module.exports = [
     published: true
   },
   {
+    id: 8,
     name: 'Pain d\'épices à l\'anis',
     image: 'pain_depices.jpg',
     user_id: 1,
@@ -412,6 +421,7 @@ module.exports = [
     published: true
   },
   {
+    id: 9,
     name: 'Smoothie​ à la​ banane',
     image: 'smoothie_banane.jpg',
     user_id: 1,
@@ -447,6 +457,7 @@ module.exports = [
     published: true
   },
   {
+    id: 10,
     name: 'Quatres quarts',
     image: 'quatre-quarts-de-bretagne.png',
     user_id: 3,

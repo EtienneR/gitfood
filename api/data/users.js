@@ -1,19 +1,22 @@
 module.exports = [
 	{
-        firstname: 'toto',
-        email: 'toto@yahoo.fr',
+        id: 1,
+        firstname: 'Pierre',
+        email: 'pierre@yahoo.fr',
         password: '123soleil',
         active: true
     },
     {
-        firstname: 'tati',
-        email: 'tati@yahoo.fr',
+        id: 2,
+        firstname: 'Paule',
+        email: 'paule@yahoo.fr',
         password: '123soleil',
         active: true
     },
     {
-        firstname: 'tutu',
-        email: 'tutu@yahoo.fr',
+        id: 3,
+        firstname: 'Jacques',
+        email: 'jacques@yahoo.fr',
         password: '123soleil',
         active: true
     }
