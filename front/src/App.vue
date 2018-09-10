@@ -34,7 +34,7 @@ export default {
 			loading: false,
 			isConnected: false,
 			userId: 1,
-			firstname: 'Toto',
+			firstname: 'Pierre',
 			message: false,
 			title: '',
 			breadcrumb: ''
@@ -66,7 +66,6 @@ export default {
 		})
 
 		EventBus.$on('toast', value => {
-			//self.toast = value
 			self.snackbar(value)
 		})
 
