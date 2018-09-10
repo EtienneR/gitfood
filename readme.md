@@ -12,12 +12,12 @@ C'est une application en béta.
 
 ### Procédure
 
-Placez-vous dans le répertoire de l'application puis lancez la commande `$ docker-compose up`.  
+Lancez la commande `npm install` dans les répertoire "api" et "front". Puis, placez-vous à la racine du projet et lancez la commande `$ docker-compose up`.  
 Cela aura pour conséquence de créer 3 containers :
 
-- Postgres
-- API (ExpressJS)
-- Front (VueJS)
+- Postgres ;
+- API (ExpressJS) ;
+- Front (VueJS).
 
 ### Tests Unitaires
 
