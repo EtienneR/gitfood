@@ -148,19 +148,20 @@ export default {
         addComment(comment) {
             const content = sanitizeHtml(comment).replace(new RegExp('\r?\n','g'), '<br />')
             const self = this
-            return api.addComment({
+            api.addComment({
                 content: content,
                 user_id: self.userId,
                 recipe_id: self.$route.params.id
             })
             .then(comment => {
                 // Ajout du nouveau commentaire dans le tableau existant
-                this.comments.push({
+                this.comments.unshift({
                     content: content,
                     firstname: self.firstname,
                     id: comment.data.id,
                     user_id: self.userId
                 })
+                EventBus.$emit('toast', 'Votre commentaire a bien été ajouté.')
             })
         },
         like() {
