@@ -1,9 +1,7 @@
 module.exports = [
 	{
-    id: 1,
     name: 'Pizza',
     image: 'pizza.jpg',
-    user_id: 1,
     introduction: 'Lorem Ipseum',
     ingredients: [
       {
@@ -37,13 +35,12 @@ module.exports = [
       { name: 'Enfournez​​ la​ pizza​​ dans​ ​le​ four​ ​sur​ la​​ grille​ ​inférieure​​ pendant​ 11 minutes.' }
     ],
     conclusion: 'Lorem Ipsum',
-    published: true
+    published: true,
+    user_id: 1
   },
   {
-    id: 2,
     name: 'Lemon curd',
     image: 'lemon_curd.png',
-    user_id: 1,
     introduction: 'Lorem Ipsum',
     ingredients: [
       {
@@ -74,13 +71,12 @@ module.exports = [
       { name: 'Passer​​ à ​la passoire​ dans​ un​ bocal.' }
     ],
     conclusion: 'Lorem Ipsum',
-    published: true
+    published: true,
+    user_id: 1
   },
   {
-    id: 3,
     name: 'Petits carrés aux amandes caramélisées',
     image: 'carres_amandes.jpg',
-    user_id: 1,
     introduction: 'Un délicieux biscuit surmonté d\'amandes caramélisées.',
     ingredients: [
       {
@@ -154,13 +150,12 @@ module.exports = [
       }
     ],
     conclusion: 'Laissez refroidir le moule à température ambiante puis découpez en petits carrés de 5 cm et dégustez :)',
-    published: true
+    published: true,
+    user_id: 1
   },
   {
-    id: 4,
     name: 'Pancakes',
     image: 'pancakes.jpg',
-    user_id: 2,
     introduction: 'Pour des brunchs ensoleillés',
     ingredients: [
       {
@@ -207,13 +202,12 @@ module.exports = [
       { name: 'Laissez la pâte cuire et retournez-la une fois que se forment des petites bulles.' }
     ],
     conclusion: 'Ajoutez de la garniture sur vos pancakes tièdes (confiture, pâte à tartiner, lemon curd, etc...)',
-    published: true
+    published: true,
+    user_id: 1
   },
   {
-    id: 5,
     name: 'Flan parisien',
     image: 'flans.jpg',
-    user_id: 2,
     introduction: 'Aussi bon et moins chez que chez le boulanger',
     ingredients: [
       {
@@ -255,13 +249,12 @@ module.exports = [
       { name: 'Enfournez le flan à 200°C pendant 40 min.' }
     ],
     conclusion: 'Vous pouvez ajoutez 200 g de chocolat patissier lors de la préparation pour varier les plaisirs...',
-    published: true
+    published: true,
+    user_id: 2
   },
   {
-    id: 6,
     name: 'Moelleux au chocolat',
     image: 'moelleux_chocolat.jpg',
-    user_id: 2,
     introduction: 'Rapide et terriblement simple à faire',
     ingredients: [
       {
@@ -299,13 +292,12 @@ module.exports = [
       { name: 'Enfournez à 180°C pendant 15 / 20 min (surveillez le temps de cuisson).' }
     ],
     conclusion: 'A déguster avec ou sans crème anglaise.',
-    published: true
+    published: true,
+    user_id: 2
   },
   {
-    id: 7,
     name: 'Far breton',
     image: 'far_breton.jpg',
-    user_id: 2,
     introduction: 'Important, il vous faudra un moule à haut rebord (avec fond amovible, c\'est le top) car la pâte sera liquide (pâte à crêpes).',
     ingredients: [
       {
@@ -348,13 +340,12 @@ module.exports = [
       { name: 'Une fois le four préchauffé, retirez le moule du foule puis versez le beurre jusq\'à ce qu\'il fonde complétement. Ajoutez la pâte et enfournez 35 min.' }
     ],
     conclusion: 'Vous pouvez remplacez la vanille par une cuillère de cannelle',
-    published: true
+    published: true,
+    user_id: 2
   },
   {
-    id: 8,
     name: 'Pain d\'épices à l\'anis',
     image: 'pain_depices.jpg',
-    user_id: 1,
     introduction: 'Réconfortant en période d\'hiver. A préparer avec du miel de forêt ou de montagne pour son gout fort et sa couleur ambre',
     ingredients: [
       {
@@ -418,13 +409,12 @@ module.exports = [
       { name: 'Enfournez le moule à 150°C pendant 40 min.' }
     ],
     conclusion: 'Vous pouvez remplacez la poudre d\'anis par un mélange de 4 épices spéciales pain d\'épice et en y ajoutant un cuillère de cannelle.',
-    published: true
+    published: true,
+    user_id: 1
   },
   {
-    id: 9,
     name: 'Smoothie​ à la​ banane',
     image: 'smoothie_banane.jpg',
-    user_id: 1,
     introduction: 'Lorem Ipseum',
     ingredients: [
       {
@@ -454,13 +444,12 @@ module.exports = [
       { name: 'Mixer quelques secondes par intermitence pour éviter la surchauffe.' }
     ],
     conclusion: 'Se boit très frais',
-    published: true
+    published: true,
+    user_id: 1
   },
   {
-    id: 10,
     name: 'Quatres quarts',
     image: 'quatre-quarts-de-bretagne.png',
-    user_id: 3,
     introduction: 'Lorem Ipsum',
     ingredients: [
       {
@@ -502,6 +491,7 @@ module.exports = [
       { name: 'Enfournez​ ​le​ moule​ ​pour​ 45​ ​minutes.' }
     ],
     conclusion: 'Vous pouvez changer la vanille par de la fleur d\'oranger, des zestes de citron, d\'orange, etc...',
-    published: true
+    published: true,
+    user_id: 3
   }
 ]
