@@ -52,7 +52,7 @@ export default {
 	},
 	methods: {
 		async getAllRecipes() {
-			EventBus.$emit('title', `GitFood - Partagez vos recettes`)
+			EventBus.$emit('title', `Partagez vos recettes`)
 			this.loading = true
 			await api.getAllRecipes()
 			.then(res => {
