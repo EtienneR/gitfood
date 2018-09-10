@@ -1,10 +1,10 @@
 const message = require('./messages')
 
 function checkIntegerId(req, res, next) {
-    let { id, id_user } = req.params
+    let { id, user_id } = req.params
 
-    if (id_user) {
-        id = id_user
+    if (user_id) {
+        id = user_id
     }
     if (id) {
         if (!Number.isInteger(parseInt(id))) {

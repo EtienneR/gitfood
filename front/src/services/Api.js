@@ -11,14 +11,14 @@ export default {
     searchRecipes(q) {
         return axios.get(`${API_URL}/recipes?q=${q}`)
     },
-    getRecipesByAuthor(id_user) {
-        return axios.get(`${API_URL}/recipes/user/${id_user}`)
+    getRecipesByAuthor(user_id) {
+        return axios.get(`${API_URL}/recipes/user/${user_id}`)
     },
-    getOthersRecipes(id_user, id_recipe) {
-        return axios.get(`${API_URL}/recipes/user/${id_user}/others/${id_recipe}`)
+    getOthersRecipes(user_id, id_recipe) {
+        return axios.get(`${API_URL}/recipes/user/${user_id}/others/${id_recipe}`)
     },
-    getForks(id_user) {
-        return axios.get(`${API_URL}/recipes/forks/${id_user}`)
+    getForks(user_id) {
+        return axios.get(`${API_URL}/recipes/forks/${user_id}`)
     },
     addRecipe(content) {
         return axios.post(`${API_URL}/recipes`, content)
@@ -32,8 +32,8 @@ export default {
     getCommentsByRecipe(id_recipe) {
         return axios.get(`${API_URL}/comments/recipe/${id_recipe}`)
     },
-    getCommentsByAuthor(id_user) {
-        return axios.get(`${API_URL}/comments/user/${id_user}`)
+    getCommentsByAuthor(user_id) {
+        return axios.get(`${API_URL}/comments/user/${user_id}`)
     },
     addComment(content) {
         return axios.post(`${API_URL}/comments`, content)

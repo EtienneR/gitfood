@@ -64,16 +64,16 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     }
 })
 
-/* Obtenir une recette via id_user */
-router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
-    const { id_user } = req.params
+/* Obtenir une recette via user_id */
+router.get('/user/:user_id', m.checkIntegerId, async (req, res) => {
+    const { user_id } = req.params
 
     try {
         // Récupération des recettes par utilisateur
-        const r = await recipes.getRecipesByAuthor(id_user)
+        const r = await recipes.getRecipesByAuthor(user_id)
         if (r.length > 0) {
             // Récupération du nombre de forks obtenus
-            const forks = await recipes.getForks(id_user)
+            const forks = await recipes.getForks(user_id)
             const nbForks = { nbForks: forks.length }
 
             // Récupération du nombre de likes obtenus
@@ -97,10 +97,10 @@ router.get('/user/:id_user', m.checkIntegerId, async (req, res) => {
 })
 
 /* Obtenir les autres recettes du même utilisateur */
-router.get('/user/:id_user/others/:id', m.checkIntegerId, async (req, res) => {
-    const { id, id_user } = req.params
+router.get('/user/:user_id/others/:id', m.checkIntegerId, async (req, res) => {
+    const { id, user_id } = req.params
 
-    await recipes.getOthersRecipes(id_user, id)
+    await recipes.getOthersRecipes(user_id, id)
     .then(recipes => {
         if (recipes.length > 0) {
             res.json(recipes)
@@ -111,10 +111,10 @@ router.get('/user/:id_user/others/:id', m.checkIntegerId, async (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-router.get('/forks/:id_user', m.checkIntegerId, async (req, res) => {
-    const { id_user } = req.params
+router.get('/forks/:user_id', m.checkIntegerId, async (req, res) => {
+    const { user_id } = req.params
 
-    await recipes.getForks(id_user)
+    await recipes.getForks(user_id)
     .then(recipes => {
         if (recipes && recipes.length > 0) {
             res.json(recipes)

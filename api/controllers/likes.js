@@ -32,7 +32,7 @@ router.get('/:id', m.checkIntegerId, async (req, res) => {
     .catch(err => res.status(500).json(err))
 })
 
-/* Like d'un utilisateur */
+/* Likes d'un utilisateur */
 router.get('/user/:id', m.checkIntegerId, async (req, res) => {
     const { id } = req.params
     
