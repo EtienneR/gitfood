@@ -13,7 +13,7 @@ const MyComments = () => import('@/views/MyComments')
 const About = () => import('@/views/About')
 
 import Buefy from 'buefy'
-import 'buefy/lib/buefy.css'
+import 'buefy/dist/buefy.css'
 import vueHeadful from 'vue-headful'
 
 Vue.use(Buefy)
