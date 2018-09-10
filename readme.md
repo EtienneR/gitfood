@@ -21,10 +21,7 @@ Cela aura pour conséquence de créer 3 containers :
 
 ### Tests Unitaires
 
-Lancez le docker-compose.test.yml avec la commande `$ docker-compose -f docker-compose.test.yml up` et les tests dans le dossier api. 
-
-- `npm run tests` : lance tous les fichiers de tests ;
-- `npm run test -- file.test.js` : lance un fichier de test spécifique.
+Lancez le docker-compose.test.yml avec la commande `$ docker-compose -f docker-compose.test.yml up`. 
 
 ### Récapitulatif
 
@@ -60,7 +57,7 @@ Liste non exhaustive...
 | Seed avec Knex | API | Done | |
 | FormWizard | Front | En cours | Provisoire (accessibilité) |
 | Ajout image | Back & front | En cours | Pas de formulaire d'upload |
-| Tests unitaires avec Jest | Back | En cours | docker-compose.test.yml et npm run test |
+| Tests unitaires avec Jest | Back | En cours | docker-compose.test.yml |
 | Authentification | Api & Front | Backlog | |
 
 ## Sources

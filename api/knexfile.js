@@ -23,15 +23,15 @@ module.exports = {
 	test: {
 		client: 'postgresql',
 		connection: {
-		host: process.env.POSTGRES_HOST || '0.0.0.0',
-		port: process.env.POSTGRES_PORT || 5433,
-		user: process.env.POSTGRES_USER || 'root',
-		password: process.env.POSTGRES_PASSWORD || 'root',
-		database: process.env.POSTGRES_DB || 'gitfood_test',
-		charset: 'utf8'
+			host: process.env.POSTGRES_HOST,
+			port: process.env.POSTGRES_PORT,
+			user: process.env.POSTGRES_USER,
+			password: process.env.POSTGRES_PASSWORD,
+			database: process.env.POSTGRES_DB,
+			charset: 'utf8'
 		},
 		pool: {
-			min: 4,
+			min: 5,
 			max: 10
 		},
 		migrations: {

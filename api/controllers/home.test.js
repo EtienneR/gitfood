@@ -9,9 +9,7 @@ describe('Route Home', () => {
         expect(response.statusCode).toBe(200)
         expect(response.body).toEqual({ message: message.home.welcome })
     })
-})
 
-describe('Route 404', () => {
     test('GET / - 404', async () => {
         const response = await request(server).get('/404')
         expect(response).toBeDefined()
