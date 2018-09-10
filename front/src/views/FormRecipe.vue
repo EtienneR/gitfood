@@ -227,21 +227,30 @@ export default {
 			this.recipe.instructions.push({ title: '', step: [{ name: '' }] })
 		},
 		deleteStep(index) {
-			const ingredients = this.recipe.ingredients
-			const ingredient = ingredients.indexOf(ingredients[index])
-			ingredients.splice(ingredient, 1)
+            this.$dialog.confirm({
+                title: 'Supprimer cette étape ?',
+                message: 'Etes-vous sur de vouloir <b>supprimer</b> cette étape ?',
+                confirmText: 'Supprimer cette étape',
+                type: 'is-danger',
+                hasIcon: true,
+                onConfirm: () => {
+					const ingredients = this.recipe.ingredients
+					const ingredient = ingredients.indexOf(ingredients[index])
+					ingredients.splice(ingredient, 1)
 
-			const instructions = this.recipe.instructions
-			const instruction = instructions.indexOf(instructions[index])
-			instructions.splice(instruction, 1) 
+					const instructions = this.recipe.instructions
+					const instruction = instructions.indexOf(instructions[index])
+					instructions.splice(instruction, 1) 
 
-			if (!this.steps && index === 0) {
-				this.addStep()
-			}
+					if (!this.steps && index === 0) {
+						this.addStep()
+					}
 
-			if (this.steps && (ingredients.length === 0 && instructions.length === 0)) {
-				this.addStep()
-			}
+					if (this.steps && (ingredients.length === 0 && instructions.length === 0)) {
+						this.addStep()
+					}
+                }
+            })
 		},
 		addIngredient(index, step) {
 			const item = { quantity: '', mesure: '', name: '' }
