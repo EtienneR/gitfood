@@ -168,6 +168,9 @@ export default {
 		isConnected: Boolean,
 		userId: Number
 	},
+    watch: {
+        '$route': 'clear'
+    },
 	data() {
 		return {
 			loading: false,
@@ -203,6 +206,18 @@ export default {
 		EventBus.$emit('breadcrumb', this.currentPage)
 	},
 	methods: {
+		clear() {
+			this.staticName = '',
+			this.recipe = {
+				name: '',
+				image: 'food.jpg',
+				introduction: '',
+				ingredients: [{ quantity: '', mesure: '', name: '' }],
+				instructions: [{ name: '' }],
+				conclusion: '',
+				published: false
+			}
+		},
 		changeMe() {
 			if (this.steps) {
 				this.recipe.ingredients = []
