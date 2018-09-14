@@ -448,7 +448,7 @@ module.exports = [
     user_id: 1
   },
   {
-    name: 'Quatres quarts',
+    name: 'Quatre-quarts',
     image: 'quatre-quarts-de-bretagne.png',
     introduction: 'Lorem Ipsum',
     ingredients: [

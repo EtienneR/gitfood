@@ -1,6 +1,14 @@
 const recipesData = require('../recipes.js')
 
-/* Création des recettes */
+exports.seed = (knex, Promise) => {
+	return knex('recipes')
+	.del()
+	.then(() => {
+		return createRecipes(knex, recipesData)
+	})
+}
+
+/* Insertion des recettes */
 const createRecipes = (knex, recipes) => {
 	return Promise.all(
 		recipes.map(recipe => {
@@ -18,13 +26,5 @@ const createRecipes = (knex, recipes) => {
 	)
 	.then(recipes => {
 		return knex('recipes').insert(recipes)
-	})
-}
-
-exports.seed = (knex, Promise) => {
-	return knex('recipes')
-	.del()
-	.then(() => {
-		return createRecipes(knex, recipesData)
 	})
 }
