@@ -104,7 +104,6 @@ export default {
 		this.myRecipes()
 		EventBus.$emit('title', this.title)
 		EventBus.$emit('breadcrumb', this.title)
-		
 	},
 	computed: {
 		getPublishedRecipes() {
